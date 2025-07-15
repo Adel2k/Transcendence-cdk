@@ -1,0 +1,20 @@
+{
+  "version": "45.0.0",
+  "files": {
+    "4de5f7f437ee54d3c505076aec664ee5f46f97bd50f10bf03f10d2db7f6d7734": {
+      "displayName": "codepipeline-backend Template",
+      "source": {
+        "path": "codepipeline-backend.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "4de5f7f437ee54d3c505076aec664ee5f46f97bd50f10bf03f10d2db7f6d7734.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

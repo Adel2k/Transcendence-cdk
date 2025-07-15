@@ -1,0 +1,20 @@
+{
+  "version": "45.0.0",
+  "files": {
+    "5d2d7d9314976340babb7e894972f9fe826ce7fdaf5d721a87b1236f488ae3c8": {
+      "displayName": "s3-stack Template",
+      "source": {
+        "path": "s3-stack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "5d2d7d9314976340babb7e894972f9fe826ce7fdaf5d721a87b1236f488ae3c8.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
