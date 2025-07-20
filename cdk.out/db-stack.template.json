@@ -1,0 +1,144 @@
+{
+ "Resources": {
+  "transendenceDBSecret0B32177A": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "GenerateSecretString": {
+     "ExcludePunctuation": true,
+     "GenerateStringKey": "password",
+     "SecretStringTemplate": "{\"username\":\"transendence_admin\"}"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "db-stack/transendenceDBSecret/Resource"
+   }
+  },
+  "transendenceDBSecretAttachment485CB8B1": {
+   "Type": "AWS::SecretsManager::SecretTargetAttachment",
+   "Properties": {
+    "SecretId": {
+     "Ref": "transendenceDBSecret0B32177A"
+    },
+    "TargetId": {
+     "Ref": "transendencePostgresED41A5FF"
+    },
+    "TargetType": "AWS::RDS::DBInstance"
+   },
+   "Metadata": {
+    "aws:cdk:path": "db-stack/transendenceDBSecret/Attachment/Resource"
+   }
+  },
+  "transendencePostgresSubnetGroup383432E4": {
+   "Type": "AWS::RDS::DBSubnetGroup",
+   "Properties": {
+    "DBSubnetGroupDescription": "Subnet group for transendencePostgres database",
+    "SubnetIds": [
+     {
+      "Fn::ImportValue": "vpc:ExportsOutputReftransendenceVPCPrivateSubnet1SubnetC9B80BEAF1024A84"
+     },
+     {
+      "Fn::ImportValue": "vpc:ExportsOutputReftransendenceVPCPrivateSubnet2Subnet4B2F58A0F38586EC"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "db-stack/transendencePostgres/SubnetGroup/Default"
+   }
+  },
+  "transendencePostgresED41A5FF": {
+   "Type": "AWS::RDS::DBInstance",
+   "Properties": {
+    "AllocatedStorage": "20",
+    "CopyTagsToSnapshot": true,
+    "DBInstanceClass": "db.m5.large",
+    "DBSubnetGroupName": {
+     "Ref": "transendencePostgresSubnetGroup383432E4"
+    },
+    "Engine": "postgres",
+    "EngineVersion": "14",
+    "MasterUserPassword": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "transendenceDBSecret0B32177A"
+       },
+       ":SecretString:password::}}"
+      ]
+     ]
+    },
+    "MasterUsername": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "transendenceDBSecret0B32177A"
+       },
+       ":SecretString:username::}}"
+      ]
+     ]
+    },
+    "MaxAllocatedStorage": 100,
+    "PubliclyAccessible": false,
+    "StorageType": "gp2",
+    "VPCSecurityGroups": [
+     {
+      "Fn::ImportValue": "security-stack:ExportsOutputFnGetAttdbsgCE6973BDGroupIdACE24D8F"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "db-stack/transendencePostgres/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/41SwW7bMAz9lupYKF6b7pRb1mJD0UtQZ7sExUDLjKtWlgySamsY/vfBkrO6xQ47SSL53iMftS7WF1+LizN45ZWpn1fOVsVQCphnDa/8e2A0hMIteGiQiqFM78OgGvRIIJgDpZD1jdoMCt+MizXuojcSQWzwaiMUUb8jUu0d9mqjzpVWvGDYY9s5EEypcXzQ10efFXQ+9kANylYEzGOLfuok42cySfkMX6A/w0ZNNRfDDQhUwHjrWcAbPAzqpTMzVQtvW+eCAcG6lEDQ4JzpYuWscf3WGGS2lUO1OYJj1IqwDS/gdsFZMw1YIwuFPo8ZyUr/g0LsWG0O6lw96EmvjJVH4ck9Ttd9301StxwmL2o1aoW+sR6Twek2lyT/rG8c/mSk+yDJ8W3XOWtm81NNBv1C4hQb1DE69/c5j/sUaBkateqAoEVBSk1/h9a6/gPjh1CNR4hOpk48tHgigX+baAhr9GLB8Wld2YikdRgm6wzZbjHF+27+07XP2zh9iptvC6kcOH2BcRz1rpfH4L9cFZfr4ursia1dUfRiWyzu8/kHJ+apGTcDAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "db-stack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

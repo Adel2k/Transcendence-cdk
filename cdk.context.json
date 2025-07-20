@@ -1,0 +1,55 @@
+{
+  "availability-zones:account=577638398727:region=eu-west-2": [
+    "eu-west-2a",
+    "eu-west-2b",
+    "eu-west-2c"
+  ],
+  "hosted-zone:account=577638398727:domainName=dev.yospace.ai:region=eu-west-2": {
+    "Id": "/hostedzone/Z05665242V72OKDJR354Z",
+    "Name": "dev.yospace.ai."
+  },
+  "vpc-provider:account=577638398727:filter.vpc-id=vpc-04eca5ddbfd06fabc:region=eu-west-2:returnAsymmetricSubnets=true": {
+    "vpcId": "vpc-04eca5ddbfd06fabc",
+    "vpcCidrBlock": "10.0.0.0/16",
+    "ownerAccountId": "577638398727",
+    "availabilityZones": [],
+    "subnetGroups": [
+      {
+        "name": "Private",
+        "type": "Isolated",
+        "subnets": [
+          {
+            "subnetId": "subnet-0af0cc77f84a87c6a",
+            "cidr": "10.0.2.0/24",
+            "availabilityZone": "eu-west-2a",
+            "routeTableId": "rtb-0716f945faf70e8c2"
+          },
+          {
+            "subnetId": "subnet-08d372344facf2f09",
+            "cidr": "10.0.3.0/24",
+            "availabilityZone": "eu-west-2b",
+            "routeTableId": "rtb-0218a0366167bbf9e"
+          }
+        ]
+      },
+      {
+        "name": "Public",
+        "type": "Public",
+        "subnets": [
+          {
+            "subnetId": "subnet-0197d3ca7498ff828",
+            "cidr": "10.0.0.0/24",
+            "availabilityZone": "eu-west-2a",
+            "routeTableId": "rtb-098c6bfe9a2e48c1e"
+          },
+          {
+            "subnetId": "subnet-06e45a7caf458f59b",
+            "cidr": "10.0.1.0/24",
+            "availabilityZone": "eu-west-2b",
+            "routeTableId": "rtb-02f9cf2f23b24a3f3"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+bucket:
+  name: transendence-app-assets
+  versioned: true
+  encrypted: true
+  destroy_on_remove: true
+  lifecycle_days: 30
+  cors:
+    - methods: [GET, PUT]
+      origins: ["*"]
+      headers: ["*"]
+  prefixes:
+    - frontend/
+    - uploads/
+    - artifacts/

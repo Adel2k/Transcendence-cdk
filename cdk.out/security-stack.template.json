@@ -1,10 +1,10 @@
 {
  "Resources": {
-  "lambdasg77597EA8": {
+  "lambdasg93781054": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
     "GroupDescription": "SG for Lambda Functions",
-    "GroupName": "lambda-sg",
+    "GroupName": "tmp-lambda-sg",
     "SecurityGroupEgress": [
      {
       "CidrIp": "0.0.0.0/0",
@@ -12,19 +12,17 @@
       "IpProtocol": "-1"
      }
     ],
-    "VpcId": {
-     "Fn::ImportValue": "vpc:ExportsOutputReftransendenceVPCE5114C9175EDFA28"
-    }
+    "VpcId": "vpc-04eca5ddbfd06fabc"
    },
    "Metadata": {
-    "aws:cdk:path": "security-stack/lambdasg/Resource"
+    "aws:cdk:path": "security-stack/lambda-sg/Resource"
    }
   },
-  "bastionsg1FA4DDAF": {
+  "bastionsg9F6FB053": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
     "GroupDescription": "SG for Bastion Host",
-    "GroupName": "bastion-sg",
+    "GroupName": "tmp-bastion-sg",
     "SecurityGroupEgress": [
      {
       "CidrIp": "0.0.0.0/0",
@@ -41,19 +39,17 @@
       "ToPort": 22
      }
     ],
-    "VpcId": {
-     "Fn::ImportValue": "vpc:ExportsOutputReftransendenceVPCE5114C9175EDFA28"
-    }
+    "VpcId": "vpc-04eca5ddbfd06fabc"
    },
    "Metadata": {
-    "aws:cdk:path": "security-stack/bastionsg/Resource"
+    "aws:cdk:path": "security-stack/bastion-sg/Resource"
    }
   },
-  "redissg9A3AB737": {
+  "ecssg0261AE9D": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "SG for Redis Cluster",
-    "GroupName": "redis-sg",
+    "GroupDescription": "SG for ECS",
+    "GroupName": "tmp-ecs-sg",
     "SecurityGroupEgress": [
      {
       "CidrIp": "0.0.0.0/0",
@@ -61,363 +57,80 @@
       "IpProtocol": "-1"
      }
     ],
-    "VpcId": {
-     "Fn::ImportValue": "vpc:ExportsOutputReftransendenceVPCE5114C9175EDFA28"
-    }
+    "VpcId": "vpc-04eca5ddbfd06fabc"
    },
    "Metadata": {
-    "aws:cdk:path": "security-stack/redissg/Resource"
+    "aws:cdk:path": "security-stack/ecs-sg/Resource"
    }
   },
-  "redissgfromsecuritystacklambdasgF241D9AE6379B4CD053A": {
+  "dbsgCE6973BD": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "SG for RDS",
+    "GroupName": "tmp-db-sg",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": "vpc-04eca5ddbfd06fabc"
+   },
+   "Metadata": {
+    "aws:cdk:path": "security-stack/db-sg/Resource"
+   }
+  },
+  "dbsgfromsecuritystackecssgDE676D7C5432B8B5AC88": {
    "Type": "AWS::EC2::SecurityGroupIngress",
    "Properties": {
-    "Description": "Access from Lambda functions",
-    "FromPort": 6379,
+    "Description": "PostgreSQL from ECS",
+    "FromPort": 5432,
     "GroupId": {
      "Fn::GetAtt": [
-      "redissg9A3AB737",
+      "dbsgCE6973BD",
       "GroupId"
      ]
     },
     "IpProtocol": "tcp",
     "SourceSecurityGroupId": {
      "Fn::GetAtt": [
-      "lambdasg77597EA8",
+      "ecssg0261AE9D",
       "GroupId"
      ]
     },
-    "ToPort": 6379
+    "ToPort": 5432
    },
    "Metadata": {
-    "aws:cdk:path": "security-stack/redissg/from securitystacklambdasgF241D9AE:6379"
-   }
-  },
-  "TranscendenceSGDC5F8585": {
-   "Type": "AWS::EC2::SecurityGroup",
-   "Properties": {
-    "GroupDescription": "Allow HTTP and HTTPS",
-    "SecurityGroupEgress": [
-     {
-      "CidrIp": "0.0.0.0/0",
-      "Description": "Allow all outbound traffic by default",
-      "IpProtocol": "-1"
-     }
-    ],
-    "SecurityGroupIngress": [
-     {
-      "CidrIp": "0.0.0.0/0",
-      "Description": "Allow HTTP",
-      "FromPort": 80,
-      "IpProtocol": "tcp",
-      "ToPort": 80
-     },
-     {
-      "CidrIp": "0.0.0.0/0",
-      "Description": "Allow HTTPS",
-      "FromPort": 443,
-      "IpProtocol": "tcp",
-      "ToPort": 443
-     }
-    ],
-    "VpcId": {
-     "Fn::ImportValue": "vpc:ExportsOutputReftransendenceVPCE5114C9175EDFA28"
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "security-stack/TranscendenceSG/Resource"
+    "aws:cdk:path": "security-stack/db-sg/from securitystackecssgDE676D7C:5432"
    }
   },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/72SwW7CMAyGnwUfUZpB4dTbtAPqZSA4IoRC4kFGcLokXoWqvvtU2kmbdtzYydJn6/ttybnMJ3M5Gak6ZtqcM2cPstkkpc9C1XGPOpfNBjUHm66L4LnaNvBeaShgDAKUc75+dG7J6eCZDBQpMAowGHWwVbKehsn41fGsLnjjrfhrmzKmpGPAGNfsEIptA1pRSc4S9qR3ak+EulPGwclk3xhL86lqxQ2PYfcPW3bzv0685/138e7E0wt9+64fYAhtu8aSU8WpFatrOnl6mMlpLmej12htFpiSvaBc9/UD66KgF9YCAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/7WRQU/DMAyFf8tyRGkY2a03xAH1wlB3rCaUOQbCMqckMdVU9b+jrgUNuI6DZen56dOzrZVearVcmC4VYPeFdzvVb7KBvawxBY6AjbgS8ldtpenSE4JW/QaBo8vH+xi4bXrx0YIoTzbjfehuvV9z3gUmK8ocGaWwmCC6NrtAszOdMx7MAU/6IC9NM9ZW9BIxpZo9irLpBRiqyDvCSZmYEIgQRmSamUzunbGyX6jh+xKXT/nPO4/+8/xbefdMP774R5gBwzhYc245D/LxmF8DXa/UjVarxVtyrohM2R1Q1VP/BKj4HFxcAgAA"
    },
    "Metadata": {
     "aws:cdk:path": "security-stack/CDKMetadata/Default"
-   },
-   "Condition": "CDKMetadataAvailable"
+   }
   }
  },
  "Outputs": {
-  "VpcId": {
-   "Value": {
-    "Fn::ImportValue": "vpc:ExportsOutputReftransendenceVPCE5114C9175EDFA28"
-   }
-  },
   "SecurityGroupId": {
    "Value": {
     "Fn::GetAtt": [
-     "TranscendenceSGDC5F8585",
+     "ecssg0261AE9D",
      "GroupId"
     ]
    }
-  }
- },
- "Conditions": {
-  "CDKMetadataAvailable": {
-   "Fn::Or": [
-    {
-     "Fn::Or": [
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "af-south-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ap-east-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ap-northeast-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ap-northeast-2"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ap-northeast-3"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ap-south-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ap-south-2"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ap-southeast-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ap-southeast-2"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ap-southeast-3"
-       ]
-      }
-     ]
-    },
-    {
-     "Fn::Or": [
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ap-southeast-4"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ca-central-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ca-west-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "cn-north-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "cn-northwest-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "eu-central-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "eu-central-2"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "eu-north-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "eu-south-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "eu-south-2"
-       ]
-      }
-     ]
-    },
-    {
-     "Fn::Or": [
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "eu-west-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "eu-west-2"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "eu-west-3"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "il-central-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "me-central-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "me-south-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "sa-east-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "us-east-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "us-east-2"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "us-west-1"
-       ]
-      }
-     ]
-    },
-    {
-     "Fn::Equals": [
-      {
-       "Ref": "AWS::Region"
-      },
-      "us-west-2"
-     ]
-    }
-   ]
+  },
+  "DBSecurityGroupId": {
+   "Value": {
+    "Fn::GetAtt": [
+     "dbsgCE6973BD",
+     "GroupId"
+    ]
+   }
   }
  },
  "Parameters": {

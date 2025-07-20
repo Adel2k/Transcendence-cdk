@@ -1,0 +1,26 @@
+vpc:
+  name: transendence
+  
+cluster:
+  name: transendence-cluster
+  
+pipelines:
+  - name: backend
+    github:
+      owner: adelll42
+      repo: trans-backend
+      branch: main
+      secret_name: github-token-adel
+    ecr_repo: backend
+    image_definition_file: backend-imagedefinitions.json
+    ecs_service_ssm_param: /transendence/ecs/services/backend/service_name
+
+  - name: frontend
+    github:
+      owner: adelll42
+      repo: trans-frontend
+      branch: main
+      secret_name: github-token-adel
+    ecr_repo: frontend
+    image_definition_file: frontend-imagedefinitions.json
+    ecs_service_ssm_param: /transendence/ecs/services/frontend/service_name

@@ -1,0 +1,21 @@
+{
+  "version": "44.0.0",
+  "files": {
+    "b8820d9312cfb6612bb0dde4b0f0236b15d55e47f42611541ce4262e4f80cca7": {
+      "displayName": "alb-stack Template",
+      "source": {
+        "path": "alb-stack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "577638398727-eu-west-2": {
+          "bucketName": "cdk-hnb659fds-assets-577638398727-eu-west-2",
+          "objectKey": "b8820d9312cfb6612bb0dde4b0f0236b15d55e47f42611541ce4262e4f80cca7.json",
+          "region": "eu-west-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-file-publishing-role-577638398727-eu-west-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

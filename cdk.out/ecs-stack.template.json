@@ -1,12 +1,12 @@
 {
  "Resources": {
-  "TranscendenceClusterC99018D3": {
+  "transendenceClusterC99018D3": {
    "Type": "AWS::ECS::Cluster",
    "Properties": {
-    "ClusterName": "TranscendenceCluster"
+    "ClusterName": "transendenceCluster"
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-stack/TranscendenceCluster/Resource"
+    "aws:cdk:path": "ecs-stack/transendenceCluster/Resource"
    }
   },
   "CDKMetadata": {

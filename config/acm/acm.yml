@@ -1,0 +1,4 @@
+certificates:
+  - id: dev-cert
+    domain_name: dev.yospace.ai
+    hosted_zone: dev.yospace.ai

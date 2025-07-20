@@ -1,0 +1,21 @@
+{
+  "version": "44.0.0",
+  "files": {
+    "1757dea7a79f1ba4da79fbbfddb043852e8775d62d5f9c9166832977ce22c866": {
+      "displayName": "lookup-stack Template",
+      "source": {
+        "path": "lookup-stack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "577638398727-eu-west-2": {
+          "bucketName": "cdk-hnb659fds-assets-577638398727-eu-west-2",
+          "objectKey": "1757dea7a79f1ba4da79fbbfddb043852e8775d62d5f9c9166832977ce22c866.json",
+          "region": "eu-west-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-file-publishing-role-577638398727-eu-west-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

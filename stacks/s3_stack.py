@@ -1,73 +1,58 @@
-import aws_cdk as cdk
 from aws_cdk import (
     Stack,
-    aws_s3 as s3,
+    Duration,
+    RemovalPolicy,
+    aws_s3 as s3
 )
 from constructs import Construct
+import os
+import yaml
+from helpers.config_loader import load_yaml_config
 
 class S3Stack(Stack):
+    def __init__(
+            self, 
+            scope: Construct, 
+            id: str, 
+            **kwargs
+        ):
 
-    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
+        config = load_yaml_config('config/s3/s3.yml')
+        bucket_cfg = config["bucket"]
 
-        # Create an S3 bucket
-        self.bucket = s3.Bucket(self, 
-            "transendenceBucket",
-            versioned=True,
-            removal_policy=cdk.RemovalPolicy.DESTROY,
+        bucket_name = bucket_cfg["name"]
+        versioned = bucket_cfg.get("versioned", True)
+        encrypted = bucket_cfg.get("encrypted", True)
+        destroy_on_remove = bucket_cfg.get("destroy_on_remove", False)
+        lifecycle_days = bucket_cfg.get("lifecycle_days", 30)
+        cors_cfg = bucket_cfg.get("cors", [])
+        prefixes = bucket_cfg.get("prefixes", [])
+        
+            #what for
+        cors_rules = []
+        for rule in cors_cfg:
+            cors_rules.append(s3.CorsRule(
+                allowed_methods=[s3.HttpMethods[method] for method in rule["methods"]],
+                allowed_origins=rule["origins"],
+                allowed_headers=rule["headers"]
+            ))
+
+        self.bucket = s3.Bucket(self,
+            "transendenceAppAssets",
+            bucket_name=bucket_name,
+            versioned=versioned,
+            encryption=s3.BucketEncryption.S3_MANAGED if encrypted else None,
             block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
-            encryption=s3.BucketEncryption.S3_MANAGED,
+            removal_policy=RemovalPolicy.DESTROY if destroy_on_remove else RemovalPolicy.RETAIN,
             lifecycle_rules=[
                 s3.LifecycleRule(
+                    id="AutoDeleteAfterXDays",
                     enabled=True,
-                    expiration=cdk.Duration.days(30)
+                    expiration=Duration.days(lifecycle_days)
                 )
             ],
-            cors=[
-                s3.CorsRule(
-                    allowed_methods=[s3.HttpMethods.GET, s3.HttpMethods.PUT],
-                    allowed_origins=["*"],
-                    allowed_headers=["*"]
-                )
-            ]
+            cors=cors_rules
         )
 
-        self.frontend_bucket = s3.Bucket(self, "FrontendBucket",
-            versioned=True,
-            removal_policy=cdk.RemovalPolicy.DESTROY,
-            block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
-            encryption=s3.BucketEncryption.S3_MANAGED,
-            lifecycle_rules=[
-                s3.LifecycleRule(
-                    enabled=True,
-                    expiration=cdk.Duration.days(30)
-                )
-            ],
-            cors=[
-                s3.CorsRule(
-                    allowed_methods=[s3.HttpMethods.GET, s3.HttpMethods.PUT],
-                    allowed_origins=["*"],
-                    allowed_headers=["*"]
-                )
-            ]
-        )
-
-        self.backend_bucket = s3.Bucket(self, "BackendBucket",
-            versioned=True,
-            removal_policy=cdk.RemovalPolicy.DESTROY,
-            block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
-            encryption=s3.BucketEncryption.S3_MANAGED,
-            lifecycle_rules=[
-                s3.LifecycleRule(
-                    enabled=True,
-                    expiration=cdk.Duration.days(30)
-                )
-            ],
-            cors=[
-                s3.CorsRule(
-                    allowed_methods=[s3.HttpMethods.GET, s3.HttpMethods.PUT],
-                    allowed_origins=["*"],
-                    allowed_headers=["*"]
-                )
-            ]
-        )
+        self.prefixes = {name.strip("/"): name for name in prefixes}

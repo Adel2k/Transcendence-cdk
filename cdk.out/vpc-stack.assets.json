@@ -1,0 +1,21 @@
+{
+  "version": "44.0.0",
+  "files": {
+    "5defed1a48db18f73f23e22c78d02d352a02b5f2afcd711e20869493923d2e9c": {
+      "displayName": "vpc-stack Template",
+      "source": {
+        "path": "vpc-stack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "577638398727-eu-west-2": {
+          "bucketName": "cdk-hnb659fds-assets-577638398727-eu-west-2",
+          "objectKey": "5defed1a48db18f73f23e22c78d02d352a02b5f2afcd711e20869493923d2e9c.json",
+          "region": "eu-west-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-file-publishing-role-577638398727-eu-west-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

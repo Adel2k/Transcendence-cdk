@@ -1,0 +1,13 @@
+roles:
+  - name: transendence-ecs-task-role
+    description: ECS task role for app
+    service: ecs-tasks.amazonaws.com
+    managed_policies:
+      - AmazonS3ReadOnlyAccess
+      - SecretsManagerReadWrite
+
+  - name: lambda-basic-role
+    description: Role for Lambda function
+    service: lambda.amazonaws.com
+    managed_policies:
+      - service-role/AWSLambdaBasicExecutionRole

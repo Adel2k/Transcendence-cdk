@@ -21,14 +21,7 @@
   "transendenceVPCPublicSubnet1Subnet571CA78A": {
    "Type": "AWS::EC2::Subnet",
    "Properties": {
-    "AvailabilityZone": {
-     "Fn::Select": [
-      0,
-      {
-       "Fn::GetAZs": ""
-      }
-     ]
-    },
+    "AvailabilityZone": "eu-west-2a",
     "CidrBlock": "10.0.0.0/24",
     "MapPublicIpOnLaunch": true,
     "Tags": [
@@ -147,14 +140,7 @@
   "transendenceVPCPublicSubnet2Subnet630FF9A8": {
    "Type": "AWS::EC2::Subnet",
    "Properties": {
-    "AvailabilityZone": {
-     "Fn::Select": [
-      1,
-      {
-       "Fn::GetAZs": ""
-      }
-     ]
-    },
+    "AvailabilityZone": "eu-west-2b",
     "CidrBlock": "10.0.1.0/24",
     "MapPublicIpOnLaunch": true,
     "Tags": [
@@ -231,14 +217,7 @@
   "transendenceVPCPrivateSubnet1SubnetC9B80BEA": {
    "Type": "AWS::EC2::Subnet",
    "Properties": {
-    "AvailabilityZone": {
-     "Fn::Select": [
-      0,
-      {
-       "Fn::GetAZs": ""
-      }
-     ]
-    },
+    "AvailabilityZone": "eu-west-2a",
     "CidrBlock": "10.0.2.0/24",
     "MapPublicIpOnLaunch": false,
     "Tags": [
@@ -297,14 +276,7 @@
   "transendenceVPCPrivateSubnet2Subnet4B2F58A0": {
    "Type": "AWS::EC2::Subnet",
    "Properties": {
-    "AvailabilityZone": {
-     "Fn::Select": [
-      1,
-      {
-       "Fn::GetAZs": ""
-      }
-     ]
-    },
+    "AvailabilityZone": "eu-west-2b",
     "CidrBlock": "10.0.3.0/24",
     "MapPublicIpOnLaunch": false,
     "Tags": [
@@ -403,9 +375,7 @@
       "DefaultSecurityGroup"
      ]
     },
-    "Account": {
-     "Ref": "AWS::AccountId"
-    }
+    "Account": "577638398727"
    },
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
@@ -452,19 +422,7 @@
            "Fn::Join": [
             "",
             [
-             "arn:",
-             {
-              "Ref": "AWS::Partition"
-             },
-             ":ec2:",
-             {
-              "Ref": "AWS::Region"
-             },
-             ":",
-             {
-              "Ref": "AWS::AccountId"
-             },
-             ":security-group/",
+             "arn:aws:ec2:eu-west-2:577638398727:security-group/",
              {
               "Fn::GetAtt": [
                "transendenceVPCE5114C91",
@@ -489,9 +447,7 @@
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
-     "S3Bucket": {
-      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
-     },
+     "S3Bucket": "cdk-hnb659fds-assets-577638398727-eu-west-2",
      "S3Key": "7fa1e366ee8a9ded01fc355f704cff92bfd179574e6f9cfee800a3541df1b200.zip"
     },
     "Timeout": 900,
@@ -522,274 +478,7 @@
    },
    "Metadata": {
     "aws:cdk:path": "vpc/CDKMetadata/Default"
-   },
-   "Condition": "CDKMetadataAvailable"
-  }
- },
- "Conditions": {
-  "CDKMetadataAvailable": {
-   "Fn::Or": [
-    {
-     "Fn::Or": [
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "af-south-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ap-east-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ap-northeast-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ap-northeast-2"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ap-northeast-3"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ap-south-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ap-south-2"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ap-southeast-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ap-southeast-2"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ap-southeast-3"
-       ]
-      }
-     ]
-    },
-    {
-     "Fn::Or": [
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ap-southeast-4"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ca-central-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "ca-west-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "cn-north-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "cn-northwest-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "eu-central-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "eu-central-2"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "eu-north-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "eu-south-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "eu-south-2"
-       ]
-      }
-     ]
-    },
-    {
-     "Fn::Or": [
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "eu-west-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "eu-west-2"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "eu-west-3"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "il-central-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "me-central-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "me-south-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "sa-east-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "us-east-1"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "us-east-2"
-       ]
-      },
-      {
-       "Fn::Equals": [
-        {
-         "Ref": "AWS::Region"
-        },
-        "us-west-1"
-       ]
-      }
-     ]
-    },
-    {
-     "Fn::Equals": [
-      {
-       "Ref": "AWS::Region"
-      },
-      "us-west-2"
-     ]
-    }
-   ]
+   }
   }
  },
  "Outputs": {
@@ -799,6 +488,38 @@
    },
    "Export": {
     "Name": "vpc:ExportsOutputReftransendenceVPCE5114C9175EDFA28"
+   }
+  },
+  "ExportsOutputReftransendenceVPCPrivateSubnet1SubnetC9B80BEAF1024A84": {
+   "Value": {
+    "Ref": "transendenceVPCPrivateSubnet1SubnetC9B80BEA"
+   },
+   "Export": {
+    "Name": "vpc:ExportsOutputReftransendenceVPCPrivateSubnet1SubnetC9B80BEAF1024A84"
+   }
+  },
+  "ExportsOutputReftransendenceVPCPrivateSubnet2Subnet4B2F58A0F38586EC": {
+   "Value": {
+    "Ref": "transendenceVPCPrivateSubnet2Subnet4B2F58A0"
+   },
+   "Export": {
+    "Name": "vpc:ExportsOutputReftransendenceVPCPrivateSubnet2Subnet4B2F58A0F38586EC"
+   }
+  },
+  "ExportsOutputReftransendenceVPCPublicSubnet1Subnet571CA78A57315E29": {
+   "Value": {
+    "Ref": "transendenceVPCPublicSubnet1Subnet571CA78A"
+   },
+   "Export": {
+    "Name": "vpc:ExportsOutputReftransendenceVPCPublicSubnet1Subnet571CA78A57315E29"
+   }
+  },
+  "ExportsOutputReftransendenceVPCPublicSubnet2Subnet630FF9A89505A940": {
+   "Value": {
+    "Ref": "transendenceVPCPublicSubnet2Subnet630FF9A8"
+   },
+   "Export": {
+    "Name": "vpc:ExportsOutputReftransendenceVPCPublicSubnet2Subnet630FF9A89505A940"
    }
   }
  },

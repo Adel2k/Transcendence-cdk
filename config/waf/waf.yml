@@ -1,0 +1,17 @@
+web_acl:
+  name: TransendenceWebACL
+  metric_name: WAF
+  rules:
+    - name: AWS-AWSManagedRulesCommonRuleSet
+      priority: 0
+      managed_group:
+        name: AWSManagedRulesCommonRuleSet
+        vendor: AWS
+      metric_name: AWSCommon
+    - name: AWS-AWSManagedRulesSQLiRuleSet
+      priority: 1
+      managed_group:
+        name: AWSManagedRulesSQLiRuleSet
+        vendor: AWS
+      metric_name: SQLiProtection
+  alb_arn: Ref

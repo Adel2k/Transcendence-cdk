@@ -1,0 +1,21 @@
+{
+  "version": "45.0.0",
+  "files": {
+    "89eb42a1c43a56d29fbaee972f4cc25b9fed6f1a20addeec60bb1d3f028d4d66": {
+      "displayName": "db-stack Template",
+      "source": {
+        "path": "db-stack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "577638398727-eu-west-2": {
+          "bucketName": "cdk-hnb659fds-assets-577638398727-eu-west-2",
+          "objectKey": "89eb42a1c43a56d29fbaee972f4cc25b9fed6f1a20addeec60bb1d3f028d4d66.json",
+          "region": "eu-west-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-file-publishing-role-577638398727-eu-west-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

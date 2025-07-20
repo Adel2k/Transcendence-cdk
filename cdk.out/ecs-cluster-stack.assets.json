@@ -1,0 +1,21 @@
+{
+  "version": "44.0.0",
+  "files": {
+    "7d8bc49e322dae13b36721fc687b30717a56e14fb0b30ef3507a8ef08a5afa45": {
+      "displayName": "ecs-cluster-stack Template",
+      "source": {
+        "path": "ecs-cluster-stack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "577638398727-eu-west-2": {
+          "bucketName": "cdk-hnb659fds-assets-577638398727-eu-west-2",
+          "objectKey": "7d8bc49e322dae13b36721fc687b30717a56e14fb0b30ef3507a8ef08a5afa45.json",
+          "region": "eu-west-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-file-publishing-role-577638398727-eu-west-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

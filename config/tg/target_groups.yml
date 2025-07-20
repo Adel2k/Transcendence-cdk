@@ -1,0 +1,19 @@
+target_groups:
+  - name: FrontendTG
+    port: 80
+    targets: frontend
+    rules:
+      - path: /*
+        priority: 10
+
+  - name: BackendTG
+    port: 3000
+    targets: backend
+    health_check:
+      path: /api/health
+      healthy_http_codes: "200"
+    rules:
+      - path: /api/*
+        priority: 1
+      - path: /avatars/*
+        priority: 2

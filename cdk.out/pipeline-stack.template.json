@@ -1,0 +1,1265 @@
+{
+ "Parameters": {
+  "SsmParameterValuetransendenceecsservicesbackendservicenameC96584B6F00A464EAD1953AFF4B05118Parameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/transendence/ecs/services/backend/service_name"
+  },
+  "SsmParameterValuetransendenceecsservicesfrontendservicenameC96584B6F00A464EAD1953AFF4B05118Parameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/transendence/ecs/services/frontend/service_name"
+  },
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Resources": {
+  "BackendPipelineArtifactsAB1EB8E5": {
+   "Type": "AWS::S3::Bucket",
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/BackendPipelineArtifacts/Resource"
+   }
+  },
+  "BackendPipelineRole56E9109F": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "codepipeline.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/BackendPipeline/Role/Resource"
+   }
+  },
+  "BackendPipelineRoleDefaultPolicy452F286B": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:Abort*",
+        "s3:DeleteObject*",
+        "s3:GetBucket*",
+        "s3:GetObject*",
+        "s3:List*",
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "BackendPipelineArtifactsAB1EB8E5",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "BackendPipelineArtifactsAB1EB8E5",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "BackendPipelineBuildBackendBuildCodePipelineActionRoleA461B3BA",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::GetAtt": [
+          "BackendPipelineDeployDeployBackendCodePipelineActionRoleD58DB090",
+          "Arn"
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "BackendPipelineRoleDefaultPolicy452F286B",
+    "Roles": [
+     {
+      "Ref": "BackendPipelineRole56E9109F"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/BackendPipeline/Role/DefaultPolicy/Resource"
+   }
+  },
+  "BackendPipelineEA75200E": {
+   "Type": "AWS::CodePipeline::Pipeline",
+   "Properties": {
+    "ArtifactStore": {
+     "Location": {
+      "Ref": "BackendPipelineArtifactsAB1EB8E5"
+     },
+     "Type": "S3"
+    },
+    "PipelineType": "V2",
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "BackendPipelineRole56E9109F",
+      "Arn"
+     ]
+    },
+    "Stages": [
+     {
+      "Actions": [
+       {
+        "ActionTypeId": {
+         "Category": "Source",
+         "Owner": "ThirdParty",
+         "Provider": "GitHub",
+         "Version": "1"
+        },
+        "Configuration": {
+         "Owner": "adelll42",
+         "Repo": "trans-backend",
+         "Branch": "main",
+         "OAuthToken": "{{resolve:secretsmanager:arn:aws:secretsmanager:eu-west-2:577638398727:secret:github-token-adel:SecretString:github-token-adel::}}",
+         "PollForSourceChanges": false
+        },
+        "Name": "BackendSource",
+        "OutputArtifacts": [
+         {
+          "Name": "backendSourceOutput"
+         }
+        ],
+        "RunOrder": 1
+       }
+      ],
+      "Name": "Source"
+     },
+     {
+      "Actions": [
+       {
+        "ActionTypeId": {
+         "Category": "Build",
+         "Owner": "AWS",
+         "Provider": "CodeBuild",
+         "Version": "1"
+        },
+        "Configuration": {
+         "ProjectName": {
+          "Ref": "BackendBuildProject66F920F7"
+         }
+        },
+        "InputArtifacts": [
+         {
+          "Name": "backendSourceOutput"
+         }
+        ],
+        "Name": "BackendBuild",
+        "OutputArtifacts": [
+         {
+          "Name": "backendBuildOutput"
+         }
+        ],
+        "RoleArn": {
+         "Fn::GetAtt": [
+          "BackendPipelineBuildBackendBuildCodePipelineActionRoleA461B3BA",
+          "Arn"
+         ]
+        },
+        "RunOrder": 1
+       }
+      ],
+      "Name": "Build"
+     },
+     {
+      "Actions": [
+       {
+        "ActionTypeId": {
+         "Category": "Deploy",
+         "Owner": "AWS",
+         "Provider": "ECS",
+         "Version": "1"
+        },
+        "Configuration": {
+         "ClusterName": "transendence-cluster",
+         "ServiceName": {
+          "Ref": "SsmParameterValuetransendenceecsservicesbackendservicenameC96584B6F00A464EAD1953AFF4B05118Parameter"
+         },
+         "FileName": "backend-imagedefinitions.json"
+        },
+        "InputArtifacts": [
+         {
+          "Name": "backendBuildOutput"
+         }
+        ],
+        "Name": "DeployBackend",
+        "RoleArn": {
+         "Fn::GetAtt": [
+          "BackendPipelineDeployDeployBackendCodePipelineActionRoleD58DB090",
+          "Arn"
+         ]
+        },
+        "RunOrder": 1
+       }
+      ],
+      "Name": "Deploy"
+     }
+    ]
+   },
+   "DependsOn": [
+    "BackendPipelineRoleDefaultPolicy452F286B",
+    "BackendPipelineRole56E9109F"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/BackendPipeline/Resource"
+   }
+  },
+  "BackendPipelineSourceBackendSourceWebhookResource9114903C": {
+   "Type": "AWS::CodePipeline::Webhook",
+   "Properties": {
+    "Authentication": "GITHUB_HMAC",
+    "AuthenticationConfiguration": {
+     "SecretToken": "{{resolve:secretsmanager:arn:aws:secretsmanager:eu-west-2:577638398727:secret:github-token-adel:SecretString:github-token-adel::}}"
+    },
+    "Filters": [
+     {
+      "JsonPath": "$.ref",
+      "MatchEquals": "refs/heads/{Branch}"
+     }
+    ],
+    "RegisterWithThirdParty": true,
+    "TargetAction": "BackendSource",
+    "TargetPipeline": {
+     "Ref": "BackendPipelineEA75200E"
+    },
+    "TargetPipelineVersion": 1
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/BackendPipeline/Source/BackendSource/WebhookResource"
+   }
+  },
+  "BackendPipelineBuildBackendBuildCodePipelineActionRoleA461B3BA": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::GetAtt": [
+          "BackendPipelineRole56E9109F",
+          "Arn"
+         ]
+        }
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/BackendPipeline/Build/BackendBuild/CodePipelineActionRole/Resource"
+   }
+  },
+  "BackendPipelineBuildBackendBuildCodePipelineActionRoleDefaultPolicyE790F7F9": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "codebuild:BatchGetBuilds",
+        "codebuild:StartBuild",
+        "codebuild:StopBuild"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "BackendBuildProject66F920F7",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "BackendPipelineBuildBackendBuildCodePipelineActionRoleDefaultPolicyE790F7F9",
+    "Roles": [
+     {
+      "Ref": "BackendPipelineBuildBackendBuildCodePipelineActionRoleA461B3BA"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/BackendPipeline/Build/BackendBuild/CodePipelineActionRole/DefaultPolicy/Resource"
+   }
+  },
+  "BackendPipelineDeployDeployBackendCodePipelineActionRoleD58DB090": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::GetAtt": [
+          "BackendPipelineRole56E9109F",
+          "Arn"
+         ]
+        }
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/BackendPipeline/Deploy/DeployBackend/CodePipelineActionRole/Resource"
+   }
+  },
+  "BackendPipelineDeployDeployBackendCodePipelineActionRoleDefaultPolicy6D042A47": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ecs:DescribeServices",
+        "ecs:DescribeTaskDefinition",
+        "ecs:DescribeTasks",
+        "ecs:ListTasks",
+        "ecs:RegisterTaskDefinition",
+        "ecs:TagResource",
+        "ecs:UpdateService"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "iam:PassRole",
+       "Condition": {
+        "StringEqualsIfExists": {
+         "iam:PassedToService": [
+          "ec2.amazonaws.com",
+          "ecs-tasks.amazonaws.com"
+         ]
+        }
+       },
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "s3:GetBucket*",
+        "s3:GetObject*",
+        "s3:List*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "BackendPipelineArtifactsAB1EB8E5",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "BackendPipelineArtifactsAB1EB8E5",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "BackendPipelineDeployDeployBackendCodePipelineActionRoleDefaultPolicy6D042A47",
+    "Roles": [
+     {
+      "Ref": "BackendPipelineDeployDeployBackendCodePipelineActionRoleD58DB090"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/BackendPipeline/Deploy/DeployBackend/CodePipelineActionRole/DefaultPolicy/Resource"
+   }
+  },
+  "BackendBuildProjectRoleA43C7559": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "codebuild.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/BackendBuildProject/Role/Resource"
+   }
+  },
+  "BackendBuildProjectRoleDefaultPolicyF8A604A9": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:logs:eu-west-2:577638398727:log-group:/aws/codebuild/",
+           {
+            "Ref": "BackendBuildProject66F920F7"
+           },
+           ":*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:logs:eu-west-2:577638398727:log-group:/aws/codebuild/",
+           {
+            "Ref": "BackendBuildProject66F920F7"
+           }
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "codebuild:BatchPutCodeCoverages",
+        "codebuild:BatchPutTestCases",
+        "codebuild:CreateReport",
+        "codebuild:CreateReportGroup",
+        "codebuild:UpdateReport"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:codebuild:eu-west-2:577638398727:report-group/",
+          {
+           "Ref": "BackendBuildProject66F920F7"
+          },
+          "-*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:BatchGetImage",
+        "ecr:CompleteLayerUpload",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:InitiateLayerUpload",
+        "ecr:PutImage",
+        "ecr:UploadLayerPart"
+       ],
+       "Effect": "Allow",
+       "Resource": "arn:aws:ecr:eu-west-2:577638398727:repository/backend"
+      },
+      {
+       "Action": "ecr:GetAuthorizationToken",
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "s3:Abort*",
+        "s3:DeleteObject*",
+        "s3:GetBucket*",
+        "s3:GetObject*",
+        "s3:List*",
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "BackendPipelineArtifactsAB1EB8E5",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "BackendPipelineArtifactsAB1EB8E5",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "BackendBuildProjectRoleDefaultPolicyF8A604A9",
+    "Roles": [
+     {
+      "Ref": "BackendBuildProjectRoleA43C7559"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/BackendBuildProject/Role/DefaultPolicy/Resource"
+   }
+  },
+  "BackendBuildProject66F920F7": {
+   "Type": "AWS::CodeBuild::Project",
+   "Properties": {
+    "Artifacts": {
+     "Type": "CODEPIPELINE"
+    },
+    "Cache": {
+     "Type": "NO_CACHE"
+    },
+    "EncryptionKey": "alias/aws/s3",
+    "Environment": {
+     "ComputeType": "BUILD_GENERAL1_SMALL",
+     "EnvironmentVariables": [
+      {
+       "Name": "REPOSITORY_URI",
+       "Type": "PLAINTEXT",
+       "Value": {
+        "Fn::Join": [
+         "",
+         [
+          "577638398727.dkr.ecr.eu-west-2.",
+          {
+           "Ref": "AWS::URLSuffix"
+          },
+          "/backend"
+         ]
+        ]
+       }
+      }
+     ],
+     "Image": "aws/codebuild/standard:7.0",
+     "ImagePullCredentialsType": "CODEBUILD",
+     "PrivilegedMode": true,
+     "Type": "LINUX_CONTAINER"
+    },
+    "ServiceRole": {
+     "Fn::GetAtt": [
+      "BackendBuildProjectRoleA43C7559",
+      "Arn"
+     ]
+    },
+    "Source": {
+     "Type": "CODEPIPELINE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/BackendBuildProject/Resource"
+   }
+  },
+  "FrontendPipelineArtifacts4426C955": {
+   "Type": "AWS::S3::Bucket",
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/FrontendPipelineArtifacts/Resource"
+   }
+  },
+  "FrontendPipelineRole8C9E7A52": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "codepipeline.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/FrontendPipeline/Role/Resource"
+   }
+  },
+  "FrontendPipelineRoleDefaultPolicy1C01A250": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:Abort*",
+        "s3:DeleteObject*",
+        "s3:GetBucket*",
+        "s3:GetObject*",
+        "s3:List*",
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "FrontendPipelineArtifacts4426C955",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "FrontendPipelineArtifacts4426C955",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "FrontendPipelineBuildFrontendBuildCodePipelineActionRoleBF31DF99",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::GetAtt": [
+          "FrontendPipelineDeployDeployFrontendCodePipelineActionRole74248D05",
+          "Arn"
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "FrontendPipelineRoleDefaultPolicy1C01A250",
+    "Roles": [
+     {
+      "Ref": "FrontendPipelineRole8C9E7A52"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/FrontendPipeline/Role/DefaultPolicy/Resource"
+   }
+  },
+  "FrontendPipeline0AA6540B": {
+   "Type": "AWS::CodePipeline::Pipeline",
+   "Properties": {
+    "ArtifactStore": {
+     "Location": {
+      "Ref": "FrontendPipelineArtifacts4426C955"
+     },
+     "Type": "S3"
+    },
+    "PipelineType": "V2",
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "FrontendPipelineRole8C9E7A52",
+      "Arn"
+     ]
+    },
+    "Stages": [
+     {
+      "Actions": [
+       {
+        "ActionTypeId": {
+         "Category": "Source",
+         "Owner": "ThirdParty",
+         "Provider": "GitHub",
+         "Version": "1"
+        },
+        "Configuration": {
+         "Owner": "adelll42",
+         "Repo": "trans-frontend",
+         "Branch": "main",
+         "OAuthToken": "{{resolve:secretsmanager:arn:aws:secretsmanager:eu-west-2:577638398727:secret:github-token-adel:SecretString:github-token-adel::}}",
+         "PollForSourceChanges": false
+        },
+        "Name": "FrontendSource",
+        "OutputArtifacts": [
+         {
+          "Name": "frontendSourceOutput"
+         }
+        ],
+        "RunOrder": 1
+       }
+      ],
+      "Name": "Source"
+     },
+     {
+      "Actions": [
+       {
+        "ActionTypeId": {
+         "Category": "Build",
+         "Owner": "AWS",
+         "Provider": "CodeBuild",
+         "Version": "1"
+        },
+        "Configuration": {
+         "ProjectName": {
+          "Ref": "FrontendBuildProject70C49EE3"
+         }
+        },
+        "InputArtifacts": [
+         {
+          "Name": "frontendSourceOutput"
+         }
+        ],
+        "Name": "FrontendBuild",
+        "OutputArtifacts": [
+         {
+          "Name": "frontendBuildOutput"
+         }
+        ],
+        "RoleArn": {
+         "Fn::GetAtt": [
+          "FrontendPipelineBuildFrontendBuildCodePipelineActionRoleBF31DF99",
+          "Arn"
+         ]
+        },
+        "RunOrder": 1
+       }
+      ],
+      "Name": "Build"
+     },
+     {
+      "Actions": [
+       {
+        "ActionTypeId": {
+         "Category": "Deploy",
+         "Owner": "AWS",
+         "Provider": "ECS",
+         "Version": "1"
+        },
+        "Configuration": {
+         "ClusterName": "transendence-cluster",
+         "ServiceName": {
+          "Ref": "SsmParameterValuetransendenceecsservicesfrontendservicenameC96584B6F00A464EAD1953AFF4B05118Parameter"
+         },
+         "FileName": "frontend-imagedefinitions.json"
+        },
+        "InputArtifacts": [
+         {
+          "Name": "frontendBuildOutput"
+         }
+        ],
+        "Name": "DeployFrontend",
+        "RoleArn": {
+         "Fn::GetAtt": [
+          "FrontendPipelineDeployDeployFrontendCodePipelineActionRole74248D05",
+          "Arn"
+         ]
+        },
+        "RunOrder": 1
+       }
+      ],
+      "Name": "Deploy"
+     }
+    ]
+   },
+   "DependsOn": [
+    "FrontendPipelineRoleDefaultPolicy1C01A250",
+    "FrontendPipelineRole8C9E7A52"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/FrontendPipeline/Resource"
+   }
+  },
+  "FrontendPipelineSourceFrontendSourceWebhookResource0BC6CB5B": {
+   "Type": "AWS::CodePipeline::Webhook",
+   "Properties": {
+    "Authentication": "GITHUB_HMAC",
+    "AuthenticationConfiguration": {
+     "SecretToken": "{{resolve:secretsmanager:arn:aws:secretsmanager:eu-west-2:577638398727:secret:github-token-adel:SecretString:github-token-adel::}}"
+    },
+    "Filters": [
+     {
+      "JsonPath": "$.ref",
+      "MatchEquals": "refs/heads/{Branch}"
+     }
+    ],
+    "RegisterWithThirdParty": true,
+    "TargetAction": "FrontendSource",
+    "TargetPipeline": {
+     "Ref": "FrontendPipeline0AA6540B"
+    },
+    "TargetPipelineVersion": 1
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/FrontendPipeline/Source/FrontendSource/WebhookResource"
+   }
+  },
+  "FrontendPipelineBuildFrontendBuildCodePipelineActionRoleBF31DF99": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::GetAtt": [
+          "FrontendPipelineRole8C9E7A52",
+          "Arn"
+         ]
+        }
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/FrontendPipeline/Build/FrontendBuild/CodePipelineActionRole/Resource"
+   }
+  },
+  "FrontendPipelineBuildFrontendBuildCodePipelineActionRoleDefaultPolicyBAC05151": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "codebuild:BatchGetBuilds",
+        "codebuild:StartBuild",
+        "codebuild:StopBuild"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "FrontendBuildProject70C49EE3",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "FrontendPipelineBuildFrontendBuildCodePipelineActionRoleDefaultPolicyBAC05151",
+    "Roles": [
+     {
+      "Ref": "FrontendPipelineBuildFrontendBuildCodePipelineActionRoleBF31DF99"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/FrontendPipeline/Build/FrontendBuild/CodePipelineActionRole/DefaultPolicy/Resource"
+   }
+  },
+  "FrontendPipelineDeployDeployFrontendCodePipelineActionRole74248D05": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::GetAtt": [
+          "FrontendPipelineRole8C9E7A52",
+          "Arn"
+         ]
+        }
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/FrontendPipeline/Deploy/DeployFrontend/CodePipelineActionRole/Resource"
+   }
+  },
+  "FrontendPipelineDeployDeployFrontendCodePipelineActionRoleDefaultPolicyB9032BF6": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ecs:DescribeServices",
+        "ecs:DescribeTaskDefinition",
+        "ecs:DescribeTasks",
+        "ecs:ListTasks",
+        "ecs:RegisterTaskDefinition",
+        "ecs:TagResource",
+        "ecs:UpdateService"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "iam:PassRole",
+       "Condition": {
+        "StringEqualsIfExists": {
+         "iam:PassedToService": [
+          "ec2.amazonaws.com",
+          "ecs-tasks.amazonaws.com"
+         ]
+        }
+       },
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "s3:GetBucket*",
+        "s3:GetObject*",
+        "s3:List*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "FrontendPipelineArtifacts4426C955",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "FrontendPipelineArtifacts4426C955",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "FrontendPipelineDeployDeployFrontendCodePipelineActionRoleDefaultPolicyB9032BF6",
+    "Roles": [
+     {
+      "Ref": "FrontendPipelineDeployDeployFrontendCodePipelineActionRole74248D05"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/FrontendPipeline/Deploy/DeployFrontend/CodePipelineActionRole/DefaultPolicy/Resource"
+   }
+  },
+  "FrontendBuildProjectRoleE89D9627": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "codebuild.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/FrontendBuildProject/Role/Resource"
+   }
+  },
+  "FrontendBuildProjectRoleDefaultPolicy0F938905": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:logs:eu-west-2:577638398727:log-group:/aws/codebuild/",
+           {
+            "Ref": "FrontendBuildProject70C49EE3"
+           },
+           ":*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:logs:eu-west-2:577638398727:log-group:/aws/codebuild/",
+           {
+            "Ref": "FrontendBuildProject70C49EE3"
+           }
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "codebuild:BatchPutCodeCoverages",
+        "codebuild:BatchPutTestCases",
+        "codebuild:CreateReport",
+        "codebuild:CreateReportGroup",
+        "codebuild:UpdateReport"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:codebuild:eu-west-2:577638398727:report-group/",
+          {
+           "Ref": "FrontendBuildProject70C49EE3"
+          },
+          "-*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:BatchGetImage",
+        "ecr:CompleteLayerUpload",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:InitiateLayerUpload",
+        "ecr:PutImage",
+        "ecr:UploadLayerPart"
+       ],
+       "Effect": "Allow",
+       "Resource": "arn:aws:ecr:eu-west-2:577638398727:repository/frontend"
+      },
+      {
+       "Action": "ecr:GetAuthorizationToken",
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "s3:Abort*",
+        "s3:DeleteObject*",
+        "s3:GetBucket*",
+        "s3:GetObject*",
+        "s3:List*",
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "FrontendPipelineArtifacts4426C955",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "FrontendPipelineArtifacts4426C955",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "FrontendBuildProjectRoleDefaultPolicy0F938905",
+    "Roles": [
+     {
+      "Ref": "FrontendBuildProjectRoleE89D9627"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/FrontendBuildProject/Role/DefaultPolicy/Resource"
+   }
+  },
+  "FrontendBuildProject70C49EE3": {
+   "Type": "AWS::CodeBuild::Project",
+   "Properties": {
+    "Artifacts": {
+     "Type": "CODEPIPELINE"
+    },
+    "Cache": {
+     "Type": "NO_CACHE"
+    },
+    "EncryptionKey": "alias/aws/s3",
+    "Environment": {
+     "ComputeType": "BUILD_GENERAL1_SMALL",
+     "EnvironmentVariables": [
+      {
+       "Name": "REPOSITORY_URI",
+       "Type": "PLAINTEXT",
+       "Value": {
+        "Fn::Join": [
+         "",
+         [
+          "577638398727.dkr.ecr.eu-west-2.",
+          {
+           "Ref": "AWS::URLSuffix"
+          },
+          "/frontend"
+         ]
+        ]
+       }
+      }
+     ],
+     "Image": "aws/codebuild/standard:7.0",
+     "ImagePullCredentialsType": "CODEBUILD",
+     "PrivilegedMode": true,
+     "Type": "LINUX_CONTAINER"
+    },
+    "ServiceRole": {
+     "Fn::GetAtt": [
+      "FrontendBuildProjectRoleE89D9627",
+      "Arn"
+     ]
+    },
+    "Source": {
+     "Type": "CODEPIPELINE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/FrontendBuildProject/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/+1XUWvCMBD+LeZRYubqm2+6p72MUoU9FBkxPTW2TUqSIiX0v4821elgbusUdQgtTe+7y313uRyJR7y+R/odutE9FsW9hM+JnRjKYhyAlrliEKIuwi3eGX5aCJ8qmoIBhelGv1lgigSQSc2NVMWYaghnWA+IHecsBhPumzpRiZmMIOMZJFwAsX4zCi2iyvAFZcYpoiHqohJbRKNoYugS0DC0SFejF5qCg2cnUriMZ5fRJgHV+BXmKynjEnOaEhvIpE6L1nkK0bhAQ4syxQXjGU1GjMlcOK640akMRsxwKZoQkJLJnkdHaCr97SS+TDgrKnINXWMoWz2Lis8Oq9bve/D4vMfR1gFW1ktFhRnt4D1ONeL+8SHP39Frn5R/G1gLZ0fRgzrFf0zcVdb4RfbHvQHcG8C9AVxHjbdF60NCFSV24nrRt0Sn8lNlfCWuzyEGUhBGH7j9sfhkbm+d/znFt56bW+d/RrE77Ndb2N2B5jlPoo8LkK/kGpgJbYkPH2fo0LIssV+YlRQPA/LokUFnrTnvqVwYngIJ3PcdqD/1AQUOAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "pipeline-stack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

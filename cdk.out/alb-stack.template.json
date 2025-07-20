@@ -1,0 +1,307 @@
+{
+ "Parameters": {
+  "ImportedCertParamParameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/transendence/certificates/dev-cert/arn"
+  },
+  "SsmParameterValuetransendenceecsservicesbackendservicenameC96584B6F00A464EAD1953AFF4B05118Parameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/transendence/ecs/services/backend/service_name"
+  },
+  "SsmParameterValuetransendenceecsservicesfrontendservicenameC96584B6F00A464EAD1953AFF4B05118Parameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/transendence/ecs/services/frontend/service_name"
+  },
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Resources": {
+  "AppALBDBE7026A": {
+   "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+   "Properties": {
+    "LoadBalancerAttributes": [
+     {
+      "Key": "deletion_protection.enabled",
+      "Value": "false"
+     }
+    ],
+    "Scheme": "internet-facing",
+    "SecurityGroups": [
+     {
+      "Fn::GetAtt": [
+       "AppALBSecurityGroup30809A2C",
+       "GroupId"
+      ]
+     }
+    ],
+    "Subnets": [
+     "subnet-0197d3ca7498ff828",
+     "subnet-06e45a7caf458f59b"
+    ],
+    "Type": "application"
+   },
+   "Metadata": {
+    "aws:cdk:path": "alb-stack/AppALB/Resource"
+   }
+  },
+  "AppALBSecurityGroup30809A2C": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Automatically created Security Group for ELB albstackAppALB26CED350",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "255.255.255.255/32",
+      "Description": "Disallow all traffic",
+      "FromPort": 252,
+      "IpProtocol": "icmp",
+      "ToPort": 86
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow from anyone on port 80",
+      "FromPort": 80,
+      "IpProtocol": "tcp",
+      "ToPort": 80
+     },
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow from anyone on port 443",
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "VpcId": "vpc-04eca5ddbfd06fabc"
+   },
+   "Metadata": {
+    "aws:cdk:path": "alb-stack/AppALB/SecurityGroup/Resource"
+   }
+  },
+  "AppALBHttpRedirectListener9C9F211E": {
+   "Type": "AWS::ElasticLoadBalancingV2::Listener",
+   "Properties": {
+    "DefaultActions": [
+     {
+      "RedirectConfig": {
+       "Port": "443",
+       "Protocol": "HTTPS",
+       "StatusCode": "HTTP_302"
+      },
+      "Type": "redirect"
+     }
+    ],
+    "LoadBalancerArn": {
+     "Ref": "AppALBDBE7026A"
+    },
+    "Port": 80,
+    "Protocol": "HTTP"
+   },
+   "Metadata": {
+    "aws:cdk:path": "alb-stack/AppALB/HttpRedirectListener/Resource"
+   }
+  },
+  "AppALBHttpsListener75ADFE18": {
+   "Type": "AWS::ElasticLoadBalancingV2::Listener",
+   "Properties": {
+    "Certificates": [
+     {
+      "CertificateArn": {
+       "Ref": "ImportedCertParamParameter"
+      }
+     }
+    ],
+    "DefaultActions": [
+     {
+      "TargetGroupArn": {
+       "Ref": "FrontendTGE1AACCED"
+      },
+      "Type": "forward"
+     }
+    ],
+    "LoadBalancerArn": {
+     "Ref": "AppALBDBE7026A"
+    },
+    "Port": 443,
+    "Protocol": "HTTPS"
+   },
+   "Metadata": {
+    "aws:cdk:path": "alb-stack/AppALB/HttpsListener/Resource"
+   }
+  },
+  "AppALBHttpsListenerApiRouteRule0FE74FD9": {
+   "Type": "AWS::ElasticLoadBalancingV2::ListenerRule",
+   "Properties": {
+    "Actions": [
+     {
+      "TargetGroupArn": {
+       "Ref": "BackendTG79530091"
+      },
+      "Type": "forward"
+     }
+    ],
+    "Conditions": [
+     {
+      "Field": "path-pattern",
+      "PathPatternConfig": {
+       "Values": [
+        "/api/*"
+       ]
+      }
+     }
+    ],
+    "ListenerArn": {
+     "Ref": "AppALBHttpsListener75ADFE18"
+    },
+    "Priority": 1
+   },
+   "Metadata": {
+    "aws:cdk:path": "alb-stack/AppALB/HttpsListener/ApiRouteRule/Resource"
+   }
+  },
+  "AppALBHttpsListenerAvatarsRouteRule439EAC1B": {
+   "Type": "AWS::ElasticLoadBalancingV2::ListenerRule",
+   "Properties": {
+    "Actions": [
+     {
+      "TargetGroupArn": {
+       "Ref": "BackendTG79530091"
+      },
+      "Type": "forward"
+     }
+    ],
+    "Conditions": [
+     {
+      "Field": "path-pattern",
+      "PathPatternConfig": {
+       "Values": [
+        "/avatars/*"
+       ]
+      }
+     }
+    ],
+    "ListenerArn": {
+     "Ref": "AppALBHttpsListener75ADFE18"
+    },
+    "Priority": 2
+   },
+   "Metadata": {
+    "aws:cdk:path": "alb-stack/AppALB/HttpsListener/AvatarsRouteRule/Resource"
+   }
+  },
+  "AppALBHttpsListenerDefaultRouteRule150D01D1": {
+   "Type": "AWS::ElasticLoadBalancingV2::ListenerRule",
+   "Properties": {
+    "Actions": [
+     {
+      "TargetGroupArn": {
+       "Ref": "FrontendTGE1AACCED"
+      },
+      "Type": "forward"
+     }
+    ],
+    "Conditions": [
+     {
+      "Field": "path-pattern",
+      "PathPatternConfig": {
+       "Values": [
+        "/*"
+       ]
+      }
+     }
+    ],
+    "ListenerArn": {
+     "Ref": "AppALBHttpsListener75ADFE18"
+    },
+    "Priority": 10
+   },
+   "Metadata": {
+    "aws:cdk:path": "alb-stack/AppALB/HttpsListener/DefaultRouteRule/Resource"
+   }
+  },
+  "FrontendTGE1AACCED": {
+   "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+   "Properties": {
+    "HealthCheckPath": "/",
+    "Matcher": {
+     "HttpCode": "200"
+    },
+    "Port": 80,
+    "Protocol": "HTTP",
+    "TargetGroupAttributes": [
+     {
+      "Key": "stickiness.enabled",
+      "Value": "false"
+     }
+    ],
+    "TargetType": "ip",
+    "VpcId": "vpc-04eca5ddbfd06fabc"
+   },
+   "Metadata": {
+    "aws:cdk:path": "alb-stack/FrontendTG/Resource"
+   }
+  },
+  "BackendTG79530091": {
+   "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+   "Properties": {
+    "HealthCheckPath": "/api/health",
+    "Matcher": {
+     "HttpCode": "200"
+    },
+    "Port": 3000,
+    "Protocol": "HTTP",
+    "TargetGroupAttributes": [
+     {
+      "Key": "stickiness.enabled",
+      "Value": "false"
+     }
+    ],
+    "TargetType": "ip",
+    "VpcId": "vpc-04eca5ddbfd06fabc"
+   },
+   "Metadata": {
+    "aws:cdk:path": "alb-stack/BackendTG/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/7WQT08CMRDFPws9mm7F5cYNPRgSEwl42xAztANWynTtHzak6Xc3WzBZlKuHpnlv3vw601rU41qMR9D5Sqp9ZfRGpFUAuedL9DY6iQ27Y/zGWfOnLS3AwQEDOg6df09owActjQW1AQMkNe2OtUiztjVaQtCWXiyox1JD1/zGDYt82KR9QLpu+DPLT+hW4zIaHGaKHuTewO0wPDsb2z42kJmjrEVaoYxOh1PxmsSOrWTT8rpCL51ue8rFAWNsNzPmNYaNjaTYdAvGY+aJgVJz2jn0vp+ATZvEJNCcjCY8O8FF5ExaIpQ901+gkfRXxLkqMvOUy+4FvP5HcvnZq+VzznxxCh+W7ifioRaT0afXunKRgj6gWJ7vb2zD0tVZAgAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "alb-stack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,21 @@
+{
+  "version": "45.0.0",
+  "files": {
+    "426b4df90e580ffd867299d1d3afd7c7a706d9de65c673da30e24265f7b333a9": {
+      "displayName": "waf-stack Template",
+      "source": {
+        "path": "waf-stack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "577638398727-eu-west-2": {
+          "bucketName": "cdk-hnb659fds-assets-577638398727-eu-west-2",
+          "objectKey": "426b4df90e580ffd867299d1d3afd7c7a706d9de65c673da30e24265f7b333a9.json",
+          "region": "eu-west-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-file-publishing-role-577638398727-eu-west-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

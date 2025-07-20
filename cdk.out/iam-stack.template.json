@@ -1,0 +1,163 @@
+{
+ "Resources": {
+  "transendenceecstaskrolerole36B872E9": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "ECS task role for app",
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonS3ReadOnlyAccess"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/SecretsManagerReadWrite"
+       ]
+      ]
+     }
+    ],
+    "RoleName": "tmp-transendence-ecs-task-role"
+   },
+   "Metadata": {
+    "aws:cdk:path": "iam-stack/transendence-ecs-task-role-role/Resource"
+   }
+  },
+  "transendenceecstaskroleparam14475A1A": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Name": "/transendence/roles/transendence-ecs-task-role/arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "transendenceecstaskrolerole36B872E9",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "iam-stack/transendence-ecs-task-role-param/Resource"
+   }
+  },
+  "lambdabasicrolerole4DFA3BAD": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "Role for Lambda function",
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "RoleName": "tmp-lambda-basic-role"
+   },
+   "Metadata": {
+    "aws:cdk:path": "iam-stack/lambda-basic-role-role/Resource"
+   }
+  },
+  "lambdabasicroleparam3CC0E127": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Name": "/transendence/roles/lambda-basic-role/arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "lambdabasicrolerole4DFA3BAD",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "iam-stack/lambda-basic-role-param/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/82QTUvEMBCGf8vOcUnj2r31Vj0rpYKXUmRM4u64+ShJylJC/ru01upRPHma4eWZeYYpeXko+WGH11AIeSk0vfL0FFFcGF7DSyI0PLVOqy4BhjAaJe8mqBIMnqygAXUthBtthAr2wFZmHqhFJGeXODOQKghPwxYx8E6rRzRqJRKglA9o8aRk4zSJCaougfmZ1H7d1/+J/0fn9+z+zc6azEIw88c92VODHo2KyncJhq9+kzAIC/WMevzW/opbdNv2nFmrghu9UN3C76HPrJni2dmbI78t+XH3HogKP9pIRvH2s34AF+CY1SwCAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "iam-stack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

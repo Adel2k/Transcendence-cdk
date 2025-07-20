@@ -1,17 +1,18 @@
 {
-  "version": "45.0.0",
+  "version": "44.0.0",
   "files": {
-    "65143ba8837da0f319a2c15b450de7df267fe98651b8ac0be70c923ced43f35e": {
+    "2948375efc8ccba7dab71a4c3bd32eef1c70e7580fecd7880941aa07ea837c56": {
       "displayName": "security-stack Template",
       "source": {
         "path": "security-stack.template.json",
         "packaging": "file"
       },
       "destinations": {
-        "current_account-current_region": {
-          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "65143ba8837da0f319a2c15b450de7df267fe98651b8ac0be70c923ced43f35e.json",
-          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        "577638398727-eu-west-2": {
+          "bucketName": "cdk-hnb659fds-assets-577638398727-eu-west-2",
+          "objectKey": "2948375efc8ccba7dab71a4c3bd32eef1c70e7580fecd7880941aa07ea837c56.json",
+          "region": "eu-west-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-file-publishing-role-577638398727-eu-west-2"
         }
       }
     }

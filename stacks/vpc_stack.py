@@ -1,50 +1,69 @@
 from aws_cdk import (
     Stack,
-    aws_ecs as ecs,
-    aws_ecs_patterns as ecs_patterns,
-    aws_ecr_assets as ecr_assets,
-    aws_rds as rds,
-    aws_secretsmanager as secretsmanager,
     aws_ec2 as ec2,
-    aws_ssm as ssm
+    aws_ssm as ssm,
 )
 from constructs import Construct
+import yaml
 import os
+import random
+from helpers.get_or_create_parameter import get_or_create_parameter
+from helpers.config_loader import load_yaml_config
 
 class VpcStack(Stack):
+    def __init__(
+            self, 
+            scope: Construct, 
+            construct_id: str, 
+            **kwargs
+            ):
 
-    def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        prj_name = self.node.try_get_context("transendence")
-        env_name = self.node.try_get_context("env")
-        
-        self.vpc = ec2.Vpc(self, 'transendenceVPC', 
-                           ip_addresses=ec2.IpAddresses.cidr("10.0.0.0/16"),
-                           max_azs=2,
-                           enable_dns_hostnames=True,
-                           enable_dns_support=True,
-                           subnet_configuration=[
-                               ec2.SubnetConfiguration(
-                                   name="Public",
-                                   subnet_type=ec2.SubnetType.PUBLIC,
-                                   cidr_mask=24
-                               ),
-                               ec2.SubnetConfiguration(
-                                   name="Private",
-                                   subnet_type=ec2.SubnetType.PRIVATE_ISOLATED,
-                                   cidr_mask=24
-                               )
-                           ],
-                           nat_gateways=1
-                           )
-        
-        priv_subnets = [subnet.subnet_id for subnet in self.vpc.private_subnets]
+        config = load_yaml_config('config/vpcs/vpcs.yml')
+        vpcs = config.get("vpcs", [])
 
-        count = 1
-        for ps in priv_subnets:
-            ssm.StringParameter(self, 'private-subnet-'+str(count),
-                string_value=ps,
-                parameter_name='/'+env_name+'/private-subnet-'+str(count)
+        for vpc_def in vpcs:
+            name = vpc_def["name"]
+            subnet_defs = vpc_def.get("subnets", [])
+
+            subnet_configs = [
+                ec2.SubnetConfiguration(
+                    name=subnet["name"],
+                    subnet_type=ec2.SubnetType[subnet["type"]],
+                    cidr_mask=subnet["cidr_mask"]
+                )
+                for subnet in subnet_defs
+            ]
+
+            logical_id_param = f"/transendence/vpc-logical-id/{name}"
+            random_id = f"vpc-{name}-{random.randint(1000, 9999)}"
+            logical_id = get_or_create_parameter(logical_id_param, random_id)
+
+            vpc = ec2.Vpc(self, logical_id,
+                vpc_name=logical_id,
+                cidr=vpc_def["cidr"],
+                max_azs=vpc_def.get("max_azs", 2),
+                subnet_configuration=subnet_configs,
+                nat_gateways=vpc_def.get("nat_gateways", 0),
+                enable_dns_support=vpc_def.get("enable_dns_support", True),
+                enable_dns_hostnames=vpc_def.get("enable_dns_hostnames", True),
+                restrict_default_security_group=vpc_def.get("restrict_default_security_group", True)
             )
-            count += 1
+
+            ssm.StringParameter(self, f"VpcId-{name}",
+                parameter_name=f"/transendence/vpc-id/{name}",
+                string_value=vpc.vpc_id
+            )
+
+            for i, subnet in enumerate(vpc.private_subnets, 1):
+                ssm.StringParameter(self, f"{name}-private-subnet-{i}",
+                    parameter_name=f"/transendence/{name}/private-subnet-{i}",
+                    string_value=subnet.subnet_id
+                )
+
+            for i, subnet in enumerate(vpc.public_subnets, 1):
+                ssm.StringParameter(self, f"{name}-public-subnet-{i}",
+                    parameter_name=f"/transendence/{name}/public-subnet-{i}",
+                    string_value=subnet.subnet_id
+                )

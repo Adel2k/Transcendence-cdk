@@ -1,0 +1,43 @@
+vpc:
+  name: transendence
+
+cluster:
+  name: transendence-cluster
+  
+certificate:
+  ssm_param: "/transendence/certificates/dev-cert/arn"
+
+alb:
+  name: transendence-alb
+  endpoint_ssm: "/transendence/alb/endpoint"
+  redirect_http: true
+
+  services:
+    - name: frontend
+      ecs_service_ssm_param: "/transendence/services/frontend/name"
+    - name: backend
+      ecs_service_ssm_param: "/transendence/services/backend/name"
+
+  target_groups:
+    frontend:
+      port: 80
+      health_path: /
+    backend:
+      port: 3000
+      health_path: /api/health
+
+  routing:
+    - name: ApiRoute
+      priority: 1
+      path: "/api/*"
+      target: backend
+
+    - name: AvatarsRoute
+      priority: 2
+      path: "/avatars/*"
+      target: backend
+
+    - name: DefaultRoute
+      priority: 10
+      path: "/*"
+      target: frontend

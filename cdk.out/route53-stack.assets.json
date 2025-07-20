@@ -1,0 +1,21 @@
+{
+  "version": "45.0.0",
+  "files": {
+    "3b724723996f7db03b4c13bf376ee38f202ef69f2be7e48dd228c4872dcdb3d8": {
+      "displayName": "route53-stack Template",
+      "source": {
+        "path": "route53-stack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "577638398727-eu-west-2": {
+          "bucketName": "cdk-hnb659fds-assets-577638398727-eu-west-2",
+          "objectKey": "3b724723996f7db03b4c13bf376ee38f202ef69f2be7e48dd228c4872dcdb3d8.json",
+          "region": "eu-west-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-file-publishing-role-577638398727-eu-west-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
