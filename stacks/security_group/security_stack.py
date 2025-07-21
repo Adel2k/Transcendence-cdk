@@ -4,11 +4,9 @@ from aws_cdk import (
     Stack, aws_ec2 as ec2, CfnOutput
 )
 from constructs import Construct
-from aws_cdk import aws_ssm as ssm
-from helpers.vpc_lookup import get_vpc_id
-from helpers.config_loader import load_yaml_config
+from helpers.tools import tools
 
-class SecurityStack(Stack):
+class SecurityStack(tools):
     def __init__(
             self,
             scope: Construct,
@@ -20,14 +18,19 @@ class SecurityStack(Stack):
 
         self.sg_lookup = {}
 
-        config = load_yaml_config('config/sg/security_groups.yml')
+        config = self.load_yaml_config('config/security_group/security_groups.yml')
 
-        vpc_name = config["vpc"]["name"]
-        vpc_id = get_vpc_id(vpc_name)
-        self.vpc = ec2.Vpc.from_lookup(self, "VpcImported", vpc_id=vpc_id)
 
         for sg_def in config["security_groups"]:
             name = sg_def["name"]
+            vpc_name = sg_def["vpc"]
+            app_name = sg_def["app_name"]
+            vpc_id = self.get_vpc_id(vpc_name, app_name)
+            self.vpc = ec2.Vpc.from_vpc_attributes(
+                self, f"VpcImported-{name}-{vpc_id}",
+                vpc_id=vpc_id,
+                availability_zones=self.availability_zones
+            )
             sg = ec2.SecurityGroup(self, name,
                 security_group_name=f"tmp-{name}",
                 vpc=self.vpc,

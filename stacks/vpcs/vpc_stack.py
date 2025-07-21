@@ -1,16 +1,10 @@
 from aws_cdk import (
-    Stack,
-    aws_ec2 as ec2,
-    aws_ssm as ssm,
+    aws_ec2 as ec2
 )
 from constructs import Construct
-import yaml
-import os
-import random
-from helpers.get_or_create_parameter import get_or_create_parameter
-from helpers.config_loader import load_yaml_config
+from helpers.tools import tools
 
-class VpcStack(Stack):
+class VpcStack(tools):
     def __init__(
             self, 
             scope: Construct, 
@@ -20,7 +14,7 @@ class VpcStack(Stack):
 
         super().__init__(scope, construct_id, **kwargs)
 
-        config = load_yaml_config('config/vpcs/vpcs.yml')
+        config = self.load_yaml_config('config/vpcs/vpcs.yml')
         vpcs = config.get("vpcs", [])
 
         for vpc_def in vpcs:
@@ -36,9 +30,7 @@ class VpcStack(Stack):
                 for subnet in subnet_defs
             ]
 
-            logical_id_param = f"/transendence/vpc-logical-id/{name}"
-            random_id = f"vpc-{name}-{random.randint(1000, 9999)}"
-            logical_id = get_or_create_parameter(logical_id_param, random_id)
+            logical_id = self.logical_id_generator(name, "vpc")
 
             vpc = ec2.Vpc(self, logical_id,
                 vpc_name=logical_id,
@@ -51,19 +43,22 @@ class VpcStack(Stack):
                 restrict_default_security_group=vpc_def.get("restrict_default_security_group", True)
             )
 
-            ssm.StringParameter(self, f"VpcId-{name}",
-                parameter_name=f"/transendence/vpc-id/{name}",
-                string_value=vpc.vpc_id
+            self.store_ssm_parameter(
+                f"{name}-vpc-id",
+                f"/transendence/vpc-id/{name}",
+                vpc.vpc_id
             )
 
             for i, subnet in enumerate(vpc.private_subnets, 1):
-                ssm.StringParameter(self, f"{name}-private-subnet-{i}",
-                    parameter_name=f"/transendence/{name}/private-subnet-{i}",
-                    string_value=subnet.subnet_id
+                self.store_ssm_parameter(
+                    f"{name}-private-subnet-{i}",
+                    f"/transendence/{name}/private-subnet-{i}",
+                    subnet.subnet_id
                 )
 
             for i, subnet in enumerate(vpc.public_subnets, 1):
-                ssm.StringParameter(self, f"{name}-public-subnet-{i}",
-                    parameter_name=f"/transendence/{name}/public-subnet-{i}",
-                    string_value=subnet.subnet_id
+                self.store_ssm_parameter(
+                    f"{name}-public-subnet-{i}",
+                    f"/transendence/{name}/public-subnet-{i}",
+                    subnet.subnet_id
                 )

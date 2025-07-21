@@ -8,18 +8,14 @@ from aws_cdk import (
 )
 from constructs import Construct
 
-from helpers.vpc_lookup import get_vpc_id
-from helpers.config_loader import load_yaml_config
-from helpers.target_group_builder import create_target_group
-from helpers.listener_builder import add_http_redirect_listener, add_https_listener
-
-class ALBStack(Stack):
+from helpers.tools import tools
+class ALBStack(tools):
     def __init__(self, scope: Construct, id: str, **kwargs):
         super().__init__(scope, id, **kwargs)
 
-        config = load_yaml_config('config/alb/alb.yml')
+        config = self.load_yaml_config('config/alb/alb.yml')
 
-        vpc_id = get_vpc_id(config["vpc"]["name"])
+        vpc_id = self.get_vpc_id(config["vpc"]["name"])
         vpc = ec2.Vpc.from_lookup(self, "VpcImported", vpc_id=vpc_id)
 
         cert_param = ssm.StringParameter.from_string_parameter_attributes(
@@ -55,14 +51,14 @@ class ALBStack(Stack):
         )
 
         self.target_groups = {
-            tg_name: create_target_group(self, f"{tg_name.capitalize()}TG", vpc, cfg)
+            tg_name: self.create_target_group(self, f"{tg_name.capitalize()}TG", vpc, cfg)
             for tg_name, cfg in config['alb']['target_groups'].items()
         }
 
         if config.get('redirect_http', True):
-            add_http_redirect_listener(self, self.alb)
+            self.add_http_redirect_listener(self, self.alb)
 
-        self.https_listener = add_https_listener(
+        self.https_listener = self.add_https_listener(
             self, self.alb, certificate, config['alb']['routing'], self.target_groups
         )
 

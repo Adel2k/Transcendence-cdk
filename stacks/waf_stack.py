@@ -3,11 +3,9 @@ from aws_cdk.aws_elasticloadbalancingv2 import IApplicationLoadBalancer
 from constructs import Construct
 from aws_cdk import aws_ec2 as ec2
 from aws_cdk import aws_elasticloadbalancingv2 as elbv2
-from helpers.config_loader import load_yaml_config
-from helpers.waf_rule_builder import build_managed_rules
-from helpers.vpc_lookup import get_vpc_id
+from helpers.tools import tools
 
-class WAFStack(Stack):
+class WAFStack(tools):
     def __init__(
             self, 
             scope: Construct, 
@@ -29,7 +27,7 @@ class WAFStack(Stack):
                 metric_name=acl_cfg["metric_name"]
             ),
             name=acl_cfg["name"],
-            rules=build_managed_rules(acl_cfg["rules"])
+            rules=self.build_managed_rules(acl_cfg["rules"])
         )
 
         alb = IApplicationLoadBalancer.from_lookup(self, "ALB", load_balancer_arn=config['alb_arn'])

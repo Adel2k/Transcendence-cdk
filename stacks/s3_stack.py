@@ -7,9 +7,9 @@ from aws_cdk import (
 from constructs import Construct
 import os
 import yaml
-from helpers.config_loader import load_yaml_config
+from helpers.tools import tools
 
-class S3Stack(Stack):
+class S3Stack(tools):
     def __init__(
             self, 
             scope: Construct, 
@@ -18,7 +18,7 @@ class S3Stack(Stack):
         ):
 
         super().__init__(scope, id, **kwargs)
-        config = load_yaml_config('config/s3/s3.yml')
+        config = self.load_yaml_config('config/s3/s3.yml')
         bucket_cfg = config["bucket"]
 
         bucket_name = bucket_cfg["name"]

@@ -1,6 +1,6 @@
 {
  "Resources": {
-  "vpctransendence350299F02C6A": {
+  "TransendenceVpcAA9C514B": {
    "Type": "AWS::EC2::VPC",
    "Properties": {
     "CidrBlock": "10.0.0.0/16",
@@ -10,15 +10,15 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "vpc-transendence-3502"
+      "Value": "Transendence-Vpc"
      }
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "vpc-stack/vpc-transendence-3502/Resource"
+    "aws:cdk:path": "vpc-stack/Transendence-Vpc/Resource"
    }
   },
-  "vpctransendence3502PublicSubnet1SubnetC790F946": {
+  "TransendenceVpcPublicSubnet1SubnetF30EB539": {
    "Type": "AWS::EC2::Subnet",
    "Properties": {
     "AvailabilityZone": "eu-west-2a",
@@ -35,109 +35,67 @@
      },
      {
       "Key": "Name",
-      "Value": "vpc-stack/vpc-transendence-3502/PublicSubnet1"
+      "Value": "vpc-stack/Transendence-Vpc/PublicSubnet1"
      }
     ],
     "VpcId": {
-     "Ref": "vpctransendence350299F02C6A"
+     "Ref": "TransendenceVpcAA9C514B"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "vpc-stack/vpc-transendence-3502/PublicSubnet1/Subnet"
+    "aws:cdk:path": "vpc-stack/Transendence-Vpc/PublicSubnet1/Subnet"
    }
   },
-  "vpctransendence3502PublicSubnet1RouteTable5D74287D": {
+  "TransendenceVpcPublicSubnet1RouteTableEC88DB55": {
    "Type": "AWS::EC2::RouteTable",
    "Properties": {
     "Tags": [
      {
       "Key": "Name",
-      "Value": "vpc-stack/vpc-transendence-3502/PublicSubnet1"
+      "Value": "vpc-stack/Transendence-Vpc/PublicSubnet1"
      }
     ],
     "VpcId": {
-     "Ref": "vpctransendence350299F02C6A"
+     "Ref": "TransendenceVpcAA9C514B"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "vpc-stack/vpc-transendence-3502/PublicSubnet1/RouteTable"
+    "aws:cdk:path": "vpc-stack/Transendence-Vpc/PublicSubnet1/RouteTable"
    }
   },
-  "vpctransendence3502PublicSubnet1RouteTableAssociationD36B73C6": {
+  "TransendenceVpcPublicSubnet1RouteTableAssociationF26F0341": {
    "Type": "AWS::EC2::SubnetRouteTableAssociation",
    "Properties": {
     "RouteTableId": {
-     "Ref": "vpctransendence3502PublicSubnet1RouteTable5D74287D"
+     "Ref": "TransendenceVpcPublicSubnet1RouteTableEC88DB55"
     },
     "SubnetId": {
-     "Ref": "vpctransendence3502PublicSubnet1SubnetC790F946"
+     "Ref": "TransendenceVpcPublicSubnet1SubnetF30EB539"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "vpc-stack/vpc-transendence-3502/PublicSubnet1/RouteTableAssociation"
+    "aws:cdk:path": "vpc-stack/Transendence-Vpc/PublicSubnet1/RouteTableAssociation"
    }
   },
-  "vpctransendence3502PublicSubnet1DefaultRoute67175EC1": {
+  "TransendenceVpcPublicSubnet1DefaultRoute58038E5C": {
    "Type": "AWS::EC2::Route",
    "Properties": {
     "DestinationCidrBlock": "0.0.0.0/0",
     "GatewayId": {
-     "Ref": "vpctransendence3502IGW2E04637E"
+     "Ref": "TransendenceVpcIGW77EB0AC9"
     },
     "RouteTableId": {
-     "Ref": "vpctransendence3502PublicSubnet1RouteTable5D74287D"
+     "Ref": "TransendenceVpcPublicSubnet1RouteTableEC88DB55"
     }
    },
    "DependsOn": [
-    "vpctransendence3502VPCGW3C19763A"
+    "TransendenceVpcVPCGW41E18250"
    ],
    "Metadata": {
-    "aws:cdk:path": "vpc-stack/vpc-transendence-3502/PublicSubnet1/DefaultRoute"
+    "aws:cdk:path": "vpc-stack/Transendence-Vpc/PublicSubnet1/DefaultRoute"
    }
   },
-  "vpctransendence3502PublicSubnet1EIP2F42E0B6": {
-   "Type": "AWS::EC2::EIP",
-   "Properties": {
-    "Domain": "vpc",
-    "Tags": [
-     {
-      "Key": "Name",
-      "Value": "vpc-stack/vpc-transendence-3502/PublicSubnet1"
-     }
-    ]
-   },
-   "Metadata": {
-    "aws:cdk:path": "vpc-stack/vpc-transendence-3502/PublicSubnet1/EIP"
-   }
-  },
-  "vpctransendence3502PublicSubnet1NATGateway9CDE1E98": {
-   "Type": "AWS::EC2::NatGateway",
-   "Properties": {
-    "AllocationId": {
-     "Fn::GetAtt": [
-      "vpctransendence3502PublicSubnet1EIP2F42E0B6",
-      "AllocationId"
-     ]
-    },
-    "SubnetId": {
-     "Ref": "vpctransendence3502PublicSubnet1SubnetC790F946"
-    },
-    "Tags": [
-     {
-      "Key": "Name",
-      "Value": "vpc-stack/vpc-transendence-3502/PublicSubnet1"
-     }
-    ]
-   },
-   "DependsOn": [
-    "vpctransendence3502PublicSubnet1DefaultRoute67175EC1",
-    "vpctransendence3502PublicSubnet1RouteTableAssociationD36B73C6"
-   ],
-   "Metadata": {
-    "aws:cdk:path": "vpc-stack/vpc-transendence-3502/PublicSubnet1/NATGateway"
-   }
-  },
-  "vpctransendence3502PublicSubnet2SubnetFE137C9B": {
+  "TransendenceVpcPublicSubnet2SubnetF633D1CE": {
    "Type": "AWS::EC2::Subnet",
    "Properties": {
     "AvailabilityZone": "eu-west-2b",
@@ -154,67 +112,67 @@
      },
      {
       "Key": "Name",
-      "Value": "vpc-stack/vpc-transendence-3502/PublicSubnet2"
+      "Value": "vpc-stack/Transendence-Vpc/PublicSubnet2"
      }
     ],
     "VpcId": {
-     "Ref": "vpctransendence350299F02C6A"
+     "Ref": "TransendenceVpcAA9C514B"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "vpc-stack/vpc-transendence-3502/PublicSubnet2/Subnet"
+    "aws:cdk:path": "vpc-stack/Transendence-Vpc/PublicSubnet2/Subnet"
    }
   },
-  "vpctransendence3502PublicSubnet2RouteTable88E96050": {
+  "TransendenceVpcPublicSubnet2RouteTableB915EB6C": {
    "Type": "AWS::EC2::RouteTable",
    "Properties": {
     "Tags": [
      {
       "Key": "Name",
-      "Value": "vpc-stack/vpc-transendence-3502/PublicSubnet2"
+      "Value": "vpc-stack/Transendence-Vpc/PublicSubnet2"
      }
     ],
     "VpcId": {
-     "Ref": "vpctransendence350299F02C6A"
+     "Ref": "TransendenceVpcAA9C514B"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "vpc-stack/vpc-transendence-3502/PublicSubnet2/RouteTable"
+    "aws:cdk:path": "vpc-stack/Transendence-Vpc/PublicSubnet2/RouteTable"
    }
   },
-  "vpctransendence3502PublicSubnet2RouteTableAssociation0E072A5D": {
+  "TransendenceVpcPublicSubnet2RouteTableAssociation76485693": {
    "Type": "AWS::EC2::SubnetRouteTableAssociation",
    "Properties": {
     "RouteTableId": {
-     "Ref": "vpctransendence3502PublicSubnet2RouteTable88E96050"
+     "Ref": "TransendenceVpcPublicSubnet2RouteTableB915EB6C"
     },
     "SubnetId": {
-     "Ref": "vpctransendence3502PublicSubnet2SubnetFE137C9B"
+     "Ref": "TransendenceVpcPublicSubnet2SubnetF633D1CE"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "vpc-stack/vpc-transendence-3502/PublicSubnet2/RouteTableAssociation"
+    "aws:cdk:path": "vpc-stack/Transendence-Vpc/PublicSubnet2/RouteTableAssociation"
    }
   },
-  "vpctransendence3502PublicSubnet2DefaultRoute24D97138": {
+  "TransendenceVpcPublicSubnet2DefaultRoute8206BBDD": {
    "Type": "AWS::EC2::Route",
    "Properties": {
     "DestinationCidrBlock": "0.0.0.0/0",
     "GatewayId": {
-     "Ref": "vpctransendence3502IGW2E04637E"
+     "Ref": "TransendenceVpcIGW77EB0AC9"
     },
     "RouteTableId": {
-     "Ref": "vpctransendence3502PublicSubnet2RouteTable88E96050"
+     "Ref": "TransendenceVpcPublicSubnet2RouteTableB915EB6C"
     }
    },
    "DependsOn": [
-    "vpctransendence3502VPCGW3C19763A"
+    "TransendenceVpcVPCGW41E18250"
    ],
    "Metadata": {
-    "aws:cdk:path": "vpc-stack/vpc-transendence-3502/PublicSubnet2/DefaultRoute"
+    "aws:cdk:path": "vpc-stack/Transendence-Vpc/PublicSubnet2/DefaultRoute"
    }
   },
-  "vpctransendence3502PrivateSubnet1Subnet6B8BB489": {
+  "TransendenceVpcPrivateSubnet1SubnetB31E9A0E": {
    "Type": "AWS::EC2::Subnet",
    "Properties": {
     "AvailabilityZone": "eu-west-2a",
@@ -231,49 +189,49 @@
      },
      {
       "Key": "Name",
-      "Value": "vpc-stack/vpc-transendence-3502/PrivateSubnet1"
+      "Value": "vpc-stack/Transendence-Vpc/PrivateSubnet1"
      }
     ],
     "VpcId": {
-     "Ref": "vpctransendence350299F02C6A"
+     "Ref": "TransendenceVpcAA9C514B"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "vpc-stack/vpc-transendence-3502/PrivateSubnet1/Subnet"
+    "aws:cdk:path": "vpc-stack/Transendence-Vpc/PrivateSubnet1/Subnet"
    }
   },
-  "vpctransendence3502PrivateSubnet1RouteTable0CB70269": {
+  "TransendenceVpcPrivateSubnet1RouteTableC18780A1": {
    "Type": "AWS::EC2::RouteTable",
    "Properties": {
     "Tags": [
      {
       "Key": "Name",
-      "Value": "vpc-stack/vpc-transendence-3502/PrivateSubnet1"
+      "Value": "vpc-stack/Transendence-Vpc/PrivateSubnet1"
      }
     ],
     "VpcId": {
-     "Ref": "vpctransendence350299F02C6A"
+     "Ref": "TransendenceVpcAA9C514B"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "vpc-stack/vpc-transendence-3502/PrivateSubnet1/RouteTable"
+    "aws:cdk:path": "vpc-stack/Transendence-Vpc/PrivateSubnet1/RouteTable"
    }
   },
-  "vpctransendence3502PrivateSubnet1RouteTableAssociation5935271B": {
+  "TransendenceVpcPrivateSubnet1RouteTableAssociation581E12EE": {
    "Type": "AWS::EC2::SubnetRouteTableAssociation",
    "Properties": {
     "RouteTableId": {
-     "Ref": "vpctransendence3502PrivateSubnet1RouteTable0CB70269"
+     "Ref": "TransendenceVpcPrivateSubnet1RouteTableC18780A1"
     },
     "SubnetId": {
-     "Ref": "vpctransendence3502PrivateSubnet1Subnet6B8BB489"
+     "Ref": "TransendenceVpcPrivateSubnet1SubnetB31E9A0E"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "vpc-stack/vpc-transendence-3502/PrivateSubnet1/RouteTableAssociation"
+    "aws:cdk:path": "vpc-stack/Transendence-Vpc/PrivateSubnet1/RouteTableAssociation"
    }
   },
-  "vpctransendence3502PrivateSubnet2Subnet0FEC6BD3": {
+  "TransendenceVpcPrivateSubnet2Subnet979E43CA": {
    "Type": "AWS::EC2::Subnet",
    "Properties": {
     "AvailabilityZone": "eu-west-2b",
@@ -290,87 +248,87 @@
      },
      {
       "Key": "Name",
-      "Value": "vpc-stack/vpc-transendence-3502/PrivateSubnet2"
+      "Value": "vpc-stack/Transendence-Vpc/PrivateSubnet2"
      }
     ],
     "VpcId": {
-     "Ref": "vpctransendence350299F02C6A"
+     "Ref": "TransendenceVpcAA9C514B"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "vpc-stack/vpc-transendence-3502/PrivateSubnet2/Subnet"
+    "aws:cdk:path": "vpc-stack/Transendence-Vpc/PrivateSubnet2/Subnet"
    }
   },
-  "vpctransendence3502PrivateSubnet2RouteTable0CC90937": {
+  "TransendenceVpcPrivateSubnet2RouteTableAF29A544": {
    "Type": "AWS::EC2::RouteTable",
    "Properties": {
     "Tags": [
      {
       "Key": "Name",
-      "Value": "vpc-stack/vpc-transendence-3502/PrivateSubnet2"
+      "Value": "vpc-stack/Transendence-Vpc/PrivateSubnet2"
      }
     ],
     "VpcId": {
-     "Ref": "vpctransendence350299F02C6A"
+     "Ref": "TransendenceVpcAA9C514B"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "vpc-stack/vpc-transendence-3502/PrivateSubnet2/RouteTable"
+    "aws:cdk:path": "vpc-stack/Transendence-Vpc/PrivateSubnet2/RouteTable"
    }
   },
-  "vpctransendence3502PrivateSubnet2RouteTableAssociation3748E639": {
+  "TransendenceVpcPrivateSubnet2RouteTableAssociation5F10E8F8": {
    "Type": "AWS::EC2::SubnetRouteTableAssociation",
    "Properties": {
     "RouteTableId": {
-     "Ref": "vpctransendence3502PrivateSubnet2RouteTable0CC90937"
+     "Ref": "TransendenceVpcPrivateSubnet2RouteTableAF29A544"
     },
     "SubnetId": {
-     "Ref": "vpctransendence3502PrivateSubnet2Subnet0FEC6BD3"
+     "Ref": "TransendenceVpcPrivateSubnet2Subnet979E43CA"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "vpc-stack/vpc-transendence-3502/PrivateSubnet2/RouteTableAssociation"
+    "aws:cdk:path": "vpc-stack/Transendence-Vpc/PrivateSubnet2/RouteTableAssociation"
    }
   },
-  "vpctransendence3502IGW2E04637E": {
+  "TransendenceVpcIGW77EB0AC9": {
    "Type": "AWS::EC2::InternetGateway",
    "Properties": {
     "Tags": [
      {
       "Key": "Name",
-      "Value": "vpc-transendence-3502"
+      "Value": "Transendence-Vpc"
      }
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "vpc-stack/vpc-transendence-3502/IGW"
+    "aws:cdk:path": "vpc-stack/Transendence-Vpc/IGW"
    }
   },
-  "vpctransendence3502VPCGW3C19763A": {
+  "TransendenceVpcVPCGW41E18250": {
    "Type": "AWS::EC2::VPCGatewayAttachment",
    "Properties": {
     "InternetGatewayId": {
-     "Ref": "vpctransendence3502IGW2E04637E"
+     "Ref": "TransendenceVpcIGW77EB0AC9"
     },
     "VpcId": {
-     "Ref": "vpctransendence350299F02C6A"
+     "Ref": "TransendenceVpcAA9C514B"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "vpc-stack/vpc-transendence-3502/VPCGW"
+    "aws:cdk:path": "vpc-stack/Transendence-Vpc/VPCGW"
    }
   },
-  "VpcIdtransendenceFF96E6FF": {
+  "transendencevpcid80093447": {
    "Type": "AWS::SSM::Parameter",
    "Properties": {
     "Name": "/transendence/vpc-id/transendence",
     "Type": "String",
     "Value": {
-     "Ref": "vpctransendence350299F02C6A"
+     "Ref": "TransendenceVpcAA9C514B"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "vpc-stack/VpcId-transendence/Resource"
+    "aws:cdk:path": "vpc-stack/transendence-vpc-id/Resource"
    }
   },
   "transendencepublicsubnet1579E5B95": {
@@ -379,7 +337,7 @@
     "Name": "/transendence/transendence/public-subnet-1",
     "Type": "String",
     "Value": {
-     "Ref": "vpctransendence3502PublicSubnet1SubnetC790F946"
+     "Ref": "TransendenceVpcPublicSubnet1SubnetF30EB539"
     }
    },
    "Metadata": {
@@ -392,17 +350,374 @@
     "Name": "/transendence/transendence/public-subnet-2",
     "Type": "String",
     "Value": {
-     "Ref": "vpctransendence3502PublicSubnet2SubnetFE137C9B"
+     "Ref": "TransendenceVpcPublicSubnet2SubnetF633D1CE"
     }
    },
    "Metadata": {
     "aws:cdk:path": "vpc-stack/transendence-public-subnet-2/Resource"
    }
   },
+  "BglVpcDC37937C": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "Bgl-Vpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "vpc-stack/Bgl-Vpc/Resource"
+   }
+  },
+  "BglVpcPublicSubnet1SubnetF8F37050": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "eu-west-2a",
+    "CidrBlock": "10.0.0.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "vpc-stack/Bgl-Vpc/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "BglVpcDC37937C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "vpc-stack/Bgl-Vpc/PublicSubnet1/Subnet"
+   }
+  },
+  "BglVpcPublicSubnet1RouteTable05EB3780": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "vpc-stack/Bgl-Vpc/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "BglVpcDC37937C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "vpc-stack/Bgl-Vpc/PublicSubnet1/RouteTable"
+   }
+  },
+  "BglVpcPublicSubnet1RouteTableAssociation5C35A0EA": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "BglVpcPublicSubnet1RouteTable05EB3780"
+    },
+    "SubnetId": {
+     "Ref": "BglVpcPublicSubnet1SubnetF8F37050"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "vpc-stack/Bgl-Vpc/PublicSubnet1/RouteTableAssociation"
+   }
+  },
+  "BglVpcPublicSubnet1DefaultRouteCA2EA721": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "BglVpcIGW9B96FAE0"
+    },
+    "RouteTableId": {
+     "Ref": "BglVpcPublicSubnet1RouteTable05EB3780"
+    }
+   },
+   "DependsOn": [
+    "BglVpcVPCGWE0D81D71"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "vpc-stack/Bgl-Vpc/PublicSubnet1/DefaultRoute"
+   }
+  },
+  "BglVpcPublicSubnet2SubnetF3F9FD23": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "eu-west-2b",
+    "CidrBlock": "10.0.1.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "vpc-stack/Bgl-Vpc/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "BglVpcDC37937C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "vpc-stack/Bgl-Vpc/PublicSubnet2/Subnet"
+   }
+  },
+  "BglVpcPublicSubnet2RouteTable635EEBD4": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "vpc-stack/Bgl-Vpc/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "BglVpcDC37937C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "vpc-stack/Bgl-Vpc/PublicSubnet2/RouteTable"
+   }
+  },
+  "BglVpcPublicSubnet2RouteTableAssociation1F6559C3": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "BglVpcPublicSubnet2RouteTable635EEBD4"
+    },
+    "SubnetId": {
+     "Ref": "BglVpcPublicSubnet2SubnetF3F9FD23"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "vpc-stack/Bgl-Vpc/PublicSubnet2/RouteTableAssociation"
+   }
+  },
+  "BglVpcPublicSubnet2DefaultRouteB64811CE": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "BglVpcIGW9B96FAE0"
+    },
+    "RouteTableId": {
+     "Ref": "BglVpcPublicSubnet2RouteTable635EEBD4"
+    }
+   },
+   "DependsOn": [
+    "BglVpcVPCGWE0D81D71"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "vpc-stack/Bgl-Vpc/PublicSubnet2/DefaultRoute"
+   }
+  },
+  "BglVpcPrivateSubnet1SubnetD2DFF56F": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "eu-west-2a",
+    "CidrBlock": "10.0.2.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "Name",
+      "Value": "vpc-stack/Bgl-Vpc/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "BglVpcDC37937C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "vpc-stack/Bgl-Vpc/PrivateSubnet1/Subnet"
+   }
+  },
+  "BglVpcPrivateSubnet1RouteTableB5AA19C4": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "vpc-stack/Bgl-Vpc/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "BglVpcDC37937C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "vpc-stack/Bgl-Vpc/PrivateSubnet1/RouteTable"
+   }
+  },
+  "BglVpcPrivateSubnet1RouteTableAssociationA10C9FCA": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "BglVpcPrivateSubnet1RouteTableB5AA19C4"
+    },
+    "SubnetId": {
+     "Ref": "BglVpcPrivateSubnet1SubnetD2DFF56F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "vpc-stack/Bgl-Vpc/PrivateSubnet1/RouteTableAssociation"
+   }
+  },
+  "BglVpcPrivateSubnet2Subnet776817D2": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "eu-west-2b",
+    "CidrBlock": "10.0.3.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "Name",
+      "Value": "vpc-stack/Bgl-Vpc/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "BglVpcDC37937C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "vpc-stack/Bgl-Vpc/PrivateSubnet2/Subnet"
+   }
+  },
+  "BglVpcPrivateSubnet2RouteTable0B65BCB1": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "vpc-stack/Bgl-Vpc/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "BglVpcDC37937C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "vpc-stack/Bgl-Vpc/PrivateSubnet2/RouteTable"
+   }
+  },
+  "BglVpcPrivateSubnet2RouteTableAssociation1117E426": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "BglVpcPrivateSubnet2RouteTable0B65BCB1"
+    },
+    "SubnetId": {
+     "Ref": "BglVpcPrivateSubnet2Subnet776817D2"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "vpc-stack/Bgl-Vpc/PrivateSubnet2/RouteTableAssociation"
+   }
+  },
+  "BglVpcIGW9B96FAE0": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "Bgl-Vpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "vpc-stack/Bgl-Vpc/IGW"
+   }
+  },
+  "BglVpcVPCGWE0D81D71": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "InternetGatewayId": {
+     "Ref": "BglVpcIGW9B96FAE0"
+    },
+    "VpcId": {
+     "Ref": "BglVpcDC37937C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "vpc-stack/Bgl-Vpc/VPCGW"
+   }
+  },
+  "bglvpcidFD74012E": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Name": "/transendence/vpc-id/bgl",
+    "Type": "String",
+    "Value": {
+     "Ref": "BglVpcDC37937C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "vpc-stack/bgl-vpc-id/Resource"
+   }
+  },
+  "bglpublicsubnet1CAF68912": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Name": "/transendence/bgl/public-subnet-1",
+    "Type": "String",
+    "Value": {
+     "Ref": "BglVpcPublicSubnet1SubnetF8F37050"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "vpc-stack/bgl-public-subnet-1/Resource"
+   }
+  },
+  "bglpublicsubnet2DC71B105": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Name": "/transendence/bgl/public-subnet-2",
+    "Type": "String",
+    "Value": {
+     "Ref": "BglVpcPublicSubnet2SubnetF3F9FD23"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "vpc-stack/bgl-public-subnet-2/Resource"
+   }
+  },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/+1VTY/aMBD9LevjyqRbVtoDN8pW20gtG8FqD41QNTgDuCS25RmH0ij/vcoXrFr1hlQOPXk8efP8PHm2x9H4bhzd3cCBRirbj3K9jqolg9pLONC3CtU4ql6dSiuhdObFRNwKKdDAOsdHQ58ssYECSUzYB3zzZRmcs56HfAE/pj+pLzfAT8B4gOOQ8UjsteJH3EDIeYkqeM3HJ2+DE5MN5IRSUFgb5Jk1G70NHlhbIyZpJRoBPU8HeTm6JpGEda6VkK3yL0D7FlTLv1fEZHNgzP6oWUlROjUfyuqVnG3MazKT3RrLliStBJSgc1jrXPPxqzXDIqVTcdbHDfGH3Kp9Py/AdSSxezafIRi1G5qmXfkw+w0ORHprYlc+TLPMI9GzmXnsm9Fv7ypUtEKybH7612KSiluxuhqB16Gis1JnoCZa2MD40hyic/6cmxJZpVuCE7gJPsZJM5ybLROvS2C8uDP7s/ive/5fxqVktP6LDaM3eHJPd7v1sykzqF2BhmtJVDTvg9dmm4CHAhl9Wgk3xPM3N2uLeoU84GnDF8W1yk8q6loukGzwCtNVLZMj76x5dx+9H0f3N99J65EPhnWB0aIbfwE6JR0m+wYAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/+2WTW/bMAyGf0t1HBSvc4EecstSoAuwtUZS5LAgGGiZSbTYkiBSzjIj/33wV1Ns663DfMjJFM2XevwaIBhH8XUcXV/BgUYq249ynUbVgkHtJRzoW4UqjqqlU6tKKJ15MRbvhBRoIM3xztAnS2ygQBJj9gFfvFkE56znPl/Aj8lP6uQG+B4YD3DsMx6JvVZ8hxsIOS9QBa/5eO9tcGK8gZxQCgqpQZ5as9Hb4IG1NWK8qkQN0PVpS56Ork4kIc21ErIh/wK0b4pO8nXFjGwOjNkfmrUUpVMPvazucbHjbMdaTjdmmUxle8eiabKqBJSgc0h1rvn41Zr+ktKpWdbFdeOPuVX77lyAa5vM3KP5DMGoXW+aduXt9LdyINJbM3Pl7STLPBI9mqnHzozu8wZBMRiQYVAMBmQYFIMBGQZFO1DaMVJHcxsYn+pRes6fcxMiq3TT4LlYJl6XwPjmo6gbvv/b3gvGBeOC8a8xmjE0M4zeYL+jdatOd5owg9oVaPgkiYp6d/babBPwUCCjX1XC9fHDizWrqVpCHvoMtytXK28MuOj+omv+yLO7p5OcI9ngFa7WJ5kceWfN+5voQxzdXH0nrUc+GNYFRvP2+QuaU2I37wwAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "vpc-stack/CDKMetadata/Default"

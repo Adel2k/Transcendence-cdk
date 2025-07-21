@@ -1,13 +1,13 @@
-vpc:
-  name: transendence
-
 security_groups:
   - name: lambda-sg
+    app_name: transendence
     description: SG for Lambda Functions
     allow_all_outbound: true
     ingress: []
+    vpc: transendence
 
   - name: bastion-sg
+    app_name: transendence
     description: SG for Bastion Host
     allow_all_outbound: true
     ingress:
@@ -15,13 +15,17 @@ security_groups:
         port: 22
         source: "0.0.0.0/0"
         description: SSH Access
+    vpc: transendence
 
   - name: ecs-sg
+    app_name: transendence
     description: SG for ECS
     allow_all_outbound: true
     ingress: []
+    vpc: transendence
 
   - name: db-sg
+    app_name: transendence
     description: SG for RDS
     allow_all_outbound: true
     ingress:
@@ -29,3 +33,4 @@ security_groups:
         port: 5432
         source_sg: ecs-sg
         description: PostgreSQL from ECS
+    vpc: transendence

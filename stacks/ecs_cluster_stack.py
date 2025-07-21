@@ -8,11 +8,9 @@ from aws_cdk import (
     CfnOutput
 )
 from constructs import Construct
-from helpers.vpc_lookup import get_vpc_id
-from helpers.config_loader import load_yaml_config
+from helpers.tools import tools
 
-
-class ECSClusterStack(Stack):
+class ECSClusterStack(tools):
     def __init__(
             self, 
             scope: Construct,
@@ -21,12 +19,12 @@ class ECSClusterStack(Stack):
         ):
 
         super().__init__(scope, id, **kwargs)
-        full_config = load_yaml_config('config/ecs/cluster.yml')
+        full_config = self.load_yaml_config('config/ecs/cluster.yml')
         cluster_config = full_config["cluster"]
 
 
         vpc_name = full_config["vpc"]["name"]
-        vpc_id = get_vpc_id(vpc_name)
+        vpc_id = self.get_vpc_id(vpc_name)
         vpc = ec2.Vpc.from_lookup(self, "VpcImported", vpc_id=vpc_id)
 
         cluster_name = cluster_config["name"]
