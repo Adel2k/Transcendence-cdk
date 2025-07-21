@@ -926,6 +926,178 @@
       },
       "displayName": "security-stack"
     },
+    "s3-stack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "s3-stack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "s3-stack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://577638398727/eu-west-2",
+      "properties": {
+        "templateFile": "s3-stack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-deploy-role-577638398727-eu-west-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-cfn-exec-role-577638398727-eu-west-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-577638398727-eu-west-2/dd8d4685559dc81c81bbeeacf11ec7107396c342eb3ecdd8179d23671aca5a18.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "s3-stack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-lookup-role-577638398727-eu-west-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "s3-stack.assets"
+      ],
+      "metadata": {
+        "/s3-stack/TransendenceAppAssetsBucket": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "blockPublicAccess": "*",
+              "bucketName": "*",
+              "cors": [
+                {
+                  "allowedMethods": [
+                    "GET",
+                    "PUT"
+                  ],
+                  "allowedOrigins": "*",
+                  "allowedHeaders": "*"
+                }
+              ],
+              "encryption": "S3_MANAGED",
+              "lifecycleRules": [
+                {
+                  "enabled": true,
+                  "id": "*"
+                }
+              ],
+              "removalPolicy": "destroy",
+              "versioned": true
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addCorsRule": [
+                {
+                  "allowedMethods": [
+                    "GET",
+                    "PUT"
+                  ],
+                  "allowedOrigins": "*",
+                  "allowedHeaders": "*"
+                },
+                "*",
+                "*"
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addLifecycleRule": [
+                {
+                  "enabled": true,
+                  "id": "*"
+                },
+                "*",
+                "*"
+              ]
+            }
+          }
+        ],
+        "/s3-stack/TransendenceAppAssetsBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TransendenceAppAssetsBucketD539DE11"
+          }
+        ],
+        "/s3-stack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/s3-stack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/s3-stack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "s3-stack"
+    },
+    "ecs-cluster-stack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "ecs-cluster-stack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "ecs-cluster-stack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://577638398727/eu-west-2",
+      "properties": {
+        "templateFile": "ecs-cluster-stack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-deploy-role-577638398727-eu-west-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-cfn-exec-role-577638398727-eu-west-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-577638398727-eu-west-2/6448bd54b4cce96b479fa863e5603a8e39582c1fe96c435f63b04de8b3ae1b60.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "ecs-cluster-stack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-lookup-role-577638398727-eu-west-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "ecs-cluster-stack.assets"
+      ],
+      "metadata": {
+        "/ecs-cluster-stack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/ecs-cluster-stack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/ecs-cluster-stack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "ecs-cluster-stack"
+    },
     "Tree": {
       "type": "cdk:tree",
       "properties": {

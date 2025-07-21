@@ -1,6 +1,6 @@
 {
  "Resources": {
-  "transendenceAppAssetsF218E671": {
+  "TransendenceAppAssetsBucketD539DE11": {
    "Type": "AWS::S3::Bucket",
    "Properties": {
     "BucketEncryption": {
@@ -33,7 +33,7 @@
      "Rules": [
       {
        "ExpirationInDays": 30,
-       "Id": "AutoDeleteAfterXDays",
+       "Id": "AutoDeleteAfter30Days",
        "Status": "Enabled"
       }
      ]
@@ -51,7 +51,7 @@
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
    "Metadata": {
-    "aws:cdk:path": "s3-stack/transendenceAppAssets/Resource"
+    "aws:cdk:path": "s3-stack/TransendenceAppAssetsBucket/Resource"
    }
   },
   "CDKMetadata": {

@@ -1,24 +1,25 @@
-vpc:
-  name: transendence
-
-cluster:
-  name: transendence-cluster
-
-roles:
-  ecs_task_role_arn: arn:aws:iam::577638398727:role/tmp-transendence-ecs-task-role
-
 services:
   - name: backend
     repo: backend
     port: 3000
     target_group: backend
+    secrets_manager_name: JWT_EXPIRES_IN/JWT_SECRET/DEFAULT_AVATAR
     secrets:
-      JWT_SECRET: JWT_EXPIRES_IN/JWT_SECRET/DEFAULT_AVATAR
-      JWT_EXPIRES_IN: JWT_EXPIRES_IN/JWT_SECRET/DEFAULT_AVATAR
-      DEFAULT_AVATAR: JWT_EXPIRES_IN/JWT_SECRET/DEFAULT_AVATAR
-      DATABASE_URL: JWT_EXPIRES_IN/JWT_SECRET/DEFAULT_AVATAR
+      - JWT_SECRET
+      - JWT_EXPIRES_IN
+      - DEFAULT_AVATAR
+      - DATABASE_URL
+    vpc: transendence
+    ecs_task_role_arn: arn:aws:iam::577638398727:role/tmp-transendence-ecs-task-role
+    cluster: transendence-cluster
+
 
   - name: frontend
     repo: frontend
     port: 80
     target_group: frontend
+    vpc: transendence
+    ecs_task_role_arn: arn:aws:iam::577638398727:role/tmp-transendence-ecs-task-role
+    cluster: transendence-cluster
+
+
