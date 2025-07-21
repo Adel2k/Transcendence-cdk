@@ -4,13 +4,13 @@
    "Type": "AWS::SSM::Parameter::Value<String>",
    "Default": "/transendence/certificates/dev-cert/arn"
   },
-  "SsmParameterValuetransendenceecsservicesbackendservicenameC96584B6F00A464EAD1953AFF4B05118Parameter": {
-   "Type": "AWS::SSM::Parameter::Value<String>",
-   "Default": "/transendence/ecs/services/backend/service_name"
-  },
   "SsmParameterValuetransendenceecsservicesfrontendservicenameC96584B6F00A464EAD1953AFF4B05118Parameter": {
    "Type": "AWS::SSM::Parameter::Value<String>",
    "Default": "/transendence/ecs/services/frontend/service_name"
+  },
+  "SsmParameterValuetransendenceecsservicesbackendservicenameC96584B6F00A464EAD1953AFF4B05118Parameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/transendence/ecs/services/backend/service_name"
   },
   "BootstrapVersion": {
    "Type": "AWS::SSM::Parameter::Value<String>",
@@ -19,7 +19,7 @@
   }
  },
  "Resources": {
-  "AppALBDBE7026A": {
+  "transendencealbA0DD9043": {
    "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
    "Properties": {
     "LoadBalancerAttributes": [
@@ -32,25 +32,25 @@
     "SecurityGroups": [
      {
       "Fn::GetAtt": [
-       "AppALBSecurityGroup30809A2C",
+       "transendencealbSecurityGroup931419BD",
        "GroupId"
       ]
      }
     ],
     "Subnets": [
-     "subnet-0197d3ca7498ff828",
-     "subnet-06e45a7caf458f59b"
+     "subnet-08ef90148a73875c9",
+     "subnet-0b801842217104962"
     ],
     "Type": "application"
    },
    "Metadata": {
-    "aws:cdk:path": "alb-stack/AppALB/Resource"
+    "aws:cdk:path": "alb-stack/transendence-alb/Resource"
    }
   },
-  "AppALBSecurityGroup30809A2C": {
+  "transendencealbSecurityGroup931419BD": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "Automatically created Security Group for ELB albstackAppALB26CED350",
+    "GroupDescription": "Automatically created Security Group for ELB albstacktransendencealb3BBA6F61",
     "SecurityGroupEgress": [
      {
       "CidrIp": "255.255.255.255/32",
@@ -76,13 +76,13 @@
       "ToPort": 443
      }
     ],
-    "VpcId": "vpc-04eca5ddbfd06fabc"
+    "VpcId": "vpc-0cb6e0faa400c3303"
    },
    "Metadata": {
-    "aws:cdk:path": "alb-stack/AppALB/SecurityGroup/Resource"
+    "aws:cdk:path": "alb-stack/transendence-alb/SecurityGroup/Resource"
    }
   },
-  "AppALBHttpRedirectListener9C9F211E": {
+  "transendencealbHttpRedirectListenerB6FA0EFA": {
    "Type": "AWS::ElasticLoadBalancingV2::Listener",
    "Properties": {
     "DefaultActions": [
@@ -96,16 +96,16 @@
      }
     ],
     "LoadBalancerArn": {
-     "Ref": "AppALBDBE7026A"
+     "Ref": "transendencealbA0DD9043"
     },
     "Port": 80,
     "Protocol": "HTTP"
    },
    "Metadata": {
-    "aws:cdk:path": "alb-stack/AppALB/HttpRedirectListener/Resource"
+    "aws:cdk:path": "alb-stack/transendence-alb/HttpRedirectListener/Resource"
    }
   },
-  "AppALBHttpsListener75ADFE18": {
+  "transendencealbHttpsListener2432D3EA": {
    "Type": "AWS::ElasticLoadBalancingV2::Listener",
    "Properties": {
     "Certificates": [
@@ -124,16 +124,16 @@
      }
     ],
     "LoadBalancerArn": {
-     "Ref": "AppALBDBE7026A"
+     "Ref": "transendencealbA0DD9043"
     },
     "Port": 443,
     "Protocol": "HTTPS"
    },
    "Metadata": {
-    "aws:cdk:path": "alb-stack/AppALB/HttpsListener/Resource"
+    "aws:cdk:path": "alb-stack/transendence-alb/HttpsListener/Resource"
    }
   },
-  "AppALBHttpsListenerApiRouteRule0FE74FD9": {
+  "transendencealbHttpsListenerApiRouteRuleBA6C8E72": {
    "Type": "AWS::ElasticLoadBalancingV2::ListenerRule",
    "Properties": {
     "Actions": [
@@ -155,15 +155,15 @@
      }
     ],
     "ListenerArn": {
-     "Ref": "AppALBHttpsListener75ADFE18"
+     "Ref": "transendencealbHttpsListener2432D3EA"
     },
     "Priority": 1
    },
    "Metadata": {
-    "aws:cdk:path": "alb-stack/AppALB/HttpsListener/ApiRouteRule/Resource"
+    "aws:cdk:path": "alb-stack/transendence-alb/HttpsListener/ApiRouteRule/Resource"
    }
   },
-  "AppALBHttpsListenerAvatarsRouteRule439EAC1B": {
+  "transendencealbHttpsListenerAvatarsRouteRuleA10A4037": {
    "Type": "AWS::ElasticLoadBalancingV2::ListenerRule",
    "Properties": {
     "Actions": [
@@ -185,15 +185,15 @@
      }
     ],
     "ListenerArn": {
-     "Ref": "AppALBHttpsListener75ADFE18"
+     "Ref": "transendencealbHttpsListener2432D3EA"
     },
     "Priority": 2
    },
    "Metadata": {
-    "aws:cdk:path": "alb-stack/AppALB/HttpsListener/AvatarsRouteRule/Resource"
+    "aws:cdk:path": "alb-stack/transendence-alb/HttpsListener/AvatarsRouteRule/Resource"
    }
   },
-  "AppALBHttpsListenerDefaultRouteRule150D01D1": {
+  "transendencealbHttpsListenerDefaultRouteRuleDAE2F398": {
    "Type": "AWS::ElasticLoadBalancingV2::ListenerRule",
    "Properties": {
     "Actions": [
@@ -215,12 +215,12 @@
      }
     ],
     "ListenerArn": {
-     "Ref": "AppALBHttpsListener75ADFE18"
+     "Ref": "transendencealbHttpsListener2432D3EA"
     },
     "Priority": 10
    },
    "Metadata": {
-    "aws:cdk:path": "alb-stack/AppALB/HttpsListener/DefaultRouteRule/Resource"
+    "aws:cdk:path": "alb-stack/transendence-alb/HttpsListener/DefaultRouteRule/Resource"
    }
   },
   "FrontendTGE1AACCED": {
@@ -239,7 +239,7 @@
      }
     ],
     "TargetType": "ip",
-    "VpcId": "vpc-04eca5ddbfd06fabc"
+    "VpcId": "vpc-0cb6e0faa400c3303"
    },
    "Metadata": {
     "aws:cdk:path": "alb-stack/FrontendTG/Resource"
@@ -261,16 +261,32 @@
      }
     ],
     "TargetType": "ip",
-    "VpcId": "vpc-04eca5ddbfd06fabc"
+    "VpcId": "vpc-0cb6e0faa400c3303"
    },
    "Metadata": {
     "aws:cdk:path": "alb-stack/BackendTG/Resource"
    }
   },
+  "ALBEndpoint9D687F39": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Name": "/transendence/alb/arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "transendencealbA0DD9043",
+      "DNSName"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "alb-stack/ALBEndpoint/Resource"
+   }
+  },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/7WQT08CMRDFPws9mm7F5cYNPRgSEwl42xAztANWynTtHzak6Xc3WzBZlKuHpnlv3vw601rU41qMR9D5Sqp9ZfRGpFUAuedL9DY6iQ27Y/zGWfOnLS3AwQEDOg6df09owActjQW1AQMkNe2OtUiztjVaQtCWXiyox1JD1/zGDYt82KR9QLpu+DPLT+hW4zIaHGaKHuTewO0wPDsb2z42kJmjrEVaoYxOh1PxmsSOrWTT8rpCL51ue8rFAWNsNzPmNYaNjaTYdAvGY+aJgVJz2jn0vp+ATZvEJNCcjCY8O8FF5ExaIpQ901+gkfRXxLkqMvOUy+4FvP5HcvnZq+VzznxxCh+W7ifioRaT0afXunKRgj6gWJ7vb2zD0tVZAgAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/7VSTU8CMRD9LfRoSsXlxg09GBKjBIyXDTFDd1gr3enaDwhp+t/NFjCLcvXQtPPmvdeZdgpRjAoxGsDeDWW1HWq1FnHpQW75Ap0JVmLJbhi/slb8YUNzsNCgR8th794janBeSW2gWoMGkorqXSHitG21kuCVoScD1X3OoS1/2/WTvC9SziNdCv7UciZdEy6Cxj4nxz3eK9ga/aM1oe1ovTBxlIWIS5TBKn/IWBnZrpVskm+v0Emr2s7lhIDWZj/V+iX4tQlUsckGtMPEI4OqmlFt0bmuAjYpI5NAM9KK8Ih4G5AzaYhQdp7uZBpIfQWcVTlMPKbcezZe/aNzftmL5hN3rumGxCqqf/6/jKw9n5+hwZO3y6w30OGIpMupSSnx+cF/GLodi7tCjAefTqmhDeRVg2Jx3L8Bme6DpKUCAAA="
    },
    "Metadata": {
     "aws:cdk:path": "alb-stack/CDKMetadata/Default"

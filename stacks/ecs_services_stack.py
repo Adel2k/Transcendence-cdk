@@ -100,7 +100,8 @@ class ECSServicesStack(Stack):
             self, f"{name.capitalize()}Service",
             cluster=cluster,
             task_definition=task_def,
-            desired_count=1
+            desired_count=1,
+            service_name=name,
         )
 
         ssm.StringParameter(

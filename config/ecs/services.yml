@@ -11,6 +11,7 @@ services:
   - name: backend
     repo: backend
     port: 3000
+    target_group: backend
     secrets:
       JWT_SECRET: JWT_EXPIRES_IN/JWT_SECRET/DEFAULT_AVATAR
       JWT_EXPIRES_IN: JWT_EXPIRES_IN/JWT_SECRET/DEFAULT_AVATAR
@@ -20,3 +21,4 @@ services:
   - name: frontend
     repo: frontend
     port: 80
+    target_group: frontend

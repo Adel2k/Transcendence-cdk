@@ -85,9 +85,7 @@ route53_stack = Route53Stack(
 # waf_stack = WAFStack(
 #     app,
 #     "waf-stack",
-#     alb=alb_stack.alb,
 #     env=env
 # )
-
 
 app.synth()

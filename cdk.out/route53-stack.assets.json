@@ -1,7 +1,7 @@
 {
-  "version": "45.0.0",
+  "version": "44.0.0",
   "files": {
-    "3b724723996f7db03b4c13bf376ee38f202ef69f2be7e48dd228c4872dcdb3d8": {
+    "07741c530de70577394ee3e82c850e841b8cfa786d14844054ef2760bbff06b6": {
       "displayName": "route53-stack Template",
       "source": {
         "path": "route53-stack.template.json",
@@ -10,7 +10,7 @@
       "destinations": {
         "577638398727-eu-west-2": {
           "bucketName": "cdk-hnb659fds-assets-577638398727-eu-west-2",
-          "objectKey": "3b724723996f7db03b4c13bf376ee38f202ef69f2be7e48dd228c4872dcdb3d8.json",
+          "objectKey": "07741c530de70577394ee3e82c850e841b8cfa786d14844054ef2760bbff06b6.json",
           "region": "eu-west-2",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-file-publishing-role-577638398727-eu-west-2"
         }

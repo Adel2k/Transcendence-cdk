@@ -533,7 +533,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-deploy-role-577638398727-eu-west-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-cfn-exec-role-577638398727-eu-west-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-577638398727-eu-west-2/2948375efc8ccba7dab71a4c3bd32eef1c70e7580fecd7880941aa07ea837c56.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-577638398727-eu-west-2/0b7d950c3a866588c54c5e358657ed1c8e0a3f25ad849edb0714a49adb4df1a3.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -847,7 +847,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-deploy-role-577638398727-eu-west-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-cfn-exec-role-577638398727-eu-west-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-577638398727-eu-west-2/7d8bc49e322dae13b36721fc687b30717a56e14fb0b30ef3507a8ef08a5afa45.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-577638398727-eu-west-2/cd7d157367f79a9a9d968054da8f6a4a568cf7e3b35e36aee5a0c4aa8ed3ed2d.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -1548,7 +1548,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-deploy-role-577638398727-eu-west-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-cfn-exec-role-577638398727-eu-west-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-577638398727-eu-west-2/514bb21fabd671f4f19582405e0dca85969c6c87489fc512f73570d545ca2f1a.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-577638398727-eu-west-2/7fcb527b2674b7b9bf85e7df2a55402b0e0a56b7092128a74b3e79fa9c8dae49.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -1847,16 +1847,16 @@
             "type": "aws:cdk:warning",
             "data": "minHealthyPercent has not been configured so the default value of 50% is used. The number of running tasks will decrease below the desired count during deployments etc. See https://github.com/aws/aws-cdk/issues/31705 [ack: @aws-cdk/aws-ecs:minHealthyPercent]",
             "trace": [
-              "Annotations.addMessage (/tmp/jsii-kernel-zdX2VZ/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1709)",
-              "Annotations.addWarningV2 (/tmp/jsii-kernel-zdX2VZ/node_modules/aws-cdk-lib/core/lib/annotations.js:1:896)",
-              "new BaseService (/tmp/jsii-kernel-zdX2VZ/node_modules/aws-cdk-lib/aws-ecs/lib/base/base-service.js:1:8201)",
-              "new Ec2Service2 (/tmp/jsii-kernel-zdX2VZ/node_modules/aws-cdk-lib/aws-ecs/lib/ec2/ec2-service.js:1:3876)",
-              "new Ec2Service2 (/tmp/jsii-kernel-zdX2VZ/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
-              "Kernel._Kernel_create (/tmp/tmpg2w7lhlv/lib/program.js:548:25)",
-              "Kernel.create (/tmp/tmpg2w7lhlv/lib/program.js:218:93)",
-              "KernelHost.processRequest (/tmp/tmpg2w7lhlv/lib/program.js:15467:36)",
-              "KernelHost.run (/tmp/tmpg2w7lhlv/lib/program.js:15427:22)",
-              "Immediate._onImmediate (/tmp/tmpg2w7lhlv/lib/program.js:15428:46)",
+              "Annotations.addMessage (/tmp/jsii-kernel-lo44sY/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1709)",
+              "Annotations.addWarningV2 (/tmp/jsii-kernel-lo44sY/node_modules/aws-cdk-lib/core/lib/annotations.js:1:896)",
+              "new BaseService (/tmp/jsii-kernel-lo44sY/node_modules/aws-cdk-lib/aws-ecs/lib/base/base-service.js:1:8201)",
+              "new Ec2Service2 (/tmp/jsii-kernel-lo44sY/node_modules/aws-cdk-lib/aws-ecs/lib/ec2/ec2-service.js:1:3876)",
+              "new Ec2Service2 (/tmp/jsii-kernel-lo44sY/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
+              "Kernel._Kernel_create (/tmp/tmpsulx8p7e/lib/program.js:548:25)",
+              "Kernel.create (/tmp/tmpsulx8p7e/lib/program.js:218:93)",
+              "KernelHost.processRequest (/tmp/tmpsulx8p7e/lib/program.js:15467:36)",
+              "KernelHost.run (/tmp/tmpsulx8p7e/lib/program.js:15427:22)",
+              "Immediate._onImmediate (/tmp/tmpsulx8p7e/lib/program.js:15428:46)",
               "process.processImmediate (node:internal/timers:483:21)"
             ]
           },
@@ -2131,16 +2131,16 @@
             "type": "aws:cdk:warning",
             "data": "minHealthyPercent has not been configured so the default value of 50% is used. The number of running tasks will decrease below the desired count during deployments etc. See https://github.com/aws/aws-cdk/issues/31705 [ack: @aws-cdk/aws-ecs:minHealthyPercent]",
             "trace": [
-              "Annotations.addMessage (/tmp/jsii-kernel-zdX2VZ/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1709)",
-              "Annotations.addWarningV2 (/tmp/jsii-kernel-zdX2VZ/node_modules/aws-cdk-lib/core/lib/annotations.js:1:896)",
-              "new BaseService (/tmp/jsii-kernel-zdX2VZ/node_modules/aws-cdk-lib/aws-ecs/lib/base/base-service.js:1:8201)",
-              "new Ec2Service2 (/tmp/jsii-kernel-zdX2VZ/node_modules/aws-cdk-lib/aws-ecs/lib/ec2/ec2-service.js:1:3876)",
-              "new Ec2Service2 (/tmp/jsii-kernel-zdX2VZ/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
-              "Kernel._Kernel_create (/tmp/tmpg2w7lhlv/lib/program.js:548:25)",
-              "Kernel.create (/tmp/tmpg2w7lhlv/lib/program.js:218:93)",
-              "KernelHost.processRequest (/tmp/tmpg2w7lhlv/lib/program.js:15467:36)",
-              "KernelHost.run (/tmp/tmpg2w7lhlv/lib/program.js:15427:22)",
-              "Immediate._onImmediate (/tmp/tmpg2w7lhlv/lib/program.js:15428:46)",
+              "Annotations.addMessage (/tmp/jsii-kernel-lo44sY/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1709)",
+              "Annotations.addWarningV2 (/tmp/jsii-kernel-lo44sY/node_modules/aws-cdk-lib/core/lib/annotations.js:1:896)",
+              "new BaseService (/tmp/jsii-kernel-lo44sY/node_modules/aws-cdk-lib/aws-ecs/lib/base/base-service.js:1:8201)",
+              "new Ec2Service2 (/tmp/jsii-kernel-lo44sY/node_modules/aws-cdk-lib/aws-ecs/lib/ec2/ec2-service.js:1:3876)",
+              "new Ec2Service2 (/tmp/jsii-kernel-lo44sY/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
+              "Kernel._Kernel_create (/tmp/tmpsulx8p7e/lib/program.js:548:25)",
+              "Kernel.create (/tmp/tmpsulx8p7e/lib/program.js:218:93)",
+              "KernelHost.processRequest (/tmp/tmpsulx8p7e/lib/program.js:15467:36)",
+              "KernelHost.run (/tmp/tmpsulx8p7e/lib/program.js:15427:22)",
+              "Immediate._onImmediate (/tmp/tmpsulx8p7e/lib/program.js:15428:46)",
               "process.processImmediate (node:internal/timers:483:21)"
             ]
           },
@@ -3602,7 +3602,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-deploy-role-577638398727-eu-west-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-cfn-exec-role-577638398727-eu-west-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-577638398727-eu-west-2/b8820d9312cfb6612bb0dde4b0f0236b15d55e47f42611541ce4262e4f80cca7.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-577638398727-eu-west-2/97b019d1d815948dd15ca0e55e297a45741a01f64c268718759856d1e28c1fe3.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -3660,19 +3660,19 @@
             "data": "*"
           }
         ],
-        "/alb-stack/SsmParameterValue:--transendence--ecs--services--backend--service_name:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "SsmParameterValuetransendenceecsservicesbackendservicenameC96584B6F00A464EAD1953AFF4B05118Parameter"
-          }
-        ],
         "/alb-stack/SsmParameterValue:--transendence--ecs--services--frontend--service_name:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
           {
             "type": "aws:cdk:logicalId",
             "data": "SsmParameterValuetransendenceecsservicesfrontendservicenameC96584B6F00A464EAD1953AFF4B05118Parameter"
           }
         ],
-        "/alb-stack/AppALB": [
+        "/alb-stack/SsmParameterValue:--transendence--ecs--services--backend--service_name:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SsmParameterValuetransendenceecsservicesbackendservicenameC96584B6F00A464EAD1953AFF4B05118Parameter"
+          }
+        ],
+        "/alb-stack/transendence-alb": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": "*"
@@ -3686,13 +3686,13 @@
             "data": "*"
           }
         ],
-        "/alb-stack/AppALB/Resource": [
+        "/alb-stack/transendence-alb/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "AppALBDBE7026A"
+            "data": "transendencealbA0DD9043"
           }
         ],
-        "/alb-stack/AppALB/SecurityGroup": [
+        "/alb-stack/transendence-alb/SecurityGroup": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": {
@@ -3732,25 +3732,25 @@
             }
           }
         ],
-        "/alb-stack/AppALB/SecurityGroup/Resource": [
+        "/alb-stack/transendence-alb/SecurityGroup/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "AppALBSecurityGroup30809A2C"
+            "data": "transendencealbSecurityGroup931419BD"
           }
         ],
-        "/alb-stack/AppALB/HttpRedirectListener": [
+        "/alb-stack/transendence-alb/HttpRedirectListener": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": "*"
           }
         ],
-        "/alb-stack/AppALB/HttpRedirectListener/Resource": [
+        "/alb-stack/transendence-alb/HttpRedirectListener/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "AppALBHttpRedirectListener9C9F211E"
+            "data": "transendencealbHttpRedirectListenerB6FA0EFA"
           }
         ],
-        "/alb-stack/AppALB/HttpsListener": [
+        "/alb-stack/transendence-alb/HttpsListener": [
           {
             "type": "aws:cdk:analytics:construct",
             "data": "*"
@@ -3772,28 +3772,28 @@
             "data": "*"
           }
         ],
-        "/alb-stack/AppALB/HttpsListener/Resource": [
+        "/alb-stack/transendence-alb/HttpsListener/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "AppALBHttpsListener75ADFE18"
+            "data": "transendencealbHttpsListener2432D3EA"
           }
         ],
-        "/alb-stack/AppALB/HttpsListener/ApiRouteRule/Resource": [
+        "/alb-stack/transendence-alb/HttpsListener/ApiRouteRule/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "AppALBHttpsListenerApiRouteRule0FE74FD9"
+            "data": "transendencealbHttpsListenerApiRouteRuleBA6C8E72"
           }
         ],
-        "/alb-stack/AppALB/HttpsListener/AvatarsRouteRule/Resource": [
+        "/alb-stack/transendence-alb/HttpsListener/AvatarsRouteRule/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "AppALBHttpsListenerAvatarsRouteRule439EAC1B"
+            "data": "transendencealbHttpsListenerAvatarsRouteRuleA10A4037"
           }
         ],
-        "/alb-stack/AppALB/HttpsListener/DefaultRouteRule/Resource": [
+        "/alb-stack/transendence-alb/HttpsListener/DefaultRouteRule/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "AppALBHttpsListenerDefaultRouteRule150D01D1"
+            "data": "transendencealbHttpsListenerDefaultRouteRuleDAE2F398"
           }
         ],
         "/alb-stack/FrontendTG/Resource": [
@@ -3806,6 +3806,21 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "BackendTG79530091"
+          }
+        ],
+        "/alb-stack/ALBEndpoint": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "parameterName": "*",
+              "stringValue": "*"
+            }
+          }
+        ],
+        "/alb-stack/ALBEndpoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ALBEndpoint9D687F39"
           }
         ],
         "/alb-stack/CDKMetadata/Default": [
@@ -3828,6 +3843,120 @@
         ]
       },
       "displayName": "alb-stack"
+    },
+    "route53-stack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "route53-stack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "route53-stack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://577638398727/eu-west-2",
+      "properties": {
+        "templateFile": "route53-stack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-deploy-role-577638398727-eu-west-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-cfn-exec-role-577638398727-eu-west-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-577638398727-eu-west-2/07741c530de70577394ee3e82c850e841b8cfa786d14844054ef2760bbff06b6.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "route53-stack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-lookup-role-577638398727-eu-west-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "route53-stack.assets"
+      ],
+      "metadata": {
+        "/route53-stack/ALB": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/route53-stack/ALB/Vpc": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/route53-stack/ALB/Vpc/PublicSubnet1": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/route53-stack/ALB/Vpc/PublicSubnet2": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/route53-stack/ALB/Vpc/PrivateSubnet1": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/route53-stack/ALB/Vpc/PrivateSubnet2": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/route53-stack/AliasRecord": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "zone": "*",
+              "recordName": "*",
+              "target": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "zone": "*",
+              "recordName": "*",
+              "target": "*"
+            }
+          }
+        ],
+        "/route53-stack/AliasRecord/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AliasRecord851000D2"
+          }
+        ],
+        "/route53-stack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/route53-stack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/route53-stack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "route53-stack"
     },
     "Tree": {
       "type": "cdk:tree",

@@ -172,6 +172,7 @@
     "EnableECSManagedTags": false,
     "LaunchType": "EC2",
     "SchedulingStrategy": "REPLICA",
+    "ServiceName": "backend",
     "TaskDefinition": {
      "Ref": "BackendTaskDef6ECE986E"
     }
@@ -363,6 +364,7 @@
     "EnableECSManagedTags": false,
     "LaunchType": "EC2",
     "SchedulingStrategy": "REPLICA",
+    "ServiceName": "frontend",
     "TaskDefinition": {
      "Ref": "FrontendTaskDef7D3FD156"
     }

@@ -12,7 +12,7 @@
       "IpProtocol": "-1"
      }
     ],
-    "VpcId": "vpc-04eca5ddbfd06fabc"
+    "VpcId": "vpc-0cb6e0faa400c3303"
    },
    "Metadata": {
     "aws:cdk:path": "security-stack/lambda-sg/Resource"
@@ -39,7 +39,7 @@
       "ToPort": 22
      }
     ],
-    "VpcId": "vpc-04eca5ddbfd06fabc"
+    "VpcId": "vpc-0cb6e0faa400c3303"
    },
    "Metadata": {
     "aws:cdk:path": "security-stack/bastion-sg/Resource"
@@ -57,7 +57,7 @@
       "IpProtocol": "-1"
      }
     ],
-    "VpcId": "vpc-04eca5ddbfd06fabc"
+    "VpcId": "vpc-0cb6e0faa400c3303"
    },
    "Metadata": {
     "aws:cdk:path": "security-stack/ecs-sg/Resource"
@@ -75,7 +75,7 @@
       "IpProtocol": "-1"
      }
     ],
-    "VpcId": "vpc-04eca5ddbfd06fabc"
+    "VpcId": "vpc-0cb6e0faa400c3303"
    },
    "Metadata": {
     "aws:cdk:path": "security-stack/db-sg/Resource"

@@ -26,7 +26,7 @@
       "Value": "ecs-cluster-stack/transendenceCluster/DefaultAutoScalingGroup"
      }
     ],
-    "VpcId": "vpc-04eca5ddbfd06fabc"
+    "VpcId": "vpc-0cb6e0faa400c3303"
    },
    "Metadata": {
     "aws:cdk:path": "ecs-cluster-stack/transendenceCluster/DefaultAutoScalingGroup/InstanceSecurityGroup/Resource"
@@ -238,8 +238,8 @@
      }
     ],
     "VPCZoneIdentifier": [
-     "subnet-0197d3ca7498ff828",
-     "subnet-06e45a7caf458f59b"
+     "subnet-08ef90148a73875c9",
+     "subnet-0b801842217104962"
     ]
    },
    "UpdatePolicy": {

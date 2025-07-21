@@ -4,20 +4,8 @@
    "Type": "AWS::Route53::RecordSet",
    "Properties": {
     "AliasTarget": {
-     "DNSName": {
-      "Fn::Join": [
-       "",
-       [
-        "dualstack.",
-        {
-         "Fn::ImportValue": "alb-stack:ExportsOutputFnGetAttAppALBDBE7026ADNSNameA085A48D"
-        }
-       ]
-      ]
-     },
-     "HostedZoneId": {
-      "Fn::ImportValue": "alb-stack:ExportsOutputFnGetAttAppALBDBE7026ACanonicalHostedZoneIDCF79ADAC"
-     }
+     "DNSName": "dualstack.alb-st-trans-xqQ7iIcfvGZ5-818029417.eu-west-2.elb.amazonaws.com",
+     "HostedZoneId": "ZHURV8PSTC4K8"
     },
     "HostedZoneId": "Z05665242V72OKDJR354Z",
     "Name": "transendence.dev.yospace.ai.",
@@ -30,7 +18,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/42NwQrCMBAFv6U5SrLWVC/exLtIeyxFYrpqrE1gs6Voyb8LLd49DW94MBp0voU8M2NUtu3Uy11hqtjYTpYYw0AW60aaMV4oDIy7AqZDiTZQW0/iEzyKvVgJKWh2J9P/BBu6I88jyf+vjTze/BKokFOS5zc/gl8XsNFQZM/onKLBs+sRyoVfL0K4WsMAAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/42NsQrCMBRFv6UZJX3WBBc3cRdpx1Ikpk+NtQkkLxQN+Xehxc3B4XK5hwNXgKgEVIWaQqn7oXyaC6SGlB54jcFFr7FlK8Z/pONqCmfvIuFWQtrXqJ3v28TeziLbzZaf2VGNX0DK35Dmkfn/ascPV7scNEg589OL7s6uJWwEyOIRjCl9tGRGhHrpD0IfutvaAAAA"
    },
    "Metadata": {
     "aws:cdk:path": "route53-stack/CDKMetadata/Default"

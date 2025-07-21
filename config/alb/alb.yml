@@ -9,14 +9,14 @@ certificate:
 
 alb:
   name: transendence-alb
-  endpoint_ssm: "/transendence/alb/endpoint"
+  endpoint_ssm: "/transendence/alb/arn"
   redirect_http: true
 
   services:
     - name: frontend
-      ecs_service_ssm_param: "/transendence/services/frontend/name"
+      ecs_service_ssm_param: "/transendence/ecs/services/frontend/service_name"
     - name: backend
-      ecs_service_ssm_param: "/transendence/services/backend/name"
+      ecs_service_ssm_param: "/transendence/ecs/services/backend/service_name"
 
   target_groups:
     frontend:
