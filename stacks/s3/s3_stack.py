@@ -1,5 +1,4 @@
 from aws_cdk import (
-    Stack,
     Duration,
     RemovalPolicy,
     aws_s3 as s3
@@ -40,10 +39,8 @@ class S3Stack(tools):
                     allowed_headers=rule["headers"]
                 ))
 
-            normalized_bucket_id = ''.join(word.capitalize() for word in bucket_name.replace('-', ' ').split()) + "Bucket"
-
             bucket = s3.Bucket(self,
-                normalized_bucket_id,
+                f"{bucket_name}-Bucket",
                 bucket_name=bucket_name,
                 versioned=versioned,
                 encryption=s3.BucketEncryption.S3_MANAGED if encrypted else s3.BucketEncryption.UNENCRYPTED,

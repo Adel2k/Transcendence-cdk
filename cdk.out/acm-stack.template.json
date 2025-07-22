@@ -1,38 +1,38 @@
 {
  "Resources": {
-  "transendencedevcertCertificateABE2F64D": {
+  "transendencedevcerttransendencedevyospaceaiCertificate866E2148": {
    "Type": "AWS::CertificateManager::Certificate",
    "Properties": {
-    "DomainName": "dev.yospace.ai",
+    "DomainName": "transendence.dev.yospace.ai",
     "DomainValidationOptions": [
      {
-      "DomainName": "dev.yospace.ai",
+      "DomainName": "transendence.dev.yospace.ai",
       "HostedZoneId": "Z05665242V72OKDJR354Z"
      }
     ],
     "Tags": [
      {
       "Key": "Name",
-      "Value": "acm-stack/transendence-dev-cert-Certificate"
+      "Value": "acm-stack/transendence-dev-cert-transendence.dev.yospace.ai-Certificate"
      }
     ],
     "ValidationMethod": "DNS"
    },
    "Metadata": {
-    "aws:cdk:path": "acm-stack/transendence-dev-cert-Certificate/Resource"
+    "aws:cdk:path": "acm-stack/transendence-dev-cert-transendence.dev.yospace.ai-Certificate/Resource"
    }
   },
-  "transendencedevcertCertArn04BD0FF9": {
+  "transendencedevcerttransendencedevyospaceaiCertArn61158996": {
    "Type": "AWS::SSM::Parameter",
    "Properties": {
     "Name": "/transendence-dev-cert/ecs/certificate",
     "Type": "String",
     "Value": {
-     "Ref": "transendencedevcertCertificateABE2F64D"
+     "Ref": "transendencedevcerttransendencedevyospaceaiCertificate866E2148"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "acm-stack/transendence-dev-cert-CertArn/Resource"
+    "aws:cdk:path": "acm-stack/transendence-dev-cert-transendence.dev.yospace.ai-CertArn/Resource"
    }
   },
   "CDKMetadata": {

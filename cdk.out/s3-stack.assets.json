@@ -1,7 +1,7 @@
 {
   "version": "44.0.0",
   "files": {
-    "dd8d4685559dc81c81bbeeacf11ec7107396c342eb3ecdd8179d23671aca5a18": {
+    "0124a62292db51e1b8ae31beed0ba28d63280e29abc7b2705119810f844e0eed": {
       "displayName": "s3-stack Template",
       "source": {
         "path": "s3-stack.template.json",
@@ -10,7 +10,7 @@
       "destinations": {
         "577638398727-eu-west-2": {
           "bucketName": "cdk-hnb659fds-assets-577638398727-eu-west-2",
-          "objectKey": "dd8d4685559dc81c81bbeeacf11ec7107396c342eb3ecdd8179d23671aca5a18.json",
+          "objectKey": "0124a62292db51e1b8ae31beed0ba28d63280e29abc7b2705119810f844e0eed.json",
           "region": "eu-west-2",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-file-publishing-role-577638398727-eu-west-2"
         }

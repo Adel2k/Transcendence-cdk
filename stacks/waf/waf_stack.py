@@ -1,9 +1,8 @@
-from aws_cdk import Stack, aws_wafv2 as wafv2
+from aws_cdk import aws_wafv2 as wafv2
 from aws_cdk.aws_elasticloadbalancingv2 import IApplicationLoadBalancer
 from constructs import Construct
-from aws_cdk import aws_ec2 as ec2
-from aws_cdk import aws_elasticloadbalancingv2 as elbv2
 from helpers.tools import tools
+from aws_cdk import aws_ssm as ssm
 
 class WAFStack(tools):
     def __init__(
@@ -14,7 +13,7 @@ class WAFStack(tools):
             ):
         super().__init__(scope, id, **kwargs)
 
-        config = load_yaml_config("config/waf/waf.yml")
+        config = self.load_yaml_config("config/waf/waf.yml")
         acl_cfg = config["web_acl"]
 
         web_acl = wafv2.CfnWebACL(
@@ -29,11 +28,13 @@ class WAFStack(tools):
             name=acl_cfg["name"],
             rules=self.build_managed_rules(acl_cfg["rules"])
         )
+        alb_name = acl_cfg["alb_arn"]
 
-        alb = IApplicationLoadBalancer.from_lookup(self, "ALB", load_balancer_arn=config['alb_arn'])
+        ssm_path = self.generate_ssm_parameter_path(alb_name, None, aws_service="alb")
+        alb_arn = ssm.StringParameter.value_for_string_parameter(self, ssm_path)
 
         wafv2.CfnWebACLAssociation(
             self, "WAFALBAssociation",
-            resource_arn=alb.load_balancer_arn,
+            resource_arn=alb_arn,
             web_acl_arn=web_acl.attr_arn
         )

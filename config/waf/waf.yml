@@ -14,4 +14,4 @@ web_acl:
         name: AWSManagedRulesSQLiRuleSet
         vendor: AWS
       metric_name: SQLiProtection
-  alb_arn: Ref
+  alb_arn: transendence-alb

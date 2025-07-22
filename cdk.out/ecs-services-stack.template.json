@@ -11,7 +11,7 @@
     "aws:cdk:path": "ecs-services-stack/backendLogGroup/Resource"
    }
   },
-  "backendTaskDef86FA9658": {
+  "TransendenceclusterBackendTaskdef88A7160A": {
    "Type": "AWS::ECS::TaskDefinition",
    "Properties": {
     "ContainerDefinitions": [
@@ -41,7 +41,7 @@
        }
       },
       "MemoryReservation": 256,
-      "Name": "backendContainer",
+      "Name": "Transendence-cluster-Backend-Container",
       "PortMappings": [
        {
         "ContainerPort": 3000,
@@ -71,11 +71,11 @@
     ],
     "ExecutionRoleArn": {
      "Fn::GetAtt": [
-      "backendTaskDefExecutionRoleA6E07DA6",
+      "TransendenceclusterBackendTaskdefExecutionRoleFD28F25C",
       "Arn"
      ]
     },
-    "Family": "ecsservicesstackbackendTaskDef6EFD6519",
+    "Family": "ecsservicesstackTransendenceclusterBackendTaskdef457246A7",
     "NetworkMode": "bridge",
     "RequiresCompatibilities": [
      "EC2"
@@ -83,10 +83,10 @@
     "TaskRoleArn": "arn:aws:iam::577638398727:role/tmp-transendence-ecs-task-role"
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/backendTaskDef/Resource"
+    "aws:cdk:path": "ecs-services-stack/Transendence-cluster-Backend-Taskdef/Resource"
    }
   },
-  "backendTaskDefExecutionRoleA6E07DA6": {
+  "TransendenceclusterBackendTaskdefExecutionRoleFD28F25C": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -103,10 +103,10 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/backendTaskDef/ExecutionRole/Resource"
+    "aws:cdk:path": "ecs-services-stack/Transendence-cluster-Backend-Taskdef/ExecutionRole/Resource"
    }
   },
-  "backendTaskDefExecutionRoleDefaultPolicyCB1EA219": {
+  "TransendenceclusterBackendTaskdefExecutionRoleDefaultPolicy2F72F1A5": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -149,18 +149,18 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "backendTaskDefExecutionRoleDefaultPolicyCB1EA219",
+    "PolicyName": "TransendenceclusterBackendTaskdefExecutionRoleDefaultPolicy2F72F1A5",
     "Roles": [
      {
-      "Ref": "backendTaskDefExecutionRoleA6E07DA6"
+      "Ref": "TransendenceclusterBackendTaskdefExecutionRoleFD28F25C"
      }
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/backendTaskDef/ExecutionRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "ecs-services-stack/Transendence-cluster-Backend-Taskdef/ExecutionRole/DefaultPolicy/Resource"
    }
   },
-  "backendServiceCB9C81DA": {
+  "TransendenceclusterBackendService5375B797": {
    "Type": "AWS::ECS::Service",
    "Properties": {
     "Cluster": "transendence-cluster",
@@ -174,37 +174,37 @@
     "SchedulingStrategy": "REPLICA",
     "ServiceName": "backend",
     "TaskDefinition": {
-     "Ref": "backendTaskDef86FA9658"
+     "Ref": "TransendenceclusterBackendTaskdef88A7160A"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/backendService/Service"
+    "aws:cdk:path": "ecs-services-stack/Transendence-cluster-Backend-Service/Service"
    }
   },
-  "BackendTaskdefarn9B4C2791": {
+  "TransendenceclusterBackendTaskdefarnC5FC0C00": {
    "Type": "AWS::SSM::Parameter",
    "Properties": {
     "Name": "/transendence-cluster/backend/ecs/task-definition-arn",
     "Type": "String",
     "Value": {
-     "Ref": "backendTaskDef86FA9658"
+     "Ref": "TransendenceclusterBackendTaskdef88A7160A"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/Backend-Taskdefarn/Resource"
+    "aws:cdk:path": "ecs-services-stack/Transendence-cluster-Backend-Taskdefarn/Resource"
    }
   },
-  "BackendServicearn28223899": {
+  "TransendenceclusterBackendServicearnB3AC9096": {
    "Type": "AWS::SSM::Parameter",
    "Properties": {
     "Name": "/transendence-cluster/backend/ecs/service-arn",
     "Type": "String",
     "Value": {
-     "Ref": "backendServiceCB9C81DA"
+     "Ref": "TransendenceclusterBackendService5375B797"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/Backend-Servicearn/Resource"
+    "aws:cdk:path": "ecs-services-stack/Transendence-cluster-Backend-Servicearn/Resource"
    }
   },
   "frontendLogGroupB0BC7A13": {
@@ -218,7 +218,7 @@
     "aws:cdk:path": "ecs-services-stack/frontendLogGroup/Resource"
    }
   },
-  "frontendTaskDef621414C6": {
+  "TransendenceclusterFrontendTaskdef4F1F27CD": {
    "Type": "AWS::ECS::TaskDefinition",
    "Properties": {
     "ContainerDefinitions": [
@@ -248,7 +248,7 @@
        }
       },
       "MemoryReservation": 256,
-      "Name": "frontendContainer",
+      "Name": "Transendence-cluster-Frontend-Container",
       "PortMappings": [
        {
         "ContainerPort": 80,
@@ -260,11 +260,11 @@
     ],
     "ExecutionRoleArn": {
      "Fn::GetAtt": [
-      "frontendTaskDefExecutionRole231F863C",
+      "TransendenceclusterFrontendTaskdefExecutionRole90900A08",
       "Arn"
      ]
     },
-    "Family": "ecsservicesstackfrontendTaskDef7BFF1B3B",
+    "Family": "ecsservicesstackTransendenceclusterFrontendTaskdefF8212B01",
     "NetworkMode": "bridge",
     "RequiresCompatibilities": [
      "EC2"
@@ -272,10 +272,10 @@
     "TaskRoleArn": "arn:aws:iam::577638398727:role/tmp-transendence-ecs-task-role"
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/frontendTaskDef/Resource"
+    "aws:cdk:path": "ecs-services-stack/Transendence-cluster-Frontend-Taskdef/Resource"
    }
   },
-  "frontendTaskDefExecutionRole231F863C": {
+  "TransendenceclusterFrontendTaskdefExecutionRole90900A08": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -292,10 +292,10 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/frontendTaskDef/ExecutionRole/Resource"
+    "aws:cdk:path": "ecs-services-stack/Transendence-cluster-Frontend-Taskdef/ExecutionRole/Resource"
    }
   },
-  "frontendTaskDefExecutionRoleDefaultPolicy6474A826": {
+  "TransendenceclusterFrontendTaskdefExecutionRoleDefaultPolicy1BF112DB": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -330,18 +330,18 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "frontendTaskDefExecutionRoleDefaultPolicy6474A826",
+    "PolicyName": "TransendenceclusterFrontendTaskdefExecutionRoleDefaultPolicy1BF112DB",
     "Roles": [
      {
-      "Ref": "frontendTaskDefExecutionRole231F863C"
+      "Ref": "TransendenceclusterFrontendTaskdefExecutionRole90900A08"
      }
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/frontendTaskDef/ExecutionRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "ecs-services-stack/Transendence-cluster-Frontend-Taskdef/ExecutionRole/DefaultPolicy/Resource"
    }
   },
-  "frontendServiceAE6E1E0F": {
+  "TransendenceclusterFrontendService09104377": {
    "Type": "AWS::ECS::Service",
    "Properties": {
     "Cluster": "transendence-cluster",
@@ -355,37 +355,37 @@
     "SchedulingStrategy": "REPLICA",
     "ServiceName": "frontend",
     "TaskDefinition": {
-     "Ref": "frontendTaskDef621414C6"
+     "Ref": "TransendenceclusterFrontendTaskdef4F1F27CD"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/frontendService/Service"
+    "aws:cdk:path": "ecs-services-stack/Transendence-cluster-Frontend-Service/Service"
    }
   },
-  "FrontendTaskdefarn47703353": {
+  "TransendenceclusterFrontendTaskdefarnF8744790": {
    "Type": "AWS::SSM::Parameter",
    "Properties": {
     "Name": "/transendence-cluster/frontend/ecs/task-definition-arn",
     "Type": "String",
     "Value": {
-     "Ref": "frontendTaskDef621414C6"
+     "Ref": "TransendenceclusterFrontendTaskdef4F1F27CD"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/Frontend-Taskdefarn/Resource"
+    "aws:cdk:path": "ecs-services-stack/Transendence-cluster-Frontend-Taskdefarn/Resource"
    }
   },
-  "FrontendServicearn18BFCA12": {
+  "TransendenceclusterFrontendServicearn1628EA14": {
    "Type": "AWS::SSM::Parameter",
    "Properties": {
     "Name": "/transendence-cluster/frontend/ecs/service-arn",
     "Type": "String",
     "Value": {
-     "Ref": "frontendServiceAE6E1E0F"
+     "Ref": "TransendenceclusterFrontendService09104377"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/Frontend-Servicearn/Resource"
+    "aws:cdk:path": "ecs-services-stack/Transendence-cluster-Frontend-Servicearn/Resource"
    }
   },
   "CDKMetadata": {

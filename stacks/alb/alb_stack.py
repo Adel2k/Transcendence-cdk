@@ -1,5 +1,4 @@
 from aws_cdk import (
-    Stack,
     aws_ec2 as ec2,
     aws_elasticloadbalancingv2 as elbv2,
     aws_certificatemanager as acm,
@@ -19,7 +18,7 @@ class ALBStack(tools):
         for config in full_config.get("alb", []):
             alb_name = config["name"]
             vpc_id = self.get_vpc_id(config["vpc"])
-            vpc = ec2.Vpc.from_lookup(self, f"{alb_name}VpcImported", vpc_id=vpc_id)
+            vpc = ec2.Vpc.from_lookup(self, f"{alb_name}-VpcImported", vpc_id=vpc_id)
 
             cluster = ecs.Cluster.from_cluster_attributes(
                 self, f"{alb_name}ClusterImported",
@@ -37,7 +36,7 @@ class ALBStack(tools):
                     ssm_path
                 )
                 services[name] = ecs.Ec2Service.from_ec2_service_attributes(
-                    self, f"{name}ServiceImported",
+                    self, self.logical_id_generator(cluster.cluster_name, alb_name, name),
                     cluster=cluster,
                     service_name=service_name
                 )
@@ -49,7 +48,7 @@ class ALBStack(tools):
             )
 
             target_groups = {
-                tg_name: self.create_target_group(f"{alb_name}{tg_name}TG", vpc, cfg)
+                tg_name: self.create_target_group(f"{alb_name}-{tg_name}-TG", vpc, cfg)
                 for tg_name, cfg in config['target_groups'].items()
             }
 
@@ -63,12 +62,12 @@ class ALBStack(tools):
                 )
                 cert_param = ssm.StringParameter.from_string_parameter_attributes(
                     self,
-                    f"{alb_name}CertParam",
-                    parameter_name=ssm_path, 
+                    self.logical_id_generator(cluster, alb_name, "CertParam"),
+                    parameter_name=ssm_path,
                     simple_name=False
                 )
                 cert_arn = cert_param.string_value
-                certificate = acm.Certificate.from_certificate_arn(self, f"{alb_name}Cert", cert_arn)
+                certificate = acm.Certificate.from_certificate_arn(self, self.logical_id_generator(cluster, alb_name, ""), cert_arn)
 
             if certificate:
                 self.add_https_listener(

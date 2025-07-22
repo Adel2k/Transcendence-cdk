@@ -1,6 +1,6 @@
 {
  "Resources": {
-  "TransendenceAppAssetsBucketD539DE11": {
+  "transendenceappassetsBucketCA2EA8C9": {
    "Type": "AWS::S3::Bucket",
    "Properties": {
     "BucketEncryption": {
@@ -51,7 +51,7 @@
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
    "Metadata": {
-    "aws:cdk:path": "s3-stack/TransendenceAppAssetsBucket/Resource"
+    "aws:cdk:path": "s3-stack/transendence-app-assets-Bucket/Resource"
    }
   },
   "CDKMetadata": {

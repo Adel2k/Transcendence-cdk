@@ -157,10 +157,7 @@ class tools(Stack):
     ########################################################################
 
     def store_ssm_parameter(self: Construct, id: str, parameter_name: str, string_value: str):
-        """
-        Stores a value in SSM Parameter Store using CDK's ssm.StringParameter.
-        This function should be used during CDK synthesis.
-        """
+
         ssm.StringParameter(
             self,
             id,
@@ -169,8 +166,8 @@ class tools(Stack):
         )
     ########################################################################
 
-    def logical_id_generator(self, name: str, type: str) -> str:
-        return f"{name.capitalize()}-{type.capitalize()}"
+    def logical_id_generator(self, cluster_name: str, type: str, aws_service: str) -> str:
+        return f"{cluster_name.capitalize()}-{type.capitalize()}-{aws_service.capitalize()}"
     
     #########################################################################
 

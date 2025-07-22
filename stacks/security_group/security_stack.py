@@ -1,7 +1,4 @@
-import os
-import yaml
-from aws_cdk import (
-    Stack, aws_ec2 as ec2, CfnOutput
+from aws_cdk import ( aws_ec2 as ec2, CfnOutput
 )
 from constructs import Construct
 from helpers.tools import tools

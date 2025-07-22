@@ -1,10 +1,7 @@
-import os
-import yaml
 from aws_cdk import (
     aws_iam as iam,
 )
 from constructs import Construct
-from aws_cdk import aws_ssm as ssm
 from helpers.tools import tools
 
 

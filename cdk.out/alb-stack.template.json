@@ -118,7 +118,7 @@
     "DefaultActions": [
      {
       "TargetGroupArn": {
-       "Ref": "transendencealbfrontendTG1A170487"
+       "Ref": "transendencealbfrontendTGA6A52B9A"
       },
       "Type": "forward"
      }
@@ -139,7 +139,7 @@
     "Actions": [
      {
       "TargetGroupArn": {
-       "Ref": "transendencealbbackendTGEE4B0EB8"
+       "Ref": "transendencealbbackendTG5A613075"
       },
       "Type": "forward"
      }
@@ -169,7 +169,7 @@
     "Actions": [
      {
       "TargetGroupArn": {
-       "Ref": "transendencealbbackendTGEE4B0EB8"
+       "Ref": "transendencealbbackendTG5A613075"
       },
       "Type": "forward"
      }
@@ -199,7 +199,7 @@
     "Actions": [
      {
       "TargetGroupArn": {
-       "Ref": "transendencealbfrontendTG1A170487"
+       "Ref": "transendencealbfrontendTGA6A52B9A"
       },
       "Type": "forward"
      }
@@ -223,7 +223,7 @@
     "aws:cdk:path": "alb-stack/transendence-alb/HttpsListener/DefaultRouteRule/Resource"
    }
   },
-  "transendencealbfrontendTG1A170487": {
+  "transendencealbfrontendTGA6A52B9A": {
    "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
    "Properties": {
     "HealthCheckPath": "/",
@@ -242,10 +242,10 @@
     "VpcId": "vpc-05d70e43ff4b66d37"
    },
    "Metadata": {
-    "aws:cdk:path": "alb-stack/transendence-albfrontendTG/Resource"
+    "aws:cdk:path": "alb-stack/transendence-alb-frontend-TG/Resource"
    }
   },
-  "transendencealbbackendTGEE4B0EB8": {
+  "transendencealbbackendTG5A613075": {
    "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
    "Properties": {
     "HealthCheckPath": "/api/health",
@@ -264,13 +264,13 @@
     "VpcId": "vpc-05d70e43ff4b66d37"
    },
    "Metadata": {
-    "aws:cdk:path": "alb-stack/transendence-albbackendTG/Resource"
+    "aws:cdk:path": "alb-stack/transendence-alb-backend-TG/Resource"
    }
   },
   "transendencealbEndpointB4946DD4": {
    "Type": "AWS::SSM::Parameter",
    "Properties": {
-    "Name": "/transendence/alb/arn",
+    "Name": "/transendence-alb/ecs/alb",
     "Type": "String",
     "Value": {
      "Fn::GetAtt": [

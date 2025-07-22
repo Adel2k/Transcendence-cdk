@@ -30,7 +30,7 @@ class VpcStack(tools):
                 for subnet in subnet_defs
             ]
 
-            logical_id = self.logical_id_generator(name, "vpc")
+            logical_id = self.logical_id_generator(name, "Create","vpc")
 
             vpc = ec2.Vpc(self, logical_id,
                 vpc_name=logical_id,
