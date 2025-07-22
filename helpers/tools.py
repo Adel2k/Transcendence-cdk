@@ -174,23 +174,21 @@ class tools(Stack):
     
     #########################################################################
 
-
-    def create_route53_record(scope: Construct, config_path: str = "config/route53/route53.yml"):
-        import yaml
-
-        with open(config_path, 'r') as f:
-            config = yaml.safe_load(f)["route53"]
-
-        ssm = boto3.client("ssm")
-        alb_name = config["alb_arn"]
-        alb_arn = ssm.get_parameter(Name=f"/{alb_name}/alb/arn")["Parameter"]["Value"]
-
-        alb = ApplicationLoadBalancer.from_lookup(scope, "ALB", load_balancer_arn=alb_arn)
-        hosted_zone = route53.HostedZone.from_lookup(scope, "HostedZone", domain_name=config["domain_name"])
+    def create_route53_record(self, domain_name: str, subdomain: str, alb: ApplicationLoadBalancer):
+        hosted_zone = route53.HostedZone.from_lookup(self, f"{subdomain}HostedZone", domain_name=domain_name)
 
         route53.ARecord(
-            scope, "AliasRecord",
+            self, f"{subdomain}AliasRecord",
             zone=hosted_zone,
-            record_name=config["subdomain"],
+            record_name=subdomain,
             target=route53.RecordTarget.from_alias(targets.LoadBalancerTarget(alb))
         )
+
+    #########################################################################
+
+    def generate_ssm_parameter_path(self, cluster_name: str, service_name: str, aws_service: str) -> str:
+        if service_name is None:
+            return f"/{cluster_name}/ecs/{aws_service}"
+        return f"/{cluster_name}/{service_name}/ecs/{aws_service}-arn"
+    
+    #########################################################################

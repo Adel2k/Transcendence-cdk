@@ -38,8 +38,11 @@ class GenericPipelineStack(tools):
         )
 
         for pipeline_def in config["pipelines"]:
+            ssm_path = self.generate_ssm_parameter_path(
+                pipeline_def["name"], None, aws_service="pipeline"
+            )
             service_name = ssm.StringParameter.value_for_string_parameter(
-                self, pipeline_def["ecs_service_ssm_param"]
+                self, ssm_path
             )
             service = ecs.Ec2Service.from_ec2_service_attributes(
                 self, f"{pipeline_def['name'].capitalize()}ServiceImported",

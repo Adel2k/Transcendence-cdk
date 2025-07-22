@@ -1,4 +1,0 @@
-route53:
-  domain_name: dev.yospace.ai
-  subdomain: transendence
-  alb_arn: transendence

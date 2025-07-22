@@ -60,9 +60,7 @@ class ECSClusterStack(tools):
                 max_capacity=max_capacity,
                 vpc_subnets=ec2.SubnetSelection(subnet_type=subnet_type),
             )
-            self.store_ssm_parameter(
-                normalized_ssm_id,
-                f"/ecs/{vpc_name}/{cluster_name}",
-                cluster.cluster_name
-            )
+            ssm_path = self.generate_ssm_parameter_path(cluster_name, service_name=None, aws_service="cluster")
+            self.store_ssm_parameter(normalized_ssm_id, ssm_path, cluster.cluster_name)
+
             CfnOutput(self, normalized_output_id, value=cluster.cluster_name)

@@ -570,7 +570,7 @@
   "TransendenceClusterParameterD9B88D62": {
    "Type": "AWS::SSM::Parameter",
    "Properties": {
-    "Name": "/ecs/transendence/transendence-cluster",
+    "Name": "/transendence-cluster/ecs/cluster",
     "Type": "String",
     "Value": {
      "Ref": "TransendenceCluster7E4AF94B"

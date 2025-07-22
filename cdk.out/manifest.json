@@ -349,7 +349,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-deploy-role-577638398727-eu-west-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-cfn-exec-role-577638398727-eu-west-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-577638398727-eu-west-2/20e6ef9fc76ec31433924cf62572c6fd44b1855f36f84d71ef152e9f2d19cc20.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-577638398727-eu-west-2/f8860d10502d178a99c2b35dfeec02a569ddd54dd8c3a9a5f4145c3712279cd8.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -771,7 +771,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-deploy-role-577638398727-eu-west-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-cfn-exec-role-577638398727-eu-west-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-577638398727-eu-west-2/068137c1cb06399e4677d5ca8603bbf05c4b0ab76cd08f2ce21e930d29d983b8.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-577638398727-eu-west-2/99ce1aa39a4ca3378900c70286c57895962bb65c12866b37c9b6e72e7fef6bf5.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -1472,7 +1472,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-deploy-role-577638398727-eu-west-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-cfn-exec-role-577638398727-eu-west-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-577638398727-eu-west-2/7bd8fa62cbab2c8a65aa99593454412fdbb174bc20173e9bc7fe3dbb6751e10b.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-577638398727-eu-west-2/408a6ba5479b58794e85cd9aaef4916dc9f136649863cfae8dc5a35eab117840.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -1771,16 +1771,16 @@
             "type": "aws:cdk:warning",
             "data": "minHealthyPercent has not been configured so the default value of 50% is used. The number of running tasks will decrease below the desired count during deployments etc. See https://github.com/aws/aws-cdk/issues/31705 [ack: @aws-cdk/aws-ecs:minHealthyPercent]",
             "trace": [
-              "Annotations.addMessage (/tmp/jsii-kernel-oPyYjY/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1709)",
-              "Annotations.addWarningV2 (/tmp/jsii-kernel-oPyYjY/node_modules/aws-cdk-lib/core/lib/annotations.js:1:896)",
-              "new BaseService (/tmp/jsii-kernel-oPyYjY/node_modules/aws-cdk-lib/aws-ecs/lib/base/base-service.js:1:8201)",
-              "new Ec2Service2 (/tmp/jsii-kernel-oPyYjY/node_modules/aws-cdk-lib/aws-ecs/lib/ec2/ec2-service.js:1:3876)",
-              "new Ec2Service2 (/tmp/jsii-kernel-oPyYjY/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
-              "Kernel._Kernel_create (/tmp/tmp0xhcb_kd/lib/program.js:548:25)",
-              "Kernel.create (/tmp/tmp0xhcb_kd/lib/program.js:218:93)",
-              "KernelHost.processRequest (/tmp/tmp0xhcb_kd/lib/program.js:15467:36)",
-              "KernelHost.run (/tmp/tmp0xhcb_kd/lib/program.js:15427:22)",
-              "Immediate._onImmediate (/tmp/tmp0xhcb_kd/lib/program.js:15428:46)",
+              "Annotations.addMessage (/tmp/jsii-kernel-pywvbZ/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1709)",
+              "Annotations.addWarningV2 (/tmp/jsii-kernel-pywvbZ/node_modules/aws-cdk-lib/core/lib/annotations.js:1:896)",
+              "new BaseService (/tmp/jsii-kernel-pywvbZ/node_modules/aws-cdk-lib/aws-ecs/lib/base/base-service.js:1:8201)",
+              "new Ec2Service2 (/tmp/jsii-kernel-pywvbZ/node_modules/aws-cdk-lib/aws-ecs/lib/ec2/ec2-service.js:1:3876)",
+              "new Ec2Service2 (/tmp/jsii-kernel-pywvbZ/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
+              "Kernel._Kernel_create (/tmp/tmpiqav6a3_/lib/program.js:548:25)",
+              "Kernel.create (/tmp/tmpiqav6a3_/lib/program.js:218:93)",
+              "KernelHost.processRequest (/tmp/tmpiqav6a3_/lib/program.js:15467:36)",
+              "KernelHost.run (/tmp/tmpiqav6a3_/lib/program.js:15427:22)",
+              "Immediate._onImmediate (/tmp/tmpiqav6a3_/lib/program.js:15428:46)",
               "process.processImmediate (node:internal/timers:483:21)"
             ]
           },
@@ -2032,16 +2032,16 @@
             "type": "aws:cdk:warning",
             "data": "minHealthyPercent has not been configured so the default value of 50% is used. The number of running tasks will decrease below the desired count during deployments etc. See https://github.com/aws/aws-cdk/issues/31705 [ack: @aws-cdk/aws-ecs:minHealthyPercent]",
             "trace": [
-              "Annotations.addMessage (/tmp/jsii-kernel-oPyYjY/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1709)",
-              "Annotations.addWarningV2 (/tmp/jsii-kernel-oPyYjY/node_modules/aws-cdk-lib/core/lib/annotations.js:1:896)",
-              "new BaseService (/tmp/jsii-kernel-oPyYjY/node_modules/aws-cdk-lib/aws-ecs/lib/base/base-service.js:1:8201)",
-              "new Ec2Service2 (/tmp/jsii-kernel-oPyYjY/node_modules/aws-cdk-lib/aws-ecs/lib/ec2/ec2-service.js:1:3876)",
-              "new Ec2Service2 (/tmp/jsii-kernel-oPyYjY/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
-              "Kernel._Kernel_create (/tmp/tmp0xhcb_kd/lib/program.js:548:25)",
-              "Kernel.create (/tmp/tmp0xhcb_kd/lib/program.js:218:93)",
-              "KernelHost.processRequest (/tmp/tmp0xhcb_kd/lib/program.js:15467:36)",
-              "KernelHost.run (/tmp/tmp0xhcb_kd/lib/program.js:15427:22)",
-              "Immediate._onImmediate (/tmp/tmp0xhcb_kd/lib/program.js:15428:46)",
+              "Annotations.addMessage (/tmp/jsii-kernel-pywvbZ/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1709)",
+              "Annotations.addWarningV2 (/tmp/jsii-kernel-pywvbZ/node_modules/aws-cdk-lib/core/lib/annotations.js:1:896)",
+              "new BaseService (/tmp/jsii-kernel-pywvbZ/node_modules/aws-cdk-lib/aws-ecs/lib/base/base-service.js:1:8201)",
+              "new Ec2Service2 (/tmp/jsii-kernel-pywvbZ/node_modules/aws-cdk-lib/aws-ecs/lib/ec2/ec2-service.js:1:3876)",
+              "new Ec2Service2 (/tmp/jsii-kernel-pywvbZ/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:488)",
+              "Kernel._Kernel_create (/tmp/tmpiqav6a3_/lib/program.js:548:25)",
+              "Kernel.create (/tmp/tmpiqav6a3_/lib/program.js:218:93)",
+              "KernelHost.processRequest (/tmp/tmpiqav6a3_/lib/program.js:15467:36)",
+              "KernelHost.run (/tmp/tmpiqav6a3_/lib/program.js:15427:22)",
+              "Immediate._onImmediate (/tmp/tmpiqav6a3_/lib/program.js:15428:46)",
               "process.processImmediate (node:internal/timers:483:21)"
             ]
           },
@@ -2110,6 +2110,373 @@
         ]
       },
       "displayName": "ecs-services-stack"
+    },
+    "acm-stack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "acm-stack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "acm-stack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://577638398727/eu-west-2",
+      "properties": {
+        "templateFile": "acm-stack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-deploy-role-577638398727-eu-west-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-cfn-exec-role-577638398727-eu-west-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-577638398727-eu-west-2/f8de091474a35ab62659805b1bae0acec2ff25f52fc5401323d5ba7824e420ab.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "acm-stack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-lookup-role-577638398727-eu-west-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "acm-stack.assets"
+      ],
+      "metadata": {
+        "/acm-stack/transendence-dev-cert-Certificate": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "domainName": "*",
+              "validation": "*"
+            }
+          }
+        ],
+        "/acm-stack/transendence-dev-cert-Certificate/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "transendencedevcertCertificateABE2F64D"
+          }
+        ],
+        "/acm-stack/transendence-dev-cert-CertArn": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "parameterName": "*",
+              "stringValue": "*"
+            }
+          }
+        ],
+        "/acm-stack/transendence-dev-cert-CertArn/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "transendencedevcertCertArn04BD0FF9"
+          }
+        ],
+        "/acm-stack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/acm-stack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/acm-stack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "acm-stack"
+    },
+    "alb-stack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "alb-stack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "alb-stack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://577638398727/eu-west-2",
+      "properties": {
+        "templateFile": "alb-stack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-deploy-role-577638398727-eu-west-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-cfn-exec-role-577638398727-eu-west-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-577638398727-eu-west-2/244c2bc4c3fd84aaf6b4d7ef512cff7f4b058a07a84713fa832fe1d23a98c1d9.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "alb-stack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-lookup-role-577638398727-eu-west-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "alb-stack.assets"
+      ],
+      "metadata": {
+        "/alb-stack/transendence-albVpcImported": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/alb-stack/transendence-albVpcImported/PublicSubnet1": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/alb-stack/transendence-albVpcImported/PublicSubnet2": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/alb-stack/transendence-albVpcImported/PrivateSubnet1": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/alb-stack/transendence-albVpcImported/PrivateSubnet2": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/alb-stack/transendence-albClusterImported": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/alb-stack/SsmParameterValue:--transendence-cluster--frontend--ecs--service-arn:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SsmParameterValuetransendenceclusterfrontendecsservicearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+          }
+        ],
+        "/alb-stack/SsmParameterValue:--transendence-cluster--backend--ecs--service-arn:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SsmParameterValuetransendenceclusterbackendecsservicearnC96584B6F00A464EAD1953AFF4B05118Parameter"
+          }
+        ],
+        "/alb-stack/transendence-alb": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          }
+        ],
+        "/alb-stack/transendence-alb/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "transendencealbA0DD9043"
+          }
+        ],
+        "/alb-stack/transendence-alb/SecurityGroup": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "vpc": "*",
+              "description": "*",
+              "allowAllOutbound": false
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addIngressRule": [
+                {
+                  "canInlineRule": true,
+                  "connections": "*",
+                  "uniqueId": "*"
+                },
+                {},
+                "*",
+                false
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addIngressRule": [
+                {
+                  "canInlineRule": true,
+                  "connections": "*",
+                  "uniqueId": "*"
+                },
+                {},
+                "*",
+                false
+              ]
+            }
+          }
+        ],
+        "/alb-stack/transendence-alb/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "transendencealbSecurityGroup931419BD"
+          }
+        ],
+        "/alb-stack/transendence-alb/HttpRedirectListener": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/alb-stack/transendence-alb/HttpRedirectListener/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "transendencealbHttpRedirectListenerB6FA0EFA"
+          }
+        ],
+        "/alb-stack/transendence-alb/HttpsListener": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          }
+        ],
+        "/alb-stack/transendence-alb/HttpsListener/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "transendencealbHttpsListener2432D3EA"
+          }
+        ],
+        "/alb-stack/transendence-alb/HttpsListener/ApiRouteRule/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "transendencealbHttpsListenerApiRouteRuleBA6C8E72"
+          }
+        ],
+        "/alb-stack/transendence-alb/HttpsListener/AvatarsRouteRule/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "transendencealbHttpsListenerAvatarsRouteRuleA10A4037"
+          }
+        ],
+        "/alb-stack/transendence-alb/HttpsListener/DefaultRouteRule/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "transendencealbHttpsListenerDefaultRouteRuleDAE2F398"
+          }
+        ],
+        "/alb-stack/transendence-albfrontendTG/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "transendencealbfrontendTG1A170487"
+          }
+        ],
+        "/alb-stack/transendence-albbackendTG/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "transendencealbbackendTGEE4B0EB8"
+          }
+        ],
+        "/alb-stack/transendence-albCertParam.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "transendencealbCertParamParameter"
+          }
+        ],
+        "/alb-stack/transendence-albEndpoint": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "parameterName": "*",
+              "stringValue": "*"
+            }
+          }
+        ],
+        "/alb-stack/transendence-albEndpoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "transendencealbEndpointB4946DD4"
+          }
+        ],
+        "/alb-stack/transendenceAliasRecord": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "zone": "*",
+              "recordName": "*",
+              "target": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "zone": "*",
+              "recordName": "*",
+              "target": "*"
+            }
+          }
+        ],
+        "/alb-stack/transendenceAliasRecord/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "transendenceAliasRecord8A8741E6"
+          }
+        ],
+        "/alb-stack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/alb-stack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/alb-stack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "alb-stack"
     },
     "Tree": {
       "type": "cdk:tree",

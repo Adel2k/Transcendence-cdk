@@ -11,11 +11,11 @@ from stacks.security_group.security_stack import SecurityStack
 from stacks.s3.s3_stack import S3Stack
 from stacks.ecs.ecs_services_stack import ECSServicesStack
 from stacks.ecs.ecs_cluster_stack import ECSClusterStack
-from stacks.alb_stack import ALBStack
-from stacks.acm_stack import ACMStack
-from stacks.waf_stack import WAFStack
+from stacks.alb.alb_stack import ALBStack
+from stacks.acm.acm_stack import ACMStack
+from stacks.waf.waf_stack import WAFStack
 from stacks.roles.iam_stack import IAMStack
-from stacks.generic_pipeline import GenericPipelineStack
+from stacks.pipelines.generic_pipeline import GenericPipelineStack
 
 app = cdk.App()
 
@@ -62,17 +62,17 @@ ecs_services_stack = ECSServicesStack(
 #     env=env
 # )
 
-# acm_stack = ACMStack(
-#     app,
-#     "acm-stack",
-#     env=env
-# )
+acm_stack = ACMStack(
+    app,
+    "acm-stack",
+    env=env
+)
 
-# alb_stack = ALBStack(
-#     app,
-#     "alb-stack",
-#     env=env
-# )
+alb_stack = ALBStack(
+    app,
+    "alb-stack",
+    env=env
+)
 
 
 # # waf_stack = WAFStack(

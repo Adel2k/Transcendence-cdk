@@ -5,11 +5,9 @@ from aws_cdk import (
     aws_ssm as ssm
 )
 from constructs import Construct
-import os
-import yaml
 from helpers.tools import tools
 
-class ACMStack(Stack):
+class ACMStack(tools):
     def __init__(
             self, 
             scope: Construct, 
@@ -38,8 +36,12 @@ class ACMStack(Stack):
                 validation=acm.CertificateValidation.from_dns(hosted_zone)
             )
 
-            ssm.StringParameter(
-                self, f"{cert_id}-CertArn",
-                parameter_name=f"/transendence/certificates/{cert_id}/arn",
-                string_value=certificate.certificate_arn
+            ssm_path = self.generate_ssm_parameter_path(
+                cert_id, None ,aws_service="certificate"
+            )
+
+            self.store_ssm_parameter(
+                f"{cert_id}-CertArn",
+                ssm_path,
+                certificate.certificate_arn
             )

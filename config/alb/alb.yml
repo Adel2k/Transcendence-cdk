@@ -1,43 +1,40 @@
-vpc:
-  name: transendence
-
-cluster:
-  name: transendence-cluster
-  
-certificate:
-  ssm_param: "/transendence/certificates/dev-cert/arn"
-
 alb:
-  name: transendence-alb
-  endpoint_ssm: "/transendence/alb/arn"
-  redirect_http: true
+  - name: transendence-alb
+    endpoint_ssm: "/transendence/alb/arn"
+    redirect_http: true
 
-  services:
-    - name: frontend
-      ecs_service_ssm_param: "/transendence/ecs/services/frontend/service_name"
-    - name: backend
-      ecs_service_ssm_param: "/transendence/ecs/services/backend/service_name"
+    route53:
+      domain_name: dev.yospace.ai
+      subdomain: transendence
+      alb_arn: transendence-alb
 
-  target_groups:
-    frontend:
-      port: 80
-      health_path: /
-    backend:
-      port: 3000
-      health_path: /api/health
+    services:
+      - name: frontend
+      - name: backend
 
-  routing:
-    - name: ApiRoute
-      priority: 1
-      path: "/api/*"
-      target: backend
+    target_groups:
+      frontend:
+        port: 80
+        health_path: /
+      backend:
+        port: 3000
+        health_path: /api/health
 
-    - name: AvatarsRoute
-      priority: 2
-      path: "/avatars/*"
-      target: backend
+    routing:
+      - name: ApiRoute
+        priority: 1
+        path: "/api/*"
+        target: backend
 
-    - name: DefaultRoute
-      priority: 10
-      path: "/*"
-      target: frontend
+      - name: AvatarsRoute
+        priority: 2
+        path: "/avatars/*"
+        target: backend
+
+      - name: DefaultRoute
+        priority: 10
+        path: "/*"
+        target: frontend
+    vpc: transendence
+    cluster: transendence-cluster
+    certificate: transendence-dev-cert

@@ -41,7 +41,7 @@ class IAMStack(tools):
 
             self.store_ssm_parameter(
                 f"{role_name}-arn",
-                f"/{app_name}/roles/{role_name}/arn",
+                self.generate_ssm_parameter_path(app_name, role_name, "role"),
                 role.role_arn
             )
 

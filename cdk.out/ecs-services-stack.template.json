@@ -184,7 +184,7 @@
   "BackendTaskdefarn9B4C2791": {
    "Type": "AWS::SSM::Parameter",
    "Properties": {
-    "Name": "/transendence-cluster/ecs/service/backend/task-definition-arn",
+    "Name": "/transendence-cluster/backend/ecs/task-definition-arn",
     "Type": "String",
     "Value": {
      "Ref": "backendTaskDef86FA9658"
@@ -197,7 +197,7 @@
   "BackendServicearn28223899": {
    "Type": "AWS::SSM::Parameter",
    "Properties": {
-    "Name": "/transendence-cluster/ecs/service/backend/service-arn",
+    "Name": "/transendence-cluster/backend/ecs/service-arn",
     "Type": "String",
     "Value": {
      "Ref": "backendServiceCB9C81DA"
@@ -365,7 +365,7 @@
   "FrontendTaskdefarn47703353": {
    "Type": "AWS::SSM::Parameter",
    "Properties": {
-    "Name": "/transendence-cluster/ecs/service/frontend/task-definition-arn",
+    "Name": "/transendence-cluster/frontend/ecs/task-definition-arn",
     "Type": "String",
     "Value": {
      "Ref": "frontendTaskDef621414C6"
@@ -378,7 +378,7 @@
   "FrontendServicearn18BFCA12": {
    "Type": "AWS::SSM::Parameter",
    "Properties": {
-    "Name": "/transendence-cluster/ecs/service/frontend/service-arn",
+    "Name": "/transendence-cluster/frontend/ecs/service-arn",
     "Type": "String",
     "Value": {
      "Ref": "frontendServiceAE6E1E0F"

@@ -51,7 +51,7 @@
   "transendenceecstaskrolearn1B8F7507": {
    "Type": "AWS::SSM::Parameter",
    "Properties": {
-    "Name": "/transendence/roles/transendence-ecs-task-role/arn",
+    "Name": "/transendence/transendence-ecs-task-role/ecs/role-arn",
     "Type": "String",
     "Value": {
      "Fn::GetAtt": [

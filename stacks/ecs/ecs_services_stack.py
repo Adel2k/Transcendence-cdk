@@ -104,15 +104,15 @@ class ECSServicesStack(tools):
             service_name=name,
         )
 
-
+        
         self.store_ssm_parameter(
             self.logical_id_generator(name, "TaskDefARN"),
-            f"/{cluster.cluster_name}/ecs/service/{name}/task-definition-arn",
+            self.generate_ssm_parameter_path(cluster.cluster_name, name, "task-definition"),
             task_def.task_definition_arn
         )
 
         self.store_ssm_parameter(
             self.logical_id_generator(name, "ServiceARN"),
-            f"/{cluster.cluster_name}/ecs/service/{name}/service-arn",
+            self.generate_ssm_parameter_path(cluster.cluster_name, name, "service"),
             service.service_arn
         )
