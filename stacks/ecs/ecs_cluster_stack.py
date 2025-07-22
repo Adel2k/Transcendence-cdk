@@ -22,20 +22,21 @@ class ECSClusterStack(tools):
 
         for cluster_cfg in cluster_configs:
             cluster_name = cluster_cfg["name"]
+            app_name = cluster_cfg["app_name"]
             instance_type = cluster_cfg["instance_type"]
             min_capacity = cluster_cfg["min_capacity"]
             max_capacity = cluster_cfg["max_capacity"]
             subnet_type_str = cluster_cfg.get("subnet_type", "PUBLIC").upper()
             vpc_name = cluster_cfg["vpc"]
 
-            normalized_cluster_id = ''.join(word.capitalize() for word in cluster_name.replace('-', ' ').split()) + "Cluster"
+            normalized_cluster_id = ''.join(word.capitalize() for word in cluster_name.replace('-', ' ').split()) 
             normalized_asg_id = normalized_cluster_id + "AutoScalingGroup"
             normalized_ssm_id = normalized_cluster_id + "Parameter"
             normalized_output_id = normalized_cluster_id + "Output"
 
             try:
                 vpc_id = self.get_vpc_id(vpc_name)
-                vpc = ec2.Vpc.from_lookup(self, f"{normalized_cluster_id}VpcImported", vpc_id=vpc_id)
+                vpc = ec2.Vpc.from_lookup(self, f"{normalized_cluster_id}VpcImported-ClusterStack", vpc_id=vpc_id)
             except Exception as e:
                 print(f"Error looking up VPC '{vpc_name}': {e}")
                 continue 

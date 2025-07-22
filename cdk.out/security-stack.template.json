@@ -1,15 +1,4 @@
 {
- "Parameters": {
-  "SsmParameterValuetransendencevpcidtransendenceC96584B6F00A464EAD1953AFF4B05118Parameter": {
-   "Type": "AWS::SSM::Parameter::Value<String>",
-   "Default": "/transendence/vpc-id/transendence"
-  },
-  "BootstrapVersion": {
-   "Type": "AWS::SSM::Parameter::Value<String>",
-   "Default": "/cdk-bootstrap/hnb659fds/version",
-   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
-  }
- },
  "Resources": {
   "lambdasg93781054": {
    "Type": "AWS::EC2::SecurityGroup",
@@ -23,9 +12,7 @@
       "IpProtocol": "-1"
      }
     ],
-    "VpcId": {
-     "Ref": "SsmParameterValuetransendencevpcidtransendenceC96584B6F00A464EAD1953AFF4B05118Parameter"
-    }
+    "VpcId": "vpc-05d70e43ff4b66d37"
    },
    "Metadata": {
     "aws:cdk:path": "security-stack/lambda-sg/Resource"
@@ -52,9 +39,7 @@
       "ToPort": 22
      }
     ],
-    "VpcId": {
-     "Ref": "SsmParameterValuetransendencevpcidtransendenceC96584B6F00A464EAD1953AFF4B05118Parameter"
-    }
+    "VpcId": "vpc-05d70e43ff4b66d37"
    },
    "Metadata": {
     "aws:cdk:path": "security-stack/bastion-sg/Resource"
@@ -72,9 +57,7 @@
       "IpProtocol": "-1"
      }
     ],
-    "VpcId": {
-     "Ref": "SsmParameterValuetransendencevpcidtransendenceC96584B6F00A464EAD1953AFF4B05118Parameter"
-    }
+    "VpcId": "vpc-05d70e43ff4b66d37"
    },
    "Metadata": {
     "aws:cdk:path": "security-stack/ecs-sg/Resource"
@@ -92,9 +75,7 @@
       "IpProtocol": "-1"
      }
     ],
-    "VpcId": {
-     "Ref": "SsmParameterValuetransendencevpcidtransendenceC96584B6F00A464EAD1953AFF4B05118Parameter"
-    }
+    "VpcId": "vpc-05d70e43ff4b66d37"
    },
    "Metadata": {
     "aws:cdk:path": "security-stack/db-sg/Resource"
@@ -127,7 +108,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/7WRQU/DMAyFf8tyRGkY3a03xAH1wqbuWE0oSwyEpU5JbKqp6n9HXQsq4joOlqXnp0+2X67yda7WK92lzNhT5t1R9XvS5iQfXnCno26AIMoKUuBooBY3Qi7qIHWXnsHkqt+D4ejo/BgDt3UvPlsjiotNex+6e++3TMfAaEVBkUEKC8lE15ILODvTkvGkG7jog7w2TVtb4muElCr2IIq6F0Zjid4hTMrENAERzIhMM5PRfTCU9hs1/Hzi+lv+882jf7n/YYz8V4p/hBkwjIMtU8s0yN2Z3gLebtRdrjar9+RcFhnJNaCqqX8BsqPlN2UCAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/7WRQU/DMAyFf8tyRGnYultviAPqhU3dsZpQ5hgWljkliammqv8ddS2oiOs4WJaenz4927nKl7laLnQbMzCnzNmD6nZJw0lWGD0HwFrcCTmrvdRtfEHIVbdD4GDT5Sl4bupOfDYgiqtNO+fbB+c2nA6eyYgiBUYpDEYItknW0+SMc8azPuNV7+WtadqYkt4CxlixQ1HUnQBNJTlLOCojEzwRwoCME5PJfjCW5hvV/1zi9in/eefBP8+/l4+v9OuLf4QJ0A+DDaeGUy+3l3T0dL9Wq1ytF+/R2iwwJXtGVY39C86dY1ZYAgAA"
    },
    "Metadata": {
     "aws:cdk:path": "security-stack/CDKMetadata/Default"
@@ -150,6 +131,13 @@
      "GroupId"
     ]
    }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
   }
  },
  "Rules": {

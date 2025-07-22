@@ -34,7 +34,7 @@ class VpcStack(tools):
 
             vpc = ec2.Vpc(self, logical_id,
                 vpc_name=logical_id,
-                cidr=vpc_def["cidr"],
+                ip_addresses=ec2.IpAddresses.cidr(vpc_def["cidr"]),
                 max_azs=vpc_def.get("max_azs", 2),
                 subnet_configuration=subnet_configs,
                 nat_gateways=vpc_def.get("nat_gateways", 0),
@@ -45,20 +45,20 @@ class VpcStack(tools):
 
             self.store_ssm_parameter(
                 f"{name}-vpc-id",
-                f"/transendence/vpc-id/{name}",
+                f"/{name}/vpc-id",
                 vpc.vpc_id
             )
 
             for i, subnet in enumerate(vpc.private_subnets, 1):
                 self.store_ssm_parameter(
                     f"{name}-private-subnet-{i}",
-                    f"/transendence/{name}/private-subnet-{i}",
+                    f"/{name}/private-subnet-{i}",
                     subnet.subnet_id
                 )
 
             for i, subnet in enumerate(vpc.public_subnets, 1):
                 self.store_ssm_parameter(
                     f"{name}-public-subnet-{i}",
-                    f"/transendence/{name}/public-subnet-{i}",
+                    f"/{name}/public-subnet-{i}",
                     subnet.subnet_id
                 )

@@ -4,8 +4,8 @@
     "eu-west-2b",
     "eu-west-2c"
   ],
-  "vpc-provider:account=577638398727:filter.vpc-id=vpc-0cb6e0faa400c3303:region=eu-west-2:returnAsymmetricSubnets=true": {
-    "vpcId": "vpc-0cb6e0faa400c3303",
+  "vpc-provider:account=577638398727:filter.vpc-id=vpc-05d70e43ff4b66d37:region=eu-west-2:returnAsymmetricSubnets=true": {
+    "vpcId": "vpc-05d70e43ff4b66d37",
     "vpcCidrBlock": "10.0.0.0/16",
     "ownerAccountId": "577638398727",
     "availabilityZones": [],
@@ -15,16 +15,16 @@
         "type": "Isolated",
         "subnets": [
           {
-            "subnetId": "subnet-08f8141b520784a1b",
+            "subnetId": "subnet-03ed04276ed795487",
             "cidr": "10.0.2.0/24",
             "availabilityZone": "eu-west-2a",
-            "routeTableId": "rtb-051b65c3d2d83011b"
+            "routeTableId": "rtb-06846b9719d8421bb"
           },
           {
-            "subnetId": "subnet-090ba83bb18cd10d5",
+            "subnetId": "subnet-06192e00246917225",
             "cidr": "10.0.3.0/24",
             "availabilityZone": "eu-west-2b",
-            "routeTableId": "rtb-0e62cbee58071293b"
+            "routeTableId": "rtb-0c66fadb5b9464e10"
           }
         ]
       },
@@ -33,37 +33,19 @@
         "type": "Public",
         "subnets": [
           {
-            "subnetId": "subnet-08ef90148a73875c9",
+            "subnetId": "subnet-0e2f758e11dd8b4ce",
             "cidr": "10.0.0.0/24",
             "availabilityZone": "eu-west-2a",
-            "routeTableId": "rtb-0c87da8117b5bafc0"
+            "routeTableId": "rtb-0443190a8b6ee4ce3"
           },
           {
-            "subnetId": "subnet-0b801842217104962",
+            "subnetId": "subnet-047ff4a8a4caeb881",
             "cidr": "10.0.1.0/24",
             "availabilityZone": "eu-west-2b",
-            "routeTableId": "rtb-0412e05b837c39778"
+            "routeTableId": "rtb-01c644246d90b0e7a"
           }
         ]
       }
     ]
-  },
-  "hosted-zone:account=577638398727:domainName=dev.yospace.ai:region=eu-west-2": {
-    "Id": "/hostedzone/Z05665242V72OKDJR354Z",
-    "Name": "dev.yospace.ai."
-  },
-  "load-balancer:account=577638398727:loadBalancerArn=arn$:aws$:elasticloadbalancing$:eu-west-2$:577638398727$:loadbalancer/app/alb-st-trans-xqQ7iIcfvGZ5/eb2a7e61771a58d2:loadBalancerType=application:region=eu-west-2": {
-    "loadBalancerArn": "arn:aws:elasticloadbalancing:eu-west-2:577638398727:loadbalancer/app/alb-st-trans-xqQ7iIcfvGZ5/eb2a7e61771a58d2",
-    "loadBalancerCanonicalHostedZoneId": "ZHURV8PSTC4K8",
-    "loadBalancerDnsName": "alb-st-trans-xqQ7iIcfvGZ5-818029417.eu-west-2.elb.amazonaws.com",
-    "vpcId": "vpc-0cb6e0faa400c3303",
-    "securityGroupIds": [
-      "sg-03f0249ab65b4fffe"
-    ],
-    "ipAddressType": "ipv4"
-  },
-  "security-group:account=577638398727:region=eu-west-2:securityGroupId=sg-03f0249ab65b4fffe": {
-    "securityGroupId": "sg-03f0249ab65b4fffe",
-    "allowAllOutbound": false
   }
 }

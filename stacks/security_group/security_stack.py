@@ -20,14 +20,13 @@ class SecurityStack(tools):
 
         config = self.load_yaml_config('config/security_group/security_groups.yml')
 
-
         for sg_def in config["security_groups"]:
             name = sg_def["name"]
             vpc_name = sg_def["vpc"]
             app_name = sg_def["app_name"]
-            vpc_id = self.get_vpc_id(vpc_name, app_name)
+            vpc_id = self.get_vpc_id(vpc_name)
             self.vpc = ec2.Vpc.from_vpc_attributes(
-                self, f"VpcImported-{name}-{vpc_id}",
+                self, f"{name}-{vpc_id}-VpcImported-SecurityStack",
                 vpc_id=vpc_id,
                 availability_zones=self.availability_zones
             )

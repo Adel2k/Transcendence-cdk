@@ -9,6 +9,7 @@ from aws_cdk import (
 from constructs import Construct
 
 from helpers.tools import tools
+
 class ALBStack(tools):
     def __init__(self, scope: Construct, id: str, **kwargs):
         super().__init__(scope, id, **kwargs)
@@ -16,13 +17,14 @@ class ALBStack(tools):
         config = self.load_yaml_config('config/alb/alb.yml')
 
         vpc_id = self.get_vpc_id(config["vpc"]["name"])
-        vpc = ec2.Vpc.from_lookup(self, "VpcImported", vpc_id=vpc_id)
+        vpc = ec2.Vpc.from_lookup(self, f"{vpc_id}VpcImported-ALBStack", vpc_id=vpc_id)
 
         cert_param = ssm.StringParameter.from_string_parameter_attributes(
             self, "ImportedCertParam",
             parameter_name=config["certificate"]["ssm_param"],
             simple_name=False
         )
+        self.create_route53_record(self)
         cert_arn = cert_param.string_value
         certificate = acm.Certificate.from_certificate_arn(self, "ImportedCert", cert_arn)
 

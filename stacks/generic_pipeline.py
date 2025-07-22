@@ -26,7 +26,7 @@ class GenericPipelineStack(tools):
         super().__init__(scope, id, **kwargs)
         config = self.load_yaml_config('config/pipelines/pipelines.yml')
         vpc_name = config["vpc"]["name"]
-        vpc_id = self.get_vpc_id(vpc_name)
+        vpc_id = self.get_vpc_id(vpc_name, "generic-pipeline")
         vpc = ec2.Vpc.from_lookup(self, "VpcImported", vpc_id=vpc_id)
 
         cluster_name = config["cluster"]["name"]

@@ -9,8 +9,13 @@ from aws_cdk import (
 from constructs import Construct
 import boto3
 from aws_cdk import aws_wafv2 as wafv2
-
+from aws_cdk import aws_route53 as route53
+from aws_cdk import aws_route53_targets as targets
+from aws_cdk.aws_elasticloadbalancingv2 import ApplicationLoadBalancer
+from constructs import Construct
 from botocore.exceptions import ClientError
+
+
 class tools(Stack):
     def __init__(
             self, 
@@ -60,11 +65,10 @@ class tools(Stack):
     
     #######################################################################
 
-    def get_vpc_id(self: Construct, name: str, app_name: str) -> str:
-        parameter_name = f"/{app_name}/vpc-id/{name}"
-        vpc_id = ssm.StringParameter.value_for_string_parameter(self, parameter_name)
-        return vpc_id
-
+    def get_vpc_id(self, app_name: str, region="eu-west-2") -> str:
+        ssm = boto3.client("ssm", region_name=region)
+        return ssm.get_parameter(Name=f"/{app_name}/vpc-id")["Parameter"]["Value"]
+    
     #######################################################################
 
     def build_certificate(self, domain_name: str, region: str = "eu-west-2") -> acm.Certificate:
@@ -161,10 +165,32 @@ class tools(Stack):
             self,
             id,
             parameter_name=parameter_name,
-            string_value=string_value,
-            type=ssm.ParameterType.STRING
+            string_value=string_value
         )
     ########################################################################
 
     def logical_id_generator(self, name: str, type: str) -> str:
         return f"{name.capitalize()}-{type.capitalize()}"
+    
+    #########################################################################
+
+
+    def create_route53_record(scope: Construct, config_path: str = "config/route53/route53.yml"):
+        import yaml
+
+        with open(config_path, 'r') as f:
+            config = yaml.safe_load(f)["route53"]
+
+        ssm = boto3.client("ssm")
+        alb_name = config["alb_arn"]
+        alb_arn = ssm.get_parameter(Name=f"/{alb_name}/alb/arn")["Parameter"]["Value"]
+
+        alb = ApplicationLoadBalancer.from_lookup(scope, "ALB", load_balancer_arn=alb_arn)
+        hosted_zone = route53.HostedZone.from_lookup(scope, "HostedZone", domain_name=config["domain_name"])
+
+        route53.ARecord(
+            scope, "AliasRecord",
+            zone=hosted_zone,
+            record_name=config["subdomain"],
+            target=route53.RecordTarget.from_alias(targets.LoadBalancerTarget(alb))
+        )

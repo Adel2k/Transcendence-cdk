@@ -5,7 +5,7 @@ from aws_cdk import aws_secretsmanager as secretsmanager
 from aws_cdk import aws_route53 as route53
 import boto3
 from aws_cdk import aws_ec2 as ec2
-
+import os
 from stacks.vpcs.vpc_stack import VpcStack
 from stacks.security_group.security_stack import SecurityStack
 from stacks.s3.s3_stack import S3Stack
@@ -13,7 +13,6 @@ from stacks.ecs.ecs_services_stack import ECSServicesStack
 from stacks.ecs.ecs_cluster_stack import ECSClusterStack
 from stacks.alb_stack import ALBStack
 from stacks.acm_stack import ACMStack
-from stacks.route53_stack import Route53Stack
 from stacks.waf_stack import WAFStack
 from stacks.roles.iam_stack import IAMStack
 from stacks.generic_pipeline import GenericPipelineStack
@@ -21,7 +20,6 @@ from stacks.generic_pipeline import GenericPipelineStack
 app = cdk.App()
 
 env = Environment(account="577638398727", region="eu-west-2")
-
 vpc_stack = VpcStack(
     app, 
     "vpc-stack", 
@@ -76,11 +74,6 @@ ecs_services_stack = ECSServicesStack(
 #     env=env
 # )
 
-# route53_stack = Route53Stack(
-#     app,
-#     "route53-stack",
-#     env=env
-# )
 
 # # waf_stack = WAFStack(
 # #     app,

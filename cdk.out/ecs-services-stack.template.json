@@ -1,6 +1,6 @@
 {
  "Resources": {
-  "BackendLogGroupDA10F1B2": {
+  "backendLogGroup09D90845": {
    "Type": "AWS::Logs::LogGroup",
    "Properties": {
     "RetentionInDays": 731
@@ -8,10 +8,10 @@
    "UpdateReplacePolicy": "Retain",
    "DeletionPolicy": "Retain",
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/BackendLogGroup/Resource"
+    "aws:cdk:path": "ecs-services-stack/backendLogGroup/Resource"
    }
   },
-  "BackendTaskDef6ECE986E": {
+  "backendTaskDef86FA9658": {
    "Type": "AWS::ECS::TaskDefinition",
    "Properties": {
     "ContainerDefinitions": [
@@ -34,14 +34,14 @@
        "LogDriver": "awslogs",
        "Options": {
         "awslogs-group": {
-         "Ref": "BackendLogGroupDA10F1B2"
+         "Ref": "backendLogGroup09D90845"
         },
         "awslogs-stream-prefix": "backend",
         "awslogs-region": "eu-west-2"
        }
       },
       "MemoryReservation": 256,
-      "Name": "BackendContainer",
+      "Name": "backendContainer",
       "PortMappings": [
        {
         "ContainerPort": 3000,
@@ -51,12 +51,12 @@
       ],
       "Secrets": [
        {
-        "Name": "JWT_EXPIRES_IN",
-        "ValueFrom": "arn:aws:secretsmanager:eu-west-2:577638398727:secret:JWT_EXPIRES_IN/JWT_SECRET/DEFAULT_AVATAR:JWT_EXPIRES_IN::"
-       },
-       {
         "Name": "JWT_SECRET",
         "ValueFrom": "arn:aws:secretsmanager:eu-west-2:577638398727:secret:JWT_EXPIRES_IN/JWT_SECRET/DEFAULT_AVATAR:JWT_SECRET::"
+       },
+       {
+        "Name": "JWT_EXPIRES_IN",
+        "ValueFrom": "arn:aws:secretsmanager:eu-west-2:577638398727:secret:JWT_EXPIRES_IN/JWT_SECRET/DEFAULT_AVATAR:JWT_EXPIRES_IN::"
        },
        {
         "Name": "DEFAULT_AVATAR",
@@ -71,11 +71,11 @@
     ],
     "ExecutionRoleArn": {
      "Fn::GetAtt": [
-      "BackendTaskDefExecutionRoleC5A001DB",
+      "backendTaskDefExecutionRoleA6E07DA6",
       "Arn"
      ]
     },
-    "Family": "ecsservicesstackBackendTaskDefCA4064CC",
+    "Family": "ecsservicesstackbackendTaskDef6EFD6519",
     "NetworkMode": "bridge",
     "RequiresCompatibilities": [
      "EC2"
@@ -83,10 +83,10 @@
     "TaskRoleArn": "arn:aws:iam::577638398727:role/tmp-transendence-ecs-task-role"
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/BackendTaskDef/Resource"
+    "aws:cdk:path": "ecs-services-stack/backendTaskDef/Resource"
    }
   },
-  "BackendTaskDefExecutionRoleC5A001DB": {
+  "backendTaskDefExecutionRoleA6E07DA6": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -103,10 +103,10 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/BackendTaskDef/ExecutionRole/Resource"
+    "aws:cdk:path": "ecs-services-stack/backendTaskDef/ExecutionRole/Resource"
    }
   },
-  "BackendTaskDefExecutionRoleDefaultPolicyAA625660": {
+  "backendTaskDefExecutionRoleDefaultPolicyCB1EA219": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -133,7 +133,7 @@
        "Effect": "Allow",
        "Resource": {
         "Fn::GetAtt": [
-         "BackendLogGroupDA10F1B2",
+         "backendLogGroup09D90845",
          "Arn"
         ]
        }
@@ -149,18 +149,18 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "BackendTaskDefExecutionRoleDefaultPolicyAA625660",
+    "PolicyName": "backendTaskDefExecutionRoleDefaultPolicyCB1EA219",
     "Roles": [
      {
-      "Ref": "BackendTaskDefExecutionRoleC5A001DB"
+      "Ref": "backendTaskDefExecutionRoleA6E07DA6"
      }
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/BackendTaskDef/ExecutionRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "ecs-services-stack/backendTaskDef/ExecutionRole/DefaultPolicy/Resource"
    }
   },
-  "BackendService7A4224EE": {
+  "backendServiceCB9C81DA": {
    "Type": "AWS::ECS::Service",
    "Properties": {
     "Cluster": "transendence-cluster",
@@ -174,25 +174,40 @@
     "SchedulingStrategy": "REPLICA",
     "ServiceName": "backend",
     "TaskDefinition": {
-     "Ref": "BackendTaskDef6ECE986E"
+     "Ref": "backendTaskDef86FA9658"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/BackendService/Service"
+    "aws:cdk:path": "ecs-services-stack/backendService/Service"
    }
   },
-  "BackendServiceSSMParam3B70CBC5": {
+  "BackendTaskdefarn9B4C2791": {
    "Type": "AWS::SSM::Parameter",
    "Properties": {
-    "Name": "/transendence/ecs/services/backend/service_name",
+    "Name": "/transendence-cluster/ecs/service/backend/task-definition-arn",
     "Type": "String",
-    "Value": "backend"
+    "Value": {
+     "Ref": "backendTaskDef86FA9658"
+    }
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/BackendServiceSSMParam/Resource"
+    "aws:cdk:path": "ecs-services-stack/Backend-Taskdefarn/Resource"
    }
   },
-  "FrontendLogGroupCE4F14E0": {
+  "BackendServicearn28223899": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Name": "/transendence-cluster/ecs/service/backend/service-arn",
+    "Type": "String",
+    "Value": {
+     "Ref": "backendServiceCB9C81DA"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-services-stack/Backend-Servicearn/Resource"
+   }
+  },
+  "frontendLogGroupB0BC7A13": {
    "Type": "AWS::Logs::LogGroup",
    "Properties": {
     "RetentionInDays": 731
@@ -200,10 +215,10 @@
    "UpdateReplacePolicy": "Retain",
    "DeletionPolicy": "Retain",
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/FrontendLogGroup/Resource"
+    "aws:cdk:path": "ecs-services-stack/frontendLogGroup/Resource"
    }
   },
-  "FrontendTaskDef7D3FD156": {
+  "frontendTaskDef621414C6": {
    "Type": "AWS::ECS::TaskDefinition",
    "Properties": {
     "ContainerDefinitions": [
@@ -226,48 +241,30 @@
        "LogDriver": "awslogs",
        "Options": {
         "awslogs-group": {
-         "Ref": "FrontendLogGroupCE4F14E0"
+         "Ref": "frontendLogGroupB0BC7A13"
         },
         "awslogs-stream-prefix": "frontend",
         "awslogs-region": "eu-west-2"
        }
       },
       "MemoryReservation": 256,
-      "Name": "FrontendContainer",
+      "Name": "frontendContainer",
       "PortMappings": [
        {
         "ContainerPort": 80,
         "HostPort": 0,
         "Protocol": "tcp"
        }
-      ],
-      "Secrets": [
-       {
-        "Name": "JWT_EXPIRES_IN",
-        "ValueFrom": "arn:aws:secretsmanager:eu-west-2:577638398727:secret:JWT_EXPIRES_IN/JWT_SECRET/DEFAULT_AVATAR:JWT_EXPIRES_IN::"
-       },
-       {
-        "Name": "JWT_SECRET",
-        "ValueFrom": "arn:aws:secretsmanager:eu-west-2:577638398727:secret:JWT_EXPIRES_IN/JWT_SECRET/DEFAULT_AVATAR:JWT_SECRET::"
-       },
-       {
-        "Name": "DEFAULT_AVATAR",
-        "ValueFrom": "arn:aws:secretsmanager:eu-west-2:577638398727:secret:JWT_EXPIRES_IN/JWT_SECRET/DEFAULT_AVATAR:DEFAULT_AVATAR::"
-       },
-       {
-        "Name": "DATABASE_URL",
-        "ValueFrom": "arn:aws:secretsmanager:eu-west-2:577638398727:secret:JWT_EXPIRES_IN/JWT_SECRET/DEFAULT_AVATAR:DATABASE_URL::"
-       }
       ]
      }
     ],
     "ExecutionRoleArn": {
      "Fn::GetAtt": [
-      "FrontendTaskDefExecutionRoleE7329A09",
+      "frontendTaskDefExecutionRole231F863C",
       "Arn"
      ]
     },
-    "Family": "ecsservicesstackFrontendTaskDefBB082465",
+    "Family": "ecsservicesstackfrontendTaskDef7BFF1B3B",
     "NetworkMode": "bridge",
     "RequiresCompatibilities": [
      "EC2"
@@ -275,10 +272,10 @@
     "TaskRoleArn": "arn:aws:iam::577638398727:role/tmp-transendence-ecs-task-role"
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/FrontendTaskDef/Resource"
+    "aws:cdk:path": "ecs-services-stack/frontendTaskDef/Resource"
    }
   },
-  "FrontendTaskDefExecutionRoleE7329A09": {
+  "frontendTaskDefExecutionRole231F863C": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -295,10 +292,10 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/FrontendTaskDef/ExecutionRole/Resource"
+    "aws:cdk:path": "ecs-services-stack/frontendTaskDef/ExecutionRole/Resource"
    }
   },
-  "FrontendTaskDefExecutionRoleDefaultPolicy48DF7F3B": {
+  "frontendTaskDefExecutionRoleDefaultPolicy6474A826": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -325,34 +322,26 @@
        "Effect": "Allow",
        "Resource": {
         "Fn::GetAtt": [
-         "FrontendLogGroupCE4F14E0",
+         "frontendLogGroupB0BC7A13",
          "Arn"
         ]
        }
-      },
-      {
-       "Action": [
-        "secretsmanager:DescribeSecret",
-        "secretsmanager:GetSecretValue"
-       ],
-       "Effect": "Allow",
-       "Resource": "arn:aws:secretsmanager:eu-west-2:577638398727:secret:JWT_EXPIRES_IN/JWT_SECRET/DEFAULT_AVATAR-??????"
       }
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "FrontendTaskDefExecutionRoleDefaultPolicy48DF7F3B",
+    "PolicyName": "frontendTaskDefExecutionRoleDefaultPolicy6474A826",
     "Roles": [
      {
-      "Ref": "FrontendTaskDefExecutionRoleE7329A09"
+      "Ref": "frontendTaskDefExecutionRole231F863C"
      }
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/FrontendTaskDef/ExecutionRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "ecs-services-stack/frontendTaskDef/ExecutionRole/DefaultPolicy/Resource"
    }
   },
-  "FrontendServiceBC94BA93": {
+  "frontendServiceAE6E1E0F": {
    "Type": "AWS::ECS::Service",
    "Properties": {
     "Cluster": "transendence-cluster",
@@ -366,28 +355,43 @@
     "SchedulingStrategy": "REPLICA",
     "ServiceName": "frontend",
     "TaskDefinition": {
-     "Ref": "FrontendTaskDef7D3FD156"
+     "Ref": "frontendTaskDef621414C6"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/FrontendService/Service"
+    "aws:cdk:path": "ecs-services-stack/frontendService/Service"
    }
   },
-  "FrontendServiceSSMParam076D0B02": {
+  "FrontendTaskdefarn47703353": {
    "Type": "AWS::SSM::Parameter",
    "Properties": {
-    "Name": "/transendence/ecs/services/frontend/service_name",
+    "Name": "/transendence-cluster/ecs/service/frontend/task-definition-arn",
     "Type": "String",
-    "Value": "frontend"
+    "Value": {
+     "Ref": "frontendTaskDef621414C6"
+    }
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-services-stack/FrontendServiceSSMParam/Resource"
+    "aws:cdk:path": "ecs-services-stack/Frontend-Taskdefarn/Resource"
+   }
+  },
+  "FrontendServicearn18BFCA12": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Name": "/transendence-cluster/ecs/service/frontend/service-arn",
+    "Type": "String",
+    "Value": {
+     "Ref": "frontendServiceAE6E1E0F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-services-stack/Frontend-Servicearn/Resource"
    }
   },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/+1UUWvCMBD+LeZxxMzVN9/UyRiMUarspcjI0lNvpklJ0kkJ/e+jqXUTYfoykLGHkOT77u7LXS6JWDSI2KDHd7Yvsm1f4hvzc8fFliZgdWkEpOSG0DNjSfnOvnoQhiVQaItOm2rCLaRLKvXaMv+k1w9Gl0V68JiuVAfWFIRlfiaiBbfbe1ihQodaXSJ9yQhix6HpVCvHUYH5hs1ENAfzgadJhwh7rqbIc+YTLSH1hFtb5pBNKjLypDCoBBZcjoXQpXJkFPxbm8ZhLBqhANeUGC3hmeew33vCs2yh4y5IrCWKioxSXy8D6xwXm0clUcGBaw53nvw57nWy/4X9BTY0clMw2sKh0bskF7phTnI/hbNs7riDHJSzR7JXAf+9lMKttRdWU2vz5o82qNYxNzwHByb1pOjWh8anxAarFy7Lr6dwkV0r2FnWdU3jym20uh2yu4gNe+8WsW9K5TAHlrTzJ7EUndRMBgAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/91UwWoCMRD9FnMsMbXrzZu2UgqlLKv0skhJs6NOzSZLkq1IyL+Xzbq2IrTQHpQeQpL3Zt5MhkcSlgwSNujxre2LYtOX+Mr8zHGxoRlYXRsBObki9A9rQfnWvngQhmVQaYtOm92EW8gXVOqVZf5Rr+6Nrqv8kHG7VB0YKAjL/FQkc243d7BEhQ61+m1bUfxYit5q5TgqMF+wqUhmYN7xdABRYc8FirxkPtMSck+4tXUJxWRHRp5UBpXAisuxELpWjoxifhvTJIxFUyjCgRKjJTzxEvZ3T3hRzHXaiaRaotiRUe7DIrLOcbF+UBIVHLimuZ/J73Uvk/3Xg42GahqnLRwN1xWb64Y56eEULoqZ4w5KUM4elb0I+DxPipNthxqotWXztxlUq5QbXoIDk3tSdeeDSSixMeqZy/rTNmeJax/QRYYQaLpza62uh+wmYcPem0Xsm1o5LIFl7f4Br0Lj5dQFAAA="
    },
    "Metadata": {
     "aws:cdk:path": "ecs-services-stack/CDKMetadata/Default"

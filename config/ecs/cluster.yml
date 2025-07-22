@@ -1,5 +1,6 @@
 clusters:
   - name: transendence-cluster
+    app_name: transendence
     instance_type: t3.small
     min_capacity: 1
     max_capacity: 2
