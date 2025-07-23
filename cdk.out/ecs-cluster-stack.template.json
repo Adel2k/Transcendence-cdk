@@ -9,10 +9,10 @@
     "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Resource"
    }
   },
-  "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterInstanceSecurityGroup35F2CD0A": {
+  "TransendenceclusterCreateClusterTransendenceAddcapacityClusterInstanceSecurityGroupB01B6603": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster/InstanceSecurityGroup",
+    "GroupDescription": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster/InstanceSecurityGroup",
     "SecurityGroupEgress": [
      {
       "CidrIp": "0.0.0.0/0",
@@ -23,16 +23,16 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster"
+      "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster"
      }
     ],
-    "VpcId": "vpc-05d70e43ff4b66d37"
+    "VpcId": "vpc-0e3c4903be8871e4d"
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster/InstanceSecurityGroup/Resource"
+    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster/InstanceSecurityGroup/Resource"
    }
   },
-  "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterInstanceRole03E495AF": {
+  "TransendenceclusterCreateClusterTransendenceAddcapacityClusterInstanceRole1599DD52": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -50,15 +50,15 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster"
+      "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster"
      }
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster/InstanceRole/Resource"
+    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster/InstanceRole/Resource"
    }
   },
-  "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterInstanceRoleDefaultPolicy0F26E8FE": {
+  "TransendenceclusterCreateClusterTransendenceAddcapacityClusterInstanceRoleDefaultPolicyEC44673F": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -108,38 +108,38 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterInstanceRoleDefaultPolicy0F26E8FE",
+    "PolicyName": "TransendenceclusterCreateClusterTransendenceAddcapacityClusterInstanceRoleDefaultPolicyEC44673F",
     "Roles": [
      {
-      "Ref": "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterInstanceRole03E495AF"
+      "Ref": "TransendenceclusterCreateClusterTransendenceAddcapacityClusterInstanceRole1599DD52"
      }
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster/InstanceRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster/InstanceRole/DefaultPolicy/Resource"
    }
   },
-  "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterInstanceProfileF5FD2EF9": {
+  "TransendenceclusterCreateClusterTransendenceAddcapacityClusterInstanceProfileC7BEB185": {
    "Type": "AWS::IAM::InstanceProfile",
    "Properties": {
     "Roles": [
      {
-      "Ref": "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterInstanceRole03E495AF"
+      "Ref": "TransendenceclusterCreateClusterTransendenceAddcapacityClusterInstanceRole1599DD52"
      }
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster/InstanceProfile"
+    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster/InstanceProfile"
    }
   },
-  "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterLaunchTemplate2841DB41": {
+  "TransendenceclusterCreateClusterTransendenceAddcapacityClusterLaunchTemplate835AE5F4": {
    "Type": "AWS::EC2::LaunchTemplate",
    "Properties": {
     "LaunchTemplateData": {
      "IamInstanceProfile": {
       "Arn": {
        "Fn::GetAtt": [
-        "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterInstanceProfileF5FD2EF9",
+        "TransendenceclusterCreateClusterTransendenceAddcapacityClusterInstanceProfileC7BEB185",
         "Arn"
        ]
       }
@@ -154,9 +154,12 @@
      "SecurityGroupIds": [
       {
        "Fn::GetAtt": [
-        "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterInstanceSecurityGroup35F2CD0A",
+        "TransendenceclusterCreateClusterTransendenceAddcapacityClusterInstanceSecurityGroupB01B6603",
         "GroupId"
        ]
+      },
+      {
+       "Ref": "SsmParameterValuetransendenceec2albecssecuritygrouparnC96584B6F00A464EAD1953AFF4B05118Parameter"
       }
      ],
      "TagSpecifications": [
@@ -165,7 +168,7 @@
        "Tags": [
         {
          "Key": "Name",
-         "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster/LaunchTemplate"
+         "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster/LaunchTemplate"
         }
        ]
       },
@@ -174,7 +177,7 @@
        "Tags": [
         {
          "Key": "Name",
-         "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster/LaunchTemplate"
+         "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster/LaunchTemplate"
         }
        ]
       }
@@ -200,30 +203,30 @@
       "Tags": [
        {
         "Key": "Name",
-        "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster/LaunchTemplate"
+        "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster/LaunchTemplate"
        }
       ]
      }
     ]
    },
    "DependsOn": [
-    "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterInstanceRoleDefaultPolicy0F26E8FE",
-    "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterInstanceRole03E495AF"
+    "TransendenceclusterCreateClusterTransendenceAddcapacityClusterInstanceRoleDefaultPolicyEC44673F",
+    "TransendenceclusterCreateClusterTransendenceAddcapacityClusterInstanceRole1599DD52"
    ],
    "Metadata": {
-    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster/LaunchTemplate/Resource"
+    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster/LaunchTemplate/Resource"
    }
   },
-  "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterASGC7B0A108": {
+  "TransendenceclusterCreateClusterTransendenceAddcapacityClusterASGE6EECA39": {
    "Type": "AWS::AutoScaling::AutoScalingGroup",
    "Properties": {
     "LaunchTemplate": {
      "LaunchTemplateId": {
-      "Ref": "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterLaunchTemplate2841DB41"
+      "Ref": "TransendenceclusterCreateClusterTransendenceAddcapacityClusterLaunchTemplate835AE5F4"
      },
      "Version": {
       "Fn::GetAtt": [
-       "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterLaunchTemplate2841DB41",
+       "TransendenceclusterCreateClusterTransendenceAddcapacityClusterLaunchTemplate835AE5F4",
        "LatestVersionNumber"
       ]
      }
@@ -234,12 +237,12 @@
      {
       "Key": "Name",
       "PropagateAtLaunch": true,
-      "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster"
+      "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster"
      }
     ],
     "VPCZoneIdentifier": [
-     "subnet-0e2f758e11dd8b4ce",
-     "subnet-047ff4a8a4caeb881"
+     "subnet-006d0fad5eb95e023",
+     "subnet-0c9f39b53c5f7d40b"
     ]
    },
    "UpdatePolicy": {
@@ -251,10 +254,10 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster/ASG"
+    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster/ASG"
    }
   },
-  "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterDrainECSHookFunctionServiceRoleA641ADEC": {
+  "TransendenceclusterCreateClusterTransendenceAddcapacityClusterDrainECSHookFunctionServiceRole35EB4013": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -286,15 +289,15 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster"
+      "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster"
      }
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster/DrainECSHook/Function/ServiceRole/Resource"
+    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster/DrainECSHook/Function/ServiceRole/Resource"
    }
   },
-  "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterDrainECSHookFunctionServiceRoleDefaultPolicy2C98A0BB": {
+  "TransendenceclusterCreateClusterTransendenceAddcapacityClusterDrainECSHookFunctionServiceRoleDefaultPolicyC99B0C4A": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -318,7 +321,7 @@
          [
           "arn:aws:autoscaling:eu-west-2:577638398727:autoScalingGroup:*:autoScalingGroupName/",
           {
-           "Ref": "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterASGC7B0A108"
+           "Ref": "TransendenceclusterCreateClusterTransendenceAddcapacityClusterASGE6EECA39"
           }
          ]
         ]
@@ -361,18 +364,18 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterDrainECSHookFunctionServiceRoleDefaultPolicy2C98A0BB",
+    "PolicyName": "TransendenceclusterCreateClusterTransendenceAddcapacityClusterDrainECSHookFunctionServiceRoleDefaultPolicyC99B0C4A",
     "Roles": [
      {
-      "Ref": "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterDrainECSHookFunctionServiceRoleA641ADEC"
+      "Ref": "TransendenceclusterCreateClusterTransendenceAddcapacityClusterDrainECSHookFunctionServiceRole35EB4013"
      }
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster/DrainECSHook/Function/ServiceRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster/DrainECSHook/Function/ServiceRole/DefaultPolicy/Resource"
    }
   },
-  "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterDrainECSHookFunction462E1BD9": {
+  "TransendenceclusterCreateClusterTransendenceAddcapacityClusterDrainECSHookFunction23B3D6A5": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
@@ -388,7 +391,7 @@
     "Handler": "index.lambda_handler",
     "Role": {
      "Fn::GetAtt": [
-      "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterDrainECSHookFunctionServiceRoleA641ADEC",
+      "TransendenceclusterCreateClusterTransendenceAddcapacityClusterDrainECSHookFunctionServiceRole35EB4013",
       "Arn"
      ]
     },
@@ -396,20 +399,20 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster"
+      "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster"
      }
     ],
     "Timeout": 310
    },
    "DependsOn": [
-    "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterDrainECSHookFunctionServiceRoleDefaultPolicy2C98A0BB",
-    "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterDrainECSHookFunctionServiceRoleA641ADEC"
+    "TransendenceclusterCreateClusterTransendenceAddcapacityClusterDrainECSHookFunctionServiceRoleDefaultPolicyC99B0C4A",
+    "TransendenceclusterCreateClusterTransendenceAddcapacityClusterDrainECSHookFunctionServiceRole35EB4013"
    ],
    "Metadata": {
-    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster/DrainECSHook/Function/Resource"
+    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster/DrainECSHook/Function/Resource"
    }
   },
-  "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterDrainECSHookFunctionLogGroup869E7D78": {
+  "TransendenceclusterCreateClusterTransendenceAddcapacityClusterDrainECSHookFunctionLogGroup7D7E7BF9": {
    "Type": "AWS::Logs::LogGroup",
    "Properties": {
     "LogGroupName": {
@@ -418,7 +421,7 @@
       [
        "/aws/lambda/",
        {
-        "Ref": "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterDrainECSHookFunction462E1BD9"
+        "Ref": "TransendenceclusterCreateClusterTransendenceAddcapacityClusterDrainECSHookFunction23B3D6A5"
        }
       ]
      ]
@@ -427,68 +430,68 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster"
+      "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster"
      }
     ]
    },
    "UpdateReplacePolicy": "Retain",
    "DeletionPolicy": "Retain",
    "Metadata": {
-    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster/DrainECSHook/Function/LogGroup/Resource"
+    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster/DrainECSHook/Function/LogGroup/Resource"
    }
   },
-  "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterDrainECSHookFunctionAllowInvokeecsclusterstackTransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterLifecycleHookDrainHookTopicCDBC73E8E7177800": {
+  "TransendenceclusterCreateClusterTransendenceAddcapacityClusterDrainECSHookFunctionAllowInvokeecsclusterstackTransendenceclusterCreateClusterTransendenceAddcapacityClusterLifecycleHookDrainHookTopicA3B92A564707CEB6": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunction",
     "FunctionName": {
      "Fn::GetAtt": [
-      "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterDrainECSHookFunction462E1BD9",
+      "TransendenceclusterCreateClusterTransendenceAddcapacityClusterDrainECSHookFunction23B3D6A5",
       "Arn"
      ]
     },
     "Principal": "sns.amazonaws.com",
     "SourceArn": {
-     "Ref": "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterLifecycleHookDrainHookTopic16AD68FF"
+     "Ref": "TransendenceclusterCreateClusterTransendenceAddcapacityClusterLifecycleHookDrainHookTopic10442DC0"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster/DrainECSHook/Function/AllowInvoke:ecsclusterstackTransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterLifecycleHookDrainHookTopicCDBC73E8"
+    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster/DrainECSHook/Function/AllowInvoke:ecsclusterstackTransendenceclusterCreateClusterTransendenceAddcapacityClusterLifecycleHookDrainHookTopicA3B92A56"
    }
   },
-  "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterDrainECSHookFunctionTopic2EFC8608": {
+  "TransendenceclusterCreateClusterTransendenceAddcapacityClusterDrainECSHookFunctionTopicB6937B5A": {
    "Type": "AWS::SNS::Subscription",
    "Properties": {
     "Endpoint": {
      "Fn::GetAtt": [
-      "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterDrainECSHookFunction462E1BD9",
+      "TransendenceclusterCreateClusterTransendenceAddcapacityClusterDrainECSHookFunction23B3D6A5",
       "Arn"
      ]
     },
     "Protocol": "lambda",
     "TopicArn": {
-     "Ref": "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterLifecycleHookDrainHookTopic16AD68FF"
+     "Ref": "TransendenceclusterCreateClusterTransendenceAddcapacityClusterLifecycleHookDrainHookTopic10442DC0"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster/DrainECSHook/Function/Topic/Resource"
+    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster/DrainECSHook/Function/Topic/Resource"
    }
   },
-  "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterLifecycleHookDrainHookTopic16AD68FF": {
+  "TransendenceclusterCreateClusterTransendenceAddcapacityClusterLifecycleHookDrainHookTopic10442DC0": {
    "Type": "AWS::SNS::Topic",
    "Properties": {
     "Tags": [
      {
       "Key": "Name",
-      "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster"
+      "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster"
      }
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster/LifecycleHookDrainHook/Topic/Resource"
+    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster/LifecycleHookDrainHook/Topic/Resource"
    }
   },
-  "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterLifecycleHookDrainHookRole4A6909A0": {
+  "TransendenceclusterCreateClusterTransendenceAddcapacityClusterLifecycleHookDrainHookRoleF7EFE429": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -506,15 +509,15 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster"
+      "Value": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster"
      }
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster/LifecycleHookDrainHook/Role/Resource"
+    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster/LifecycleHookDrainHook/Role/Resource"
    }
   },
-  "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterLifecycleHookDrainHookRoleDefaultPolicy1F7D9524": {
+  "TransendenceclusterCreateClusterTransendenceAddcapacityClusterLifecycleHookDrainHookRoleDefaultPolicyF08EA2F0": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -523,67 +526,67 @@
        "Action": "sns:Publish",
        "Effect": "Allow",
        "Resource": {
-        "Ref": "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterLifecycleHookDrainHookTopic16AD68FF"
+        "Ref": "TransendenceclusterCreateClusterTransendenceAddcapacityClusterLifecycleHookDrainHookTopic10442DC0"
        }
       }
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterLifecycleHookDrainHookRoleDefaultPolicy1F7D9524",
+    "PolicyName": "TransendenceclusterCreateClusterTransendenceAddcapacityClusterLifecycleHookDrainHookRoleDefaultPolicyF08EA2F0",
     "Roles": [
      {
-      "Ref": "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterLifecycleHookDrainHookRole4A6909A0"
+      "Ref": "TransendenceclusterCreateClusterTransendenceAddcapacityClusterLifecycleHookDrainHookRoleF7EFE429"
      }
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster/LifecycleHookDrainHook/Role/DefaultPolicy/Resource"
+    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster/LifecycleHookDrainHook/Role/DefaultPolicy/Resource"
    }
   },
-  "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterLifecycleHookDrainHook9CF54832": {
+  "TransendenceclusterCreateClusterTransendenceAddcapacityClusterLifecycleHookDrainHook14890454": {
    "Type": "AWS::AutoScaling::LifecycleHook",
    "Properties": {
     "AutoScalingGroupName": {
-     "Ref": "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterASGC7B0A108"
+     "Ref": "TransendenceclusterCreateClusterTransendenceAddcapacityClusterASGE6EECA39"
     },
     "DefaultResult": "CONTINUE",
     "HeartbeatTimeout": 300,
     "LifecycleTransition": "autoscaling:EC2_INSTANCE_TERMINATING",
     "NotificationTargetARN": {
-     "Ref": "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterLifecycleHookDrainHookTopic16AD68FF"
+     "Ref": "TransendenceclusterCreateClusterTransendenceAddcapacityClusterLifecycleHookDrainHookTopic10442DC0"
     },
     "RoleARN": {
      "Fn::GetAtt": [
-      "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterLifecycleHookDrainHookRole4A6909A0",
+      "TransendenceclusterCreateClusterTransendenceAddcapacityClusterLifecycleHookDrainHookRoleF7EFE429",
       "Arn"
      ]
     }
    },
    "DependsOn": [
-    "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterLifecycleHookDrainHookRoleDefaultPolicy1F7D9524",
-    "TransendenceclusterCreateClusterTransendenceclusterAddcapacityClusterLifecycleHookDrainHookRole4A6909A0"
+    "TransendenceclusterCreateClusterTransendenceAddcapacityClusterLifecycleHookDrainHookRoleDefaultPolicyF08EA2F0",
+    "TransendenceclusterCreateClusterTransendenceAddcapacityClusterLifecycleHookDrainHookRoleF7EFE429"
    ],
    "Metadata": {
-    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-cluster-Addcapacity-Cluster/LifecycleHookDrainHook/Resource"
+    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Create-Cluster/Transendence-Addcapacity-Cluster/LifecycleHookDrainHook/Resource"
    }
   },
-  "TransendenceclusterStoreclusterCluster01D96008": {
+  "TransendenceStoreclusterCluster6A87ED7E": {
    "Type": "AWS::SSM::Parameter",
    "Properties": {
-    "Name": "/transendence-cluster/ecs/cluster",
+    "Name": "/transendence/ecs/cluster",
     "Type": "String",
     "Value": {
      "Ref": "TransendenceclusterCreateCluster90EBD3C0"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "ecs-cluster-stack/Transendence-cluster-Storecluster-Cluster/Resource"
+    "aws:cdk:path": "ecs-cluster-stack/Transendence-Storecluster-Cluster/Resource"
    }
   },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/81WS2/jNhD+LctjwKip96ab1+tujSaOa2vbgxEEY2pss6ZIghwmNQT994J6RYoXwWKBRXowTM17Pn4ccpJMbibJzQd49tciP10ruUvKDYE48TV6E5zALbti/I3fA4dn/1ii8Ek5U8ETum3JRLNaQoEsrS2frKhXFS8Z5PkMLAhJZ5bWCUpWwL8vstqjkPqV5MmKTdhpJM/Skvl6mZ1tTLEKOyUFqziT2hNoga3iilUPbc5pILMRoKQ+fHEm2EFucZQaFwUcWreb6qF64LO9bluqOAQyvnFOyteRtmXfHx9Fa0XB5kBdRWu0CgTWlj+t56bjrx7dZyBoOu1wyMzaKFwZJUXEv6x+RFGj8xoHfiv3KM5C4e/GnLYlgwvI66ZUZ5Y50F6SNJqlbABxOp9NHhfLTTZdzuaP2Xx9t1hOs8XyC+Msxz0ERWv0QRFL2ex+mS2WX+eMM21I7qWAGDADd0BqEx4RHO0QKJMFmkAtMWIPo5IrjmKSlBsUwUk6X24uKGWep0rdB9qZoHOWkgvYRBp58VsIWhwzLKwCwm35LV5c7FvsjkAqzO+MlmSc1AeW7kF55MwP43fM6ne4Kc97IyQQNtxY2GmeO/S+VXtr6N5GdDrJThlx+oxPUqB/VdTKmb1UXV0nPK9AuiFwowYrLqFIysiTbcmcUTg4/OB9KDD/dI4ctk5qIS2oqRAmaBrZRP+paAlxxaqegKvO64KeRCCOC62kfmFoz/Y3lW/HfVv7wx3FY6/hgHkdUkbYa3K8yM5Tp8eT6//X/rtA99PQqPkcs/FG3t4LjUMz/C7iXIrzfENAWKAmPwLju8XvlPZ9iqxBb/COq8V47FRcQbHLISl/C7rmQHxWmLwbKUfQuULXfrmgSfbjhgZDnjPUT9IZHVMP78b5UNy9ctqqupR1hegK6b00uuLKHHxS3pr+1lftsp917WhsxRX32iflJuy8cNK2XZCxUvTF5dbInvfWGTLCKJaypn3G2V4qQtcRtjYbiv6WdLxD7+GAn0zeWTg8dMcm3imQ3yIRuj8DhmGhw8p4FuuqZ1F88vyB54Fhrau490V8IMZraQUOCmyee7ZbD2a+r63+AjVK2HtV1egzftwHsoEqvjrT0ehfPia/TpKPH/7xUl63+5usm///AFT6HDu4CgAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/81WTW/jNhD9LctjwKipF+jBN6/X3RpNHNfWtgcjCMbk2GZNkQI5TCoI+u8F9RUpboNigUV6MEwN5+sNn544SSY3PyU3H+DZXwt5vtZqn5RbAnHmG/Q2OIE7dsX4G78HDs/+sUThk3Kugyd0u5KJZrWCDNm09nzKRb2qeMlAyjnkIBQVbFoXKFkGf73Y6ohMmVeWp1xsw94geTYtma+XaZHHEuuw10qwijNlPIER2G5cseqhrTkLZLcCtDLHL86GfFBbnJTBZQbHNuymeqge+PxgWkgVh0DWN8FJ+TrTruzx8VG21hRyCdR1tMFcg8Da87thbhB/9eg+A0GDtJtDajdW49pqJeL8y+rbN7YoglNUDObZDu71iPitOqAohMZfrD3vSgYXp1Hj1Z1b6sB4RcoaNmWD6U8X88njcrVNZ6v54jFdbO6Wq1m6XH1hnEk8QNC0QR80sSmb36/S5errgnFmLKmDEhATpuCOSG3BE4KjPQKlKkMbqOVMxDBqueIoJkk5Qjw6d9DaPs+0vg+0t8FINiUXsMk0iuK3EIw4pZjlGgh35T9R5uJIIzoCpVHeWaPIOmWObHoA7ZEzPz6HhnT94TfteW+FAsKGNst8JqVD79ttn1u6z+N0OsteW3H+jE9KoH/V1NrZg9JdX2cs1qDckHj/zosx9ooryJIysmtXMmc1DiQDvA8Zyk9FZH7ulBEqBz0TwgZDI58YPxMtV65Y1dN23UVdcJcIxGlptDIvvO7fkTc338779u43I4piYeCIsk6p4onUvHmxFTNnxnr3/4P/LqP7btOo+Ryr8cbefk2agEYyL/JcmqXcEhBmaMiPtfW/mt+p7Ps0WQ+9mXdcLceKVHEN2V5CUv4cTM2BeBmxspOUExip0bVPLhhSvdzQQP85Q/OknDWx9FDYFkNzdzdqu+pK1h2iy5T3ypqKa3v0SXlr+7uCbpe91rXS2Jor7o1Pym3Ye+FU3qIgmyvRNydzq3re586SFVazKWvgM84OShO6jrC129D0h6LTHXoPR/xkZefh8Ni9NvFzA/IWidD9FjAMGx12xtPYV61F8aL0KxYDx3qv4t5n8VoZv1hrcJBhc0nMu/VA833t9TvoUcE+qqpGj/HhPlAeqOLrgk7W/PAx+XGSfPzwp1fquj3fZNP8/w2QvaR57goAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "ecs-cluster-stack/CDKMetadata/Default"
@@ -591,6 +594,10 @@
   }
  },
  "Parameters": {
+  "SsmParameterValuetransendenceec2albecssecuritygrouparnC96584B6F00A464EAD1953AFF4B05118Parameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/transendence/ec2-alb/ecs/security-group-arn"
+  },
   "SsmParameterValueawsserviceecsoptimizedamiamazonlinux2recommendedimageidC96584B6F00A464EAD1953AFF4B05118Parameter": {
    "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
    "Default": "/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id"

@@ -9,7 +9,7 @@ from aws_cdk import (
 from constructs import Construct
 from aws_cdk.aws_ecs import LogDrivers
 from helpers.tools import tools
-
+from aws_cdk import aws_ssm as ssm
 
 class ECSServicesStack(tools):
     def __init__(self, scope: Construct, id: str, **kwargs):
@@ -23,25 +23,38 @@ class ECSServicesStack(tools):
 
         for svc in services:
             name = svc["name"]
+            app_name = svc["app_name"]
             cluster_name = svc["cluster"]
+            full_cluster_name = f"{svc["cluster"]}-cluster"
             vpc_name = svc["vpc"]
-            task_role_arn = svc["ecs_task_role_arn"]
+            role_name = svc["role_name"]
             secrets_manager_name = svc.get("secrets_manager_name")
             secret_keys = svc.get("secrets", [])
+            daemon = svc.get("daemon", False)
 
-            vpc_id = self.get_vpc_id(vpc_name)
-            vpc = ec2.Vpc.from_lookup(
-                self, 
-                self.logical_id_generator(cluster_name, vpc_name, name), 
-                vpc_id=vpc_id)
+            
+            try:
+                vpc_id = self.get_vpc_id(vpc_name)
+                vpc = ec2.Vpc.from_lookup(
+                    self, 
+                    self.logical_id_generator(cluster_name, name, "services"),
+                    vpc_id=vpc_id
+                )
+            except Exception as e:
+                print(f"Error looking up VPC '{vpc_name}': {e}")
+                continue 
+
 
             cluster = ecs.Cluster.from_cluster_attributes(
                 self,
                 self.logical_id_generator(cluster_name, name, "cluster"),
-                cluster_name=cluster_name,
+                cluster_name=full_cluster_name,
                 vpc=vpc
             )
 
+            task_role_arn = self.ssm.get_parameter(
+                Name=self.generate_ssm_parameter_path(app_name, role_name, "role"))["Parameter"]["Value"]
+            
             task_role = iam.Role.from_role_arn(
                 self, 
                 self.logical_id_generator(cluster_name, name, "task-role"),
@@ -55,10 +68,11 @@ class ECSServicesStack(tools):
                 cluster=cluster,
                 task_role=task_role,
                 secret_manager_name=secrets_manager_name,
-                secret_keys=secret_keys
+                secret_keys=secret_keys,
+                daemon=daemon
             )
 
-    def _create_service(self, name, repo_name, port, cluster, task_role, secret_manager_name, secret_keys):
+    def _create_service(self, name, repo_name, port, cluster, task_role, secret_manager_name, secret_keys, daemon):
         container_secrets = {}
         if secret_manager_name and secret_keys:
             secret = secretsmanager.Secret.from_secret_name_v2(
@@ -99,14 +113,14 @@ class ECSServicesStack(tools):
         container.add_port_mappings(
             ecs.PortMapping(container_port=port)
         )
-
+    
         service = ecs.Ec2Service(
             self, 
             self.logical_id_generator(cluster.cluster_name, name, "service"),
             cluster=cluster,
             task_definition=task_def,
-            desired_count=1,
             service_name=name,
+            daemon=daemon,
         )
 
         

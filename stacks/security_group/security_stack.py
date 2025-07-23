@@ -23,7 +23,7 @@ class SecurityStack(tools):
             app_name = sg_def["app_name"]
             vpc_id = self.get_vpc_id(vpc_name)
             self.vpc = ec2.Vpc.from_vpc_attributes(
-                self, f"{name}-{vpc_id}-VpcImported-SecurityStack",
+                self, self.logical_id_generator(app_name, vpc_name, name),
                 vpc_id=vpc_id,
                 availability_zones=self.availability_zones
             )
@@ -34,25 +34,28 @@ class SecurityStack(tools):
                 allow_all_outbound=sg_def.get("allow_all_outbound", True)
             )
             self.sg_lookup[name] = sg
+            for rule in config.get("ingress", []):
+                if "source_sg" in rule:
+                    source = rule["source_sg"]
+                    if self.sg_lookup.get(source):
+                        sg.connections.allow_from(
+                            self.sg_lookup[source],
+                            ec2.Port(protocol=rule["protocol"], string_representation=rule.get("description", ""), from_port=rule["port"], to_port=rule["port"])
+                        )
+                    else:
+                        sg.connections.allow_from(
+                            ec2.Peer.ipv4(source),
+                            ec2.Port(protocol=rule["protocol"], string_representation=rule.get("description", ""), from_port=rule["port"], to_port=rule["port"])
+                        )
+            ssm_path = self.generate_ssm_parameter_path(app_name, name, "security-group")
+            logical_id = self.logical_id_generator(app_name, name, "security-group")
 
-        for sg_def in config["security_groups"]:
-            sg = self.sg_lookup[sg_def["name"]]
-            for rule in sg_def.get("ingress", []):
-                port = ec2.Port.tcp(rule["port"]) if rule["protocol"] == "tcp" else None
-                desc = rule.get("description", "")
-                if "source" in rule:
-                    sg.add_ingress_rule(
-                        peer=ec2.Peer.ipv4(rule["source"]),
-                        connection=port,
-                        description=desc
-                    )
-                elif "source_sg" in rule:
-                    source_sg = self.sg_lookup[rule["source_sg"]]
-                    sg.add_ingress_rule(
-                        peer=source_sg,
-                        connection=port,
-                        description=desc
-                    )
+            self.store_ssm_parameter(
+                logical_id,
+                parameter_name=ssm_path,
+                string_value=self.sg_lookup[sg_def["name"]].security_group_id
+            )
+
 
         if "ecs-sg" in self.sg_lookup:
             CfnOutput(self, "SecurityGroupId", value=self.sg_lookup["ecs-sg"].security_group_id)

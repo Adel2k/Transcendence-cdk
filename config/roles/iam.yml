@@ -1,5 +1,5 @@
 roles:
-  - name: transendence-ecs-task-role
+  - name: ecs-task
     app_name: transendence
     description: ECS task role for app
     service: ecs-tasks.amazonaws.com

@@ -16,25 +16,36 @@ alb:
       frontend:
         port: 80
         health_path: /
+        target_type: instance
       backend:
         port: 3000
         health_path: /api/health
+        target_type: instance
 
     routing:
       - name: ApiRoute
         priority: 1
         path: "/api/*"
         target: backend
-
       - name: AvatarsRoute
         priority: 2
         path: "/avatars/*"
         target: backend
-
       - name: DefaultRoute
         priority: 10
         path: "/*"
         target: frontend
+
+    instances:
+      - id: i-0dc595a6282c20581
+        az: eu-west-2a
+        private_ip: 10.0.0.15
+        targets:
+          - group: backend
+            port: 3000
+          - group: frontend
+            port: 80
+
     vpc: transendence
-    cluster: transendence-cluster
+    cluster: transendence
     certificate: transendence-dev-cert

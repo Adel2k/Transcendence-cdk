@@ -14,6 +14,9 @@ from aws_cdk import aws_route53_targets as targets
 from aws_cdk.aws_elasticloadbalancingv2 import ApplicationLoadBalancer
 from constructs import Construct
 from botocore.exceptions import ClientError
+import random
+from boto3.session import Session
+
 
 
 class tools(Stack):
@@ -51,12 +54,22 @@ class tools(Stack):
     #######################################################################
 
     def create_target_group(self, id, vpc, cfg):
+        if 'target_type' in cfg:
+            target_type = cfg['target_type']
+            if target_type == 'ip':
+                target_type = elbv2.TargetType.IP
+            elif target_type == 'instance':
+                target_type = elbv2.TargetType.INSTANCE
+            elif target_type == 'lambda':
+                target_type = elbv2.TargetType.LAMBDA
+            else:
+                target_type = elbv2.TargetType.IP
         return elbv2.ApplicationTargetGroup(
             self, id,
             vpc=vpc,
             port=cfg['port'],
             protocol=elbv2.ApplicationProtocol.HTTP,
-            target_type=elbv2.TargetType.IP,
+            target_type=target_type,
             health_check=elbv2.HealthCheck(
                 path=cfg.get('health_path', '/'),
                 healthy_http_codes="200"
@@ -66,8 +79,9 @@ class tools(Stack):
     #######################################################################
 
     def get_vpc_id(self, app_name: str, region="eu-west-2") -> str:
-        ssm = boto3.client("ssm", region_name=region)
-        return ssm.get_parameter(Name=f"/{app_name}/vpc-id")["Parameter"]["Value"]
+        session = Session(profile_name="StudentAccess-577638398727")
+        ssm = session.client("ssm")
+        return ssm.get_parameter(Name=f"/{app_name}/ecs/vpc-id")["Parameter"]["Value"]
     
     #######################################################################
 
@@ -100,9 +114,12 @@ class tools(Stack):
     
     #######################################################################
 
-    def add_http_redirect_listener(self, alb):
+    def add_http_redirect_listener(self, alb, name):
+        listener_id = f"{name}-HttpRedirectListener"
+        if alb.node.try_find_child(listener_id):
+            return
         alb.add_listener(
-            "HttpRedirectListener",
+            f"{name}-HttpRedirectListener",
             port=80,
             open=True,
             default_action=elbv2.ListenerAction.redirect(
@@ -114,8 +131,10 @@ class tools(Stack):
     #######################################################################
 
     def add_https_listener(self, alb, certificate, routes, target_groups):
+        id = random.randint(1,9999)
+
         listener = alb.add_listener(
-            "HttpsListener",
+            f"http-{id}",
             port=443,
             open=True,
             certificates=[certificate],
@@ -167,7 +186,7 @@ class tools(Stack):
     ########################################################################
 
     def logical_id_generator(self, cluster_name: str, type: str, aws_service: str) -> str:
-        return f"{cluster_name.capitalize()}-{type.capitalize()}-{aws_service.capitalize()}"
+                            return f"{cluster_name.capitalize()}-{type.capitalize()}-{aws_service.capitalize()}"
     
     #########################################################################
 
@@ -189,3 +208,4 @@ class tools(Stack):
         return f"/{cluster_name}/{service_name}/ecs/{aws_service}-arn"
     
     #########################################################################
+

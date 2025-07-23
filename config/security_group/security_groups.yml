@@ -1,22 +1,4 @@
 security_groups:
-  - name: lambda-sg
-    app_name: transendence
-    description: SG for Lambda Functions
-    allow_all_outbound: true
-    ingress: []
-    vpc: transendence
-
-  - name: bastion-sg
-    app_name: transendence
-    description: SG for Bastion Host
-    allow_all_outbound: true
-    ingress:
-      - protocol: tcp
-        port: 22
-        source: "0.0.0.0/0"
-        description: SSH Access
-    vpc: transendence
-
   - name: ecs-sg
     app_name: transendence
     description: SG for ECS
@@ -34,3 +16,30 @@ security_groups:
         source_sg: ecs-sg
         description: PostgreSQL from ECS
     vpc: transendence
+
+  - name: alb-sg
+    app_name: transendence
+    description: SG for ALB
+    vpc: transendence
+    allow_all_outbound: true
+    ingress:
+      - protocol: tcp
+        port: 80
+        source_sg: 0.0.0.0/0
+        description: HTTP access from public
+
+      - protocol: tcp
+        port: 443
+        source_sg: 0.0.0.0/0
+        description: HTTPS access from public
+
+  - name: ec2-alb
+    app_name: transendence
+    description: SG for EC2 behind ALB
+    vpc: transendence
+    allow_all_outbound: true
+    ingress:
+      - protocol: tcp
+        port: 3000
+        source_sg: alb-sg 
+        description: Allow ALB to access EC2 on port 3000

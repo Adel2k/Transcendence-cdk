@@ -54,11 +54,11 @@ ecs_services_stack = ECSServicesStack(
     env=env
     )
 
-GenericPipelineStack(
-    app, 
-    "pipeline-stack",
-    env=env
-)
+# GenericPipelineStack(
+#     app, 
+#     "pipeline-stack",
+#     env=env
+# )
 
 acm_stack = ACMStack(
     app,
@@ -73,10 +73,10 @@ alb_stack = ALBStack(
 )
 
 
-# # waf_stack = WAFStack(
-# #     app,
-# #     "waf-stack",
-# #     env=env
-# # )
+# # # waf_stack = WAFStack(
+# # #     app,
+# # #     "waf-stack",
+# # #     env=env
+# # # )
 
 app.synth()

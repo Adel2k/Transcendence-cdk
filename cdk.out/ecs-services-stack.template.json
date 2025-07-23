@@ -80,7 +80,7 @@
     "RequiresCompatibilities": [
      "EC2"
     ],
-    "TaskRoleArn": "arn:aws:iam::577638398727:role/tmp-transendence-ecs-task-role"
+    "TaskRoleArn": "arn:aws:iam::577638398727:role/tmp-ecs-task-role"
    },
    "Metadata": {
     "aws:cdk:path": "ecs-services-stack/Transendence-cluster-Backend-Taskdef/Resource"
@@ -165,13 +165,12 @@
    "Properties": {
     "Cluster": "transendence-cluster",
     "DeploymentConfiguration": {
-     "MaximumPercent": 200,
-     "MinimumHealthyPercent": 50
+     "MaximumPercent": 100,
+     "MinimumHealthyPercent": 0
     },
-    "DesiredCount": 1,
     "EnableECSManagedTags": false,
     "LaunchType": "EC2",
-    "SchedulingStrategy": "REPLICA",
+    "SchedulingStrategy": "DAEMON",
     "ServiceName": "backend",
     "TaskDefinition": {
      "Ref": "TransendenceclusterBackendTaskdef88A7160A"
@@ -269,7 +268,7 @@
     "RequiresCompatibilities": [
      "EC2"
     ],
-    "TaskRoleArn": "arn:aws:iam::577638398727:role/tmp-transendence-ecs-task-role"
+    "TaskRoleArn": "arn:aws:iam::577638398727:role/tmp-ecs-task-role"
    },
    "Metadata": {
     "aws:cdk:path": "ecs-services-stack/Transendence-cluster-Frontend-Taskdef/Resource"
@@ -346,13 +345,12 @@
    "Properties": {
     "Cluster": "transendence-cluster",
     "DeploymentConfiguration": {
-     "MaximumPercent": 200,
-     "MinimumHealthyPercent": 50
+     "MaximumPercent": 100,
+     "MinimumHealthyPercent": 0
     },
-    "DesiredCount": 1,
     "EnableECSManagedTags": false,
     "LaunchType": "EC2",
-    "SchedulingStrategy": "REPLICA",
+    "SchedulingStrategy": "DAEMON",
     "ServiceName": "frontend",
     "TaskDefinition": {
      "Ref": "TransendenceclusterFrontendTaskdef4F1F27CD"
@@ -391,7 +389,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/91UwWoCMRD9FnMsMbXrzZu2UgqlLKv0skhJs6NOzSZLkq1IyL+Xzbq2IrTQHpQeQpL3Zt5MhkcSlgwSNujxre2LYtOX+Mr8zHGxoRlYXRsBObki9A9rQfnWvngQhmVQaYtOm92EW8gXVOqVZf5Rr+6Nrqv8kHG7VB0YKAjL/FQkc243d7BEhQ61+m1bUfxYit5q5TgqMF+wqUhmYN7xdABRYc8FirxkPtMSck+4tXUJxWRHRp5UBpXAisuxELpWjoxifhvTJIxFUyjCgRKjJTzxEvZ3T3hRzHXaiaRaotiRUe7DIrLOcbF+UBIVHLimuZ/J73Uvk/3Xg42GahqnLRwN1xWb64Y56eEULoqZ4w5KUM4elb0I+DxPipNthxqotWXztxlUq5QbXoIDk3tSdeeDSSixMeqZy/rTNmeJax/QRYYQaLpza62uh+wmYcPem0Xsm1o5LIFl7f4Br0Lj5dQFAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/91UUWvCMBD+LeZxxMxV2INv6mQMxihV9lJkZOmpN9OkJOmkhP730dS6ibDB9qDsIST5vrvvLsdHIhYNbtmgx3e2L7JtX+Ir83PHxZYmYHVpBKTkitA/rCXlO/viQRiWQKEtOm2qCbeQLqnUa8v8o17fG10W6SFjulIdWFMQlvmZiBbcbu9ghQodavXbtoL4sRSdauU4KjBfsJmI5mDe8XQAQWHP1RR5znyiJaSecGvLHLJJRUaeFAaVwILLsRC6VI6MQn4b0ySMRVMowDUlRkt44jns757wLFvouBOJtURRkVHq62VgneNi86AkKjhwTXM/k9/rXib7rwcbDNU0Tls4GK4rttANc9LDKZxlc8cd5KCcPSp7EfB5nhQm2w61ptbmzd9mUK1jbngODkzqSdGdDyahxIaoZy7LT9ucJa59QBdZ1zWNK7fR6nrIbiI27L1ZxL4plcMcWNLuHzF4OrLUBQAA"
    },
    "Metadata": {
     "aws:cdk:path": "ecs-services-stack/CDKMetadata/Default"

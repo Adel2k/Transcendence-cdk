@@ -8,7 +8,7 @@
    "Type": "AWS::SSM::Parameter::Value<String>",
    "Default": "/transendence-cluster/backend/ecs/service-arn"
   },
-  "transendencealbCertParamParameter": {
+  "TransendenceclusterTransendencealbCertparamParameter": {
    "Type": "AWS::SSM::Parameter::Value<String>",
    "Default": "/transendence-dev-cert/ecs/certificate"
   },
@@ -38,8 +38,8 @@
      }
     ],
     "Subnets": [
-     "subnet-0e2f758e11dd8b4ce",
-     "subnet-047ff4a8a4caeb881"
+     "subnet-006d0fad5eb95e023",
+     "subnet-0c9f39b53c5f7d40b"
     ],
     "Type": "application"
    },
@@ -76,13 +76,13 @@
       "ToPort": 443
      }
     ],
-    "VpcId": "vpc-05d70e43ff4b66d37"
+    "VpcId": "vpc-0e3c4903be8871e4d"
    },
    "Metadata": {
     "aws:cdk:path": "alb-stack/transendence-alb/SecurityGroup/Resource"
    }
   },
-  "transendencealbHttpRedirectListenerB6FA0EFA": {
+  "transendencealbtransendencealbHttpRedirectListener421D15F2": {
    "Type": "AWS::ElasticLoadBalancingV2::Listener",
    "Properties": {
     "DefaultActions": [
@@ -102,16 +102,16 @@
     "Protocol": "HTTP"
    },
    "Metadata": {
-    "aws:cdk:path": "alb-stack/transendence-alb/HttpRedirectListener/Resource"
+    "aws:cdk:path": "alb-stack/transendence-alb/transendence-alb-HttpRedirectListener/Resource"
    }
   },
-  "transendencealbHttpsListener2432D3EA": {
+  "transendencealbhttp378825CC3275": {
    "Type": "AWS::ElasticLoadBalancingV2::Listener",
    "Properties": {
     "Certificates": [
      {
       "CertificateArn": {
-       "Ref": "transendencealbCertParamParameter"
+       "Ref": "TransendenceclusterTransendencealbCertparamParameter"
       }
      }
     ],
@@ -130,10 +130,10 @@
     "Protocol": "HTTPS"
    },
    "Metadata": {
-    "aws:cdk:path": "alb-stack/transendence-alb/HttpsListener/Resource"
+    "aws:cdk:path": "alb-stack/transendence-alb/http-3788/Resource"
    }
   },
-  "transendencealbHttpsListenerApiRouteRuleBA6C8E72": {
+  "transendencealbhttp3788ApiRouteRule4C17D6D9": {
    "Type": "AWS::ElasticLoadBalancingV2::ListenerRule",
    "Properties": {
     "Actions": [
@@ -155,15 +155,15 @@
      }
     ],
     "ListenerArn": {
-     "Ref": "transendencealbHttpsListener2432D3EA"
+     "Ref": "transendencealbhttp378825CC3275"
     },
     "Priority": 1
    },
    "Metadata": {
-    "aws:cdk:path": "alb-stack/transendence-alb/HttpsListener/ApiRouteRule/Resource"
+    "aws:cdk:path": "alb-stack/transendence-alb/http-3788/ApiRouteRule/Resource"
    }
   },
-  "transendencealbHttpsListenerAvatarsRouteRuleA10A4037": {
+  "transendencealbhttp3788AvatarsRouteRule930B2038": {
    "Type": "AWS::ElasticLoadBalancingV2::ListenerRule",
    "Properties": {
     "Actions": [
@@ -185,15 +185,15 @@
      }
     ],
     "ListenerArn": {
-     "Ref": "transendencealbHttpsListener2432D3EA"
+     "Ref": "transendencealbhttp378825CC3275"
     },
     "Priority": 2
    },
    "Metadata": {
-    "aws:cdk:path": "alb-stack/transendence-alb/HttpsListener/AvatarsRouteRule/Resource"
+    "aws:cdk:path": "alb-stack/transendence-alb/http-3788/AvatarsRouteRule/Resource"
    }
   },
-  "transendencealbHttpsListenerDefaultRouteRuleDAE2F398": {
+  "transendencealbhttp3788DefaultRouteRule9804CDFC": {
    "Type": "AWS::ElasticLoadBalancingV2::ListenerRule",
    "Properties": {
     "Actions": [
@@ -215,12 +215,12 @@
      }
     ],
     "ListenerArn": {
-     "Ref": "transendencealbHttpsListener2432D3EA"
+     "Ref": "transendencealbhttp378825CC3275"
     },
     "Priority": 10
    },
    "Metadata": {
-    "aws:cdk:path": "alb-stack/transendence-alb/HttpsListener/DefaultRouteRule/Resource"
+    "aws:cdk:path": "alb-stack/transendence-alb/http-3788/DefaultRouteRule/Resource"
    }
   },
   "transendencealbfrontendTGA6A52B9A": {
@@ -238,8 +238,14 @@
       "Value": "false"
      }
     ],
-    "TargetType": "ip",
-    "VpcId": "vpc-05d70e43ff4b66d37"
+    "TargetType": "instance",
+    "Targets": [
+     {
+      "Id": "i-0dc595a6282c20581",
+      "Port": 80
+     }
+    ],
+    "VpcId": "vpc-0e3c4903be8871e4d"
    },
    "Metadata": {
     "aws:cdk:path": "alb-stack/transendence-alb-frontend-TG/Resource"
@@ -260,8 +266,14 @@
       "Value": "false"
      }
     ],
-    "TargetType": "ip",
-    "VpcId": "vpc-05d70e43ff4b66d37"
+    "TargetType": "instance",
+    "Targets": [
+     {
+      "Id": "i-0dc595a6282c20581",
+      "Port": 3000
+     }
+    ],
+    "VpcId": "vpc-0e3c4903be8871e4d"
    },
    "Metadata": {
     "aws:cdk:path": "alb-stack/transendence-alb-backend-TG/Resource"
@@ -319,7 +331,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/7VSTU8CMRD9LfRoSsUlXrihB0NilIDxsiFmaEeslOnaD4g2/e9mC5hFPXjx0LTz5s2bmc5UohpUYtCDne9Lte4bvRRpHkCu+Qy9jU5izc4Y/+Us+PUzTcHBBgM6Djv/lNCAD1oaC2oJBkhqWm0rkcZNY7SEoC3dWlBXxYeu/i7XdfJukPYB6TTgRy1H0m+Bs2iwyyl2h/cAboXhxtnYtLSOmTnKSqQ5yuh0eC9Yndi2kWxUsiv00ummVTkgYIzdjY25j2FpIyk2egbjMfPEQKkJrRx631bARnViEmhCRhPukeAiciYtEcpW0x9EI+m3iBNVzMxTLr0X4cU/KpefPWk+c+837ZI4Tauv+deJNcf3HWzwoO0L6xFM3CP5dGsydzYGvByKNJ6htE7ViX1YOoa7gnX0QhnMsdI/U0vWfYI5hpwzn76HF0vnQ3FRiWHv1Wvdd5GC3qCY7e9P7UbqPxsDAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/7VSTU8CMRD9LfRoSsUleuCGHgyJUQPGy4aYoR2wWqZrPyTa9L+bLWAW5eDFQ9POmzdvZjpTiWpwIQY92Pi+VK99oxcizQLIVz5Fb6OTWLMTxo+cOb9a0j04WGNAx2HjnxIa8EFLY0EtwABJTav3SqRx0xgtIWhLNxbUZfGhq3/KdZ28G6R9QDoM+FXLnnQscBoNdjnF7vAewK0wXDsbm5bWMTNHWYk0QxmdDh8FqxN7byQblewKvXS6aVV2CBhjN2Nj7mJY2EiKjZZgPGaeGCg1oZVD79sK2KhOTAJNyGjCLRJcRM6kJULZavqdaCT9FnGiipl5yqX3Ijz/R+XyswfNZ+79ul0Sp2n1Pf86sWb/voU17rR9YT2CiVskH25N5s7GgOdDkcZTlNapOrFPS/twV7COXiiD2Vf6Z2rJuk0ww5Bz5vcf4dnS6VCcVWLYe/Fa912koNcoptv7C/ziJm0bAwAA"
    },
    "Metadata": {
     "aws:cdk:path": "alb-stack/CDKMetadata/Default"

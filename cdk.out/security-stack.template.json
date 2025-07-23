@@ -1,50 +1,5 @@
 {
  "Resources": {
-  "lambdasg93781054": {
-   "Type": "AWS::EC2::SecurityGroup",
-   "Properties": {
-    "GroupDescription": "SG for Lambda Functions",
-    "GroupName": "tmp-lambda-sg",
-    "SecurityGroupEgress": [
-     {
-      "CidrIp": "0.0.0.0/0",
-      "Description": "Allow all outbound traffic by default",
-      "IpProtocol": "-1"
-     }
-    ],
-    "VpcId": "vpc-05d70e43ff4b66d37"
-   },
-   "Metadata": {
-    "aws:cdk:path": "security-stack/lambda-sg/Resource"
-   }
-  },
-  "bastionsg9F6FB053": {
-   "Type": "AWS::EC2::SecurityGroup",
-   "Properties": {
-    "GroupDescription": "SG for Bastion Host",
-    "GroupName": "tmp-bastion-sg",
-    "SecurityGroupEgress": [
-     {
-      "CidrIp": "0.0.0.0/0",
-      "Description": "Allow all outbound traffic by default",
-      "IpProtocol": "-1"
-     }
-    ],
-    "SecurityGroupIngress": [
-     {
-      "CidrIp": "0.0.0.0/0",
-      "Description": "SSH Access",
-      "FromPort": 22,
-      "IpProtocol": "tcp",
-      "ToPort": 22
-     }
-    ],
-    "VpcId": "vpc-05d70e43ff4b66d37"
-   },
-   "Metadata": {
-    "aws:cdk:path": "security-stack/bastion-sg/Resource"
-   }
-  },
   "ecssg0261AE9D": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
@@ -57,10 +12,26 @@
       "IpProtocol": "-1"
      }
     ],
-    "VpcId": "vpc-05d70e43ff4b66d37"
+    "VpcId": "vpc-0e3c4903be8871e4d"
    },
    "Metadata": {
     "aws:cdk:path": "security-stack/ecs-sg/Resource"
+   }
+  },
+  "TransendenceEcssgSecuritygroup91BDB812": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Name": "/transendence/ecs-sg/ecs/security-group-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "ecssg0261AE9D",
+      "GroupId"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "security-stack/Transendence-Ecs-sg-Security-group/Resource"
    }
   },
   "dbsgCE6973BD": {
@@ -75,40 +46,100 @@
       "IpProtocol": "-1"
      }
     ],
-    "VpcId": "vpc-05d70e43ff4b66d37"
+    "VpcId": "vpc-0e3c4903be8871e4d"
    },
    "Metadata": {
     "aws:cdk:path": "security-stack/db-sg/Resource"
    }
   },
-  "dbsgfromsecuritystackecssgDE676D7C5432B8B5AC88": {
-   "Type": "AWS::EC2::SecurityGroupIngress",
+  "TransendenceDbsgSecuritygroup9EC27D79": {
+   "Type": "AWS::SSM::Parameter",
    "Properties": {
-    "Description": "PostgreSQL from ECS",
-    "FromPort": 5432,
-    "GroupId": {
+    "Name": "/transendence/db-sg/ecs/security-group-arn",
+    "Type": "String",
+    "Value": {
      "Fn::GetAtt": [
       "dbsgCE6973BD",
       "GroupId"
      ]
-    },
-    "IpProtocol": "tcp",
-    "SourceSecurityGroupId": {
-     "Fn::GetAtt": [
-      "ecssg0261AE9D",
-      "GroupId"
-     ]
-    },
-    "ToPort": 5432
+    }
    },
    "Metadata": {
-    "aws:cdk:path": "security-stack/db-sg/from securitystackecssgDE676D7C:5432"
+    "aws:cdk:path": "security-stack/Transendence-Db-sg-Security-group/Resource"
+   }
+  },
+  "albsg40B076C4": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "SG for ALB",
+    "GroupName": "tmp-alb-sg",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": "vpc-0e3c4903be8871e4d"
+   },
+   "Metadata": {
+    "aws:cdk:path": "security-stack/alb-sg/Resource"
+   }
+  },
+  "TransendenceAlbsgSecuritygroup974AA5F1": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Name": "/transendence/alb-sg/ecs/security-group-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "albsg40B076C4",
+      "GroupId"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "security-stack/Transendence-Alb-sg-Security-group/Resource"
+   }
+  },
+  "ec2alb5E674186": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "SG for EC2 behind ALB",
+    "GroupName": "tmp-ec2-alb",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": "vpc-0e3c4903be8871e4d"
+   },
+   "Metadata": {
+    "aws:cdk:path": "security-stack/ec2-alb/Resource"
+   }
+  },
+  "TransendenceEc2albSecuritygroup3C81E16E": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Name": "/transendence/ec2-alb/ecs/security-group-arn",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "ec2alb5E674186",
+      "GroupId"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "security-stack/Transendence-Ec2-alb-Security-group/Resource"
    }
   },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/7WRQU/DMAyFf8tyRGnYultviAPqhU3dsZpQ5hgWljkliammqv8ddS2oiOs4WJaenz4927nKl7laLnQbMzCnzNmD6nZJw0lWGD0HwFrcCTmrvdRtfEHIVbdD4GDT5Sl4bupOfDYgiqtNO+fbB+c2nA6eyYgiBUYpDEYItknW0+SMc8azPuNV7+WtadqYkt4CxlixQ1HUnQBNJTlLOCojEzwRwoCME5PJfjCW5hvV/1zi9in/eefBP8+/l4+v9OuLf4QJ0A+DDaeGUy+3l3T0dL9Wq1ytF+/R2iwwJXtGVY39C86dY1ZYAgAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/+WRzWoCMRDHn8UcSzbVFXrwVnrwVkXByyIlZqeamk1CZqaLhLx7cbXWPkEPPQzzwW/+zEet6vGTGo90j5Vpj5WzO5XXpM1RrgADJwONeBDyzrZS9/iWwdQqr8FwsnSap8CxyeIzGjEbOO1c6J+dWzDtAvtWzCgxSNECmmQj2eCvJN5rvOoOhnqR/0ZtK1/e/a9LFonYnf+QrN8vddIdEKQmi/gd37qlwIHaaMc/0/0JN+xxm7aUc7pgikxFLk90CP5xqia1mo4+0NoqsSfbgVpd/BfJ+AOcigIAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "security-stack/CDKMetadata/Default"

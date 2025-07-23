@@ -1,16 +1,16 @@
 {
-  "version": "44.0.0",
+  "version": "45.0.0",
   "files": {
-    "449abe16bc0c5afdf250375ffd2f4592e077914186cdb1f3660831811379684c": {
+    "0c06bcd57fb751c5549402b392534624a26aa7466a73a123aa3bb81ed189ddbe": {
       "displayName": "alb-stack Template",
       "source": {
         "path": "alb-stack.template.json",
         "packaging": "file"
       },
       "destinations": {
-        "577638398727-eu-west-2": {
+        "577638398727-eu-west-2-64a053ad": {
           "bucketName": "cdk-hnb659fds-assets-577638398727-eu-west-2",
-          "objectKey": "449abe16bc0c5afdf250375ffd2f4592e077914186cdb1f3660831811379684c.json",
+          "objectKey": "0c06bcd57fb751c5549402b392534624a26aa7466a73a123aa3bb81ed189ddbe.json",
           "region": "eu-west-2",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::577638398727:role/cdk-hnb659fds-file-publishing-role-577638398727-eu-west-2"
         }

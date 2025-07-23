@@ -1,6 +1,6 @@
 {
  "Resources": {
-  "transendenceecstaskroleecstasksamazonawscomroleEB724F6D": {
+  "TransendenceEcstaskEcstasksamazonawscomB958EC96": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -42,32 +42,32 @@
       ]
      }
     ],
-    "RoleName": "tmp-transendence-ecs-task-role"
+    "RoleName": "tmp-ecs-task-role"
    },
    "Metadata": {
-    "aws:cdk:path": "iam-stack/transendence-ecs-task-role-ecs-tasks.amazonaws.com-role/Resource"
+    "aws:cdk:path": "iam-stack/Transendence-Ecs-task-Ecs-tasks.amazonaws.com/Resource"
    }
   },
-  "transendenceecstaskrolearn1B8F7507": {
+  "ecstaskarn0F88311A": {
    "Type": "AWS::SSM::Parameter",
    "Properties": {
-    "Name": "/transendence/transendence-ecs-task-role/ecs/role-arn",
+    "Name": "/transendence/ecs-task/ecs/role-arn",
     "Type": "String",
     "Value": {
      "Fn::GetAtt": [
-      "transendenceecstaskroleecstasksamazonawscomroleEB724F6D",
+      "TransendenceEcstaskEcstasksamazonawscomB958EC96",
       "Arn"
      ]
     }
    },
    "Metadata": {
-    "aws:cdk:path": "iam-stack/transendence-ecs-task-role-arn/Resource"
+    "aws:cdk:path": "iam-stack/ecs-task-arn/Resource"
    }
   },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/5WPzUrEQBCEn2X7uEzGNXvLLXpWQgQvIUg7067tzk+YmbCEIe8uiTF49dRN8VVRVcryVMrTAW+xUPpaGH6X+SWhugq8xbfMaGVuvaEuA8Y4WtIPE1QZhsBO8YCmVsqPLkEFRxAbsxhqldi7VZ4FaIoq8LBLAoI39IyWNiIDav2EDi+kG29YTVB1GexfpQ5bXv9vvhePH26pNYsY7TIxsLs0GNBSotBlGH7/vZSAuFKvaMat5hqzu+ZZtBT9GBR1cIR+Fs2UPr27O8v7Up4PX5G5CKNLbEm2P/cbqW93zHEBAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/5WPzWrDMBCEnyV7DLKaOtCDb2nPLcaFXowpW2mbbKMfI8kEI/zuxa5reu1pl+GbYaaU5eFBHnZ4i4XS18Lwh8yvCdVV4C2+Z0Yrc+MNtRkwxsGSfhyhytAHdop7NCel/OASVLAHsTKz4aQSe7fIkwBNUQXuN0lA8IZe0NJKZECtn9HhmXTtDasRqjaD/aucwprX/ZvvxNOnm2tNIkY7TwzszjUGtJQotBn6338rJSAu1BuaYa25xGyuaRINRT8ERS3soZtEPaaLd3dHeV/K4+4rMhdhcIktyebnfgOtezqhcQEAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "iam-stack/CDKMetadata/Default"

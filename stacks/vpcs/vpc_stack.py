@@ -33,7 +33,7 @@ class VpcStack(tools):
             logical_id = self.logical_id_generator(name, "Create","vpc")
 
             vpc = ec2.Vpc(self, logical_id,
-                vpc_name=logical_id,
+                vpc_name=f"{name}-vpc",
                 ip_addresses=ec2.IpAddresses.cidr(vpc_def["cidr"]),
                 max_azs=vpc_def.get("max_azs", 2),
                 subnet_configuration=subnet_configs,
@@ -45,7 +45,7 @@ class VpcStack(tools):
 
             self.store_ssm_parameter(
                 f"{name}-vpc-id",
-                f"/{name}/vpc-id",
+                self.generate_ssm_parameter_path(name, None, aws_service="vpc-id"),
                 vpc.vpc_id
             )
 
